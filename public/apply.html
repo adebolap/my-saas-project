@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Apply to teach with EduBridge Africa. Reach diaspora families and earn competitively from Nigeria." />
+  <title>Apply to Teach — EduBridge Africa</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="logo-icon">E</div>
+      EduBridge Africa
+    </a>
+    <div class="nav-cta">
+      <a href="/" class="btn btn-outline btn-sm">&#8592; Back to Home</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="apply-hero">
+  <div class="container">
+    <div class="hero-badge" style="margin:0 auto 16px;">
+      <span>&#127979;</span> Tutor Applications Open
+    </div>
+    <h1>Apply to Teach with EduBridge Africa</h1>
+    <p>Complete your profile, pass our IT readiness check, and join our pilot cohort of tutors.</p>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="apply-form-wrap">
+  <div class="apply-card">
+
+    <!-- Step progress indicator -->
+    <div style="padding:24px 36px 0;">
+      <div class="step-indicator" id="step-indicator">
+        <div class="step-dot current" id="dot-1"></div>
+        <div class="step-dot" id="dot-2"></div>
+        <div class="step-dot" id="dot-3"></div>
+        <div class="step-dot" id="dot-4"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:8px;">
+        <span style="font-size:0.75rem;color:var(--muted);font-weight:600;" id="step-label">Step 1 of 4: Your Profile</span>
+        <span style="font-size:0.75rem;color:var(--gold);font-weight:700;" id="step-sublabel">Personal Info</span>
+      </div>
+    </div>
+
+    <!-- STEP 1: Personal Info -->
+    <div class="apply-step active" id="step-1">
+      <h2 style="font-size:1.3rem;font-weight:800;color:var(--navy);margin-bottom:20px;">Tell us about yourself</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Full Name <span>*</span></label>
+          <input type="text" class="form-input" id="t-name" placeholder="e.g. Ngozi Adeyemi" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email <span>*</span></label>
+          <input type="email" class="form-input" id="t-email" placeholder="you@email.com" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Phone / WhatsApp <span>*</span></label>
+          <input type="tel" class="form-input" id="t-phone" placeholder="+234 80 0000 0000" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">City / Location</label>
+          <input type="text" class="form-input" id="t-location" placeholder="e.g. Lagos, Abuja" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Highest Qualification <span>*</span></label>
+          <select class="form-select" id="t-qualification" required>
+            <option value="">Select qualification</option>
+            <option>B.Ed / B.A Education</option>
+            <option>B.Sc / B.A (any field)</option>
+            <option>PGDE / PGCE</option>
+            <option>NCE (National Certificate of Education)</option>
+            <option>HND</option>
+            <option>OND</option>
+            <option>WAEC / NECO only</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Years of Teaching Experience</label>
+          <select class="form-select" id="t-experience">
+            <option value="">Select range</option>
+            <option>Less than 1 year</option>
+            <option>1–2 years</option>
+            <option>3–5 years</option>
+            <option>5–10 years</option>
+            <option>10+ years</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Subjects You Can Teach <span>*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label"><input type="checkbox" class="t-subjects" value="Math" /> Math</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-subjects" value="English" /> English</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-subjects" value="Science" /> Science</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-subjects" value="Local Languages" /> Local Languages</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Grades You're Comfortable Teaching <span>*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label"><input type="checkbox" class="t-grades" value="P1" /> Primary 1</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-grades" value="P2" /> Primary 2</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-grades" value="P3" /> Primary 3</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-grades" value="P4" /> Primary 4</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-grades" value="P5" /> Primary 5</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">LinkedIn Profile URL</label>
+        <input type="url" class="form-input" id="t-linkedin" placeholder="https://linkedin.com/in/your-name" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Weekly Availability</label>
+        <div class="checkbox-group">
+          <label class="checkbox-label"><input type="checkbox" class="t-days" value="Monday" /> Mon</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-days" value="Tuesday" /> Tue</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-days" value="Wednesday" /> Wed</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-days" value="Thursday" /> Thu</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-days" value="Friday" /> Fri</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-days" value="Saturday" /> Sat</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-days" value="Sunday" /> Sun</label>
+        </div>
+      </div>
+      <button class="btn btn-navy btn-block" onclick="goToStep(2)">Continue to Equipment Check &#8594;</button>
+    </div>
+
+    <!-- STEP 2: Equipment Check -->
+    <div class="apply-step" id="step-2">
+      <h2 style="font-size:1.3rem;font-weight:800;color:var(--navy);margin-bottom:8px;">Equipment &amp; Setup Check</h2>
+      <p style="color:var(--muted);font-size:0.875rem;margin-bottom:24px;">
+        Our students are in the UK, US, Canada, and Australia. A reliable setup is non-negotiable for a great experience.
+      </p>
+
+      <div class="form-group">
+        <label class="form-label">Do you have a working laptop or desktop computer? <span>*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-computer" value="yes" required /> Yes, I do
+          </label>
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-computer" value="no" /> No, I use mobile only
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">What is your typical internet speed? <span>*</span></label>
+        <select class="form-select" id="t-internet" required>
+          <option value="">Select speed</option>
+          <option value="below5">Below 5 Mbps</option>
+          <option value="5-10">5–10 Mbps</option>
+          <option value="10-20">10–20 Mbps</option>
+          <option value="above20">Above 20 Mbps</option>
+          <option value="unsure">Not sure</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Do you have a working webcam and microphone? <span>*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-cam" value="yes" required /> Yes, both
+          </label>
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-cam" value="mic-only" /> Microphone only
+          </label>
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-cam" value="no" /> Neither
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Have you used Zoom before? <span>*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-zoom" value="yes" required /> Yes, regularly
+          </label>
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-zoom" value="few" /> A few times
+          </label>
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-zoom" value="no" /> Never
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Do you have a quiet, distraction-free space to teach? <span>*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-space" value="yes" required /> Yes
+          </label>
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-space" value="working-on-it" /> Working on it
+          </label>
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-space" value="no" /> Not currently
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Any additional notes about your equipment setup?</label>
+        <textarea class="form-textarea" id="t-equipment-notes" placeholder="e.g. I have a ring light, a second monitor, backup mobile data..."></textarea>
+      </div>
+
+      <div style="display:flex;gap:12px;">
+        <button class="btn btn-outline" style="border-color:var(--border);color:var(--text);" onclick="goToStep(1)">&#8592; Back</button>
+        <button class="btn btn-navy btn-block" onclick="goToStep(3)">Continue to IT Test &#8594;</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: IT Test -->
+    <div class="apply-step" id="step-3">
+      <h2 style="font-size:1.3rem;font-weight:800;color:var(--navy);margin-bottom:8px;">IT Readiness Test</h2>
+      <p style="color:var(--muted);font-size:0.875rem;margin-bottom:24px;">
+        5 quick questions. You need 60% (3/5) to pass. Take your time — there's no timer.
+      </p>
+
+      <div id="it-questions">
+        <!-- Questions injected by JS -->
+      </div>
+
+      <div style="display:flex;gap:12px;margin-top:8px;">
+        <button class="btn btn-outline" style="border-color:var(--border);color:var(--text);" onclick="goToStep(2)">&#8592; Back</button>
+        <button class="btn btn-navy btn-block" onclick="submitApplication()">Submit Application &#8594;</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: Result -->
+    <div class="apply-step" id="step-4">
+      <div class="score-display" id="score-display">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <span>&copy; 2026 EduBridge Africa. All rights reserved.</span>
+      <a href="/" style="color:rgba(255,255,255,0.6);font-size:0.875rem;">&#8592; Back to Home</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="/js/main.js"></script>
+<script src="/js/apply.js"></script>
+</body>
+</html>

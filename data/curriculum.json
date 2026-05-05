@@ -1,0 +1,384 @@
+{
+  "platform": "EduBridge Africa",
+  "version": "1.0.0",
+  "lastUpdated": "2026-05-05",
+  "grades": {
+    "P1": {
+      "label": "Primary 1",
+      "ageRange": "5–6 years",
+      "subjects": {
+        "Math": {
+          "theme": "Foundational Numeracy",
+          "units": [
+            {
+              "id": "M1-U1",
+              "title": "Number Recognition & Counting",
+              "topics": ["Counting 1–100", "Number names", "Before and after numbers", "Odd and even numbers"],
+              "weeklyHours": 3
+            },
+            {
+              "id": "M1-U2",
+              "title": "Basic Addition",
+              "topics": ["Adding within 10", "Adding within 20", "Number bonds to 10", "Simple word problems"],
+              "weeklyHours": 3
+            },
+            {
+              "id": "M1-U3",
+              "title": "Basic Subtraction",
+              "topics": ["Taking away within 10", "Subtraction within 20", "Missing number problems"],
+              "weeklyHours": 2
+            },
+            {
+              "id": "M1-U4",
+              "title": "Shapes & Patterns",
+              "topics": ["2D shapes: circle, square, triangle, rectangle", "Sorting shapes", "Repeating patterns", "Colours and size"],
+              "weeklyHours": 2
+            },
+            {
+              "id": "M1-U5",
+              "title": "Early Measurement",
+              "topics": ["Long and short", "Heavy and light", "Full and empty", "Time: morning, afternoon, night"],
+              "weeklyHours": 1
+            }
+          ],
+          "assessmentReadiness": ["NERDC Primary 1 numeracy benchmarks"]
+        },
+        "English": {
+          "theme": "Foundational Literacy",
+          "units": [
+            {
+              "id": "E1-U1",
+              "title": "Phonics: Phase 1–2",
+              "topics": ["Letter sounds A–Z", "CVC words (cat, dog, run)", "Blending sounds", "Segmenting words"],
+              "weeklyHours": 4
+            },
+            {
+              "id": "E1-U2",
+              "title": "Sight Words",
+              "topics": ["Dolch Pre-Primer list", "High-frequency word recognition", "Reading sight words in context"],
+              "weeklyHours": 2
+            },
+            {
+              "id": "E1-U3",
+              "title": "Simple Sentence Construction",
+              "topics": ["Capital letters and full stops", "Simple sentences: 'I see a cat'", "Subject and action", "Describing words"],
+              "weeklyHours": 2
+            },
+            {
+              "id": "E1-U4",
+              "title": "Listening & Speaking",
+              "topics": ["Following two-step instructions", "Answering simple questions", "Nursery rhymes and songs", "Show and tell"],
+              "weeklyHours": 2
+            }
+          ],
+          "assessmentReadiness": ["NERDC Primary 1 literacy benchmarks"]
+        }
+      }
+    },
+    "P2": {
+      "label": "Primary 2",
+      "ageRange": "6–7 years",
+      "subjects": {
+        "Math": {
+          "theme": "Number Fluency",
+          "units": [
+            {
+              "id": "M2-U1",
+              "title": "Numbers to 200",
+              "topics": ["Counting to 200", "Place value: tens and ones", "Comparing and ordering numbers", "Number lines"],
+              "weeklyHours": 3
+            },
+            {
+              "id": "M2-U2",
+              "title": "Addition & Subtraction",
+              "topics": ["Adding 2-digit numbers", "Subtracting 2-digit numbers", "Mental math strategies", "Word problems"],
+              "weeklyHours": 3
+            },
+            {
+              "id": "M2-U3",
+              "title": "Introduction to Multiplication",
+              "topics": ["Repeated addition concept", "Groups of objects", "2× and 5× tables", "Arrays"],
+              "weeklyHours": 2
+            },
+            {
+              "id": "M2-U4",
+              "title": "Geometry",
+              "topics": ["3D shapes: cube, sphere, cone, cylinder", "Basic symmetry", "Position: left, right, above, below"],
+              "weeklyHours": 1
+            },
+            {
+              "id": "M2-U5",
+              "title": "Money & Time",
+              "topics": ["Nigerian Naira coins and notes", "Telling time to the hour and half hour", "Days of the week", "Months of the year"],
+              "weeklyHours": 1
+            }
+          ],
+          "assessmentReadiness": ["NERDC Primary 2 numeracy benchmarks"]
+        },
+        "English": {
+          "theme": "Reading & Writing Foundations",
+          "units": [
+            {
+              "id": "E2-U1",
+              "title": "Phonics: Phase 3–4",
+              "topics": ["Digraphs: ch, sh, th, wh", "Long vowel sounds", "Silent letters", "Word families"],
+              "weeklyHours": 3
+            },
+            {
+              "id": "E2-U2",
+              "title": "Reading Comprehension",
+              "topics": ["Short stories", "Answering who/what/where questions", "Predicting story events", "Retelling stories"],
+              "weeklyHours": 3
+            },
+            {
+              "id": "E2-U3",
+              "title": "Writing Skills",
+              "topics": ["Statements and questions", "Capital letters, full stops, question marks", "Joining sentences with 'and'", "Writing about self"],
+              "weeklyHours": 2
+            },
+            {
+              "id": "E2-U4",
+              "title": "Vocabulary Building",
+              "topics": ["Word meaning from context", "Synonyms and antonyms", "Word categories", "Beginner dictionary use"],
+              "weeklyHours": 1
+            }
+          ],
+          "assessmentReadiness": ["NERDC Primary 2 literacy benchmarks"]
+        }
+      }
+    },
+    "P3": {
+      "label": "Primary 3",
+      "ageRange": "7–8 years",
+      "subjects": {
+        "Math": {
+          "theme": "Operational Fluency",
+          "units": [
+            {
+              "id": "M3-U1",
+              "title": "Numbers to 1000",
+              "topics": ["Place value: hundreds, tens, ones", "Rounding to nearest 10 and 100", "Number lines to 1000", "Roman numerals I–XII"],
+              "weeklyHours": 2
+            },
+            {
+              "id": "M3-U2",
+              "title": "Multiplication Tables",
+              "topics": ["Times tables 1–10", "Multiplication facts fluency", "Division as inverse of multiplication", "Mental multiplication"],
+              "weeklyHours": 4
+            },
+            {
+              "id": "M3-U3",
+              "title": "Introduction to Fractions",
+              "topics": ["Half, quarter, third, eighth", "Equal parts of shapes", "Fractions of quantities", "Comparing fractions"],
+              "weeklyHours": 2
+            },
+            {
+              "id": "M3-U4",
+              "title": "Measurement",
+              "topics": ["Length: mm, cm, m, km", "Weight: g and kg", "Volume: ml and l", "Perimeter of simple shapes"],
+              "weeklyHours": 2
+            }
+          ],
+          "assessmentReadiness": ["Common Entrance numeracy prep", "NERDC Primary 3 benchmarks"]
+        },
+        "English": {
+          "theme": "Comprehension & Grammar",
+          "units": [
+            {
+              "id": "E3-U1",
+              "title": "Parts of Speech",
+              "topics": ["Nouns: common, proper, collective", "Personal and possessive pronouns", "Verbs: action and being", "Adjectives and adverbs"],
+              "weeklyHours": 3
+            },
+            {
+              "id": "E3-U2",
+              "title": "Tenses",
+              "topics": ["Simple present tense", "Simple past tense", "Future tense with 'will'", "Present continuous"],
+              "weeklyHours": 3
+            },
+            {
+              "id": "E3-U3",
+              "title": "Reading Comprehension",
+              "topics": ["Longer passages", "Inference questions", "Main idea and supporting details", "Vocabulary in context"],
+              "weeklyHours": 2
+            },
+            {
+              "id": "E3-U4",
+              "title": "Punctuation",
+              "topics": ["Commas in lists", "Apostrophes: possession and contraction", "Speech marks", "Paragraphing basics"],
+              "weeklyHours": 1
+            }
+          ],
+          "assessmentReadiness": ["Common Entrance English prep", "NERDC Primary 3 benchmarks"]
+        }
+      }
+    },
+    "P4": {
+      "label": "Primary 4",
+      "ageRange": "8–9 years",
+      "subjects": {
+        "Math": {
+          "theme": "Advanced Operations",
+          "units": [
+            {
+              "id": "M4-U1",
+              "title": "Long Multiplication",
+              "topics": ["Multiplying 2-digit by 2-digit", "Multiplying by multiples of 10 and 100", "Estimation strategies", "Multi-step word problems"],
+              "weeklyHours": 3
+            },
+            {
+              "id": "M4-U2",
+              "title": "Long Division",
+              "topics": ["Dividing 3-digit by 1-digit", "Interpreting remainders", "Checking answers by multiplication", "Division word problems"],
+              "weeklyHours": 3
+            },
+            {
+              "id": "M4-U3",
+              "title": "Fractions & Decimals",
+              "topics": ["Equivalent fractions", "Adding and subtracting fractions (same denominator)", "Decimal notation to 2 places", "Converting fractions to decimals"],
+              "weeklyHours": 3
+            },
+            {
+              "id": "M4-U4",
+              "title": "Geometry",
+              "topics": ["Types of angles: acute, right, obtuse", "Classifying triangles", "Area of rectangles and squares", "Introduction to coordinate grid"],
+              "weeklyHours": 1
+            }
+          ],
+          "assessmentReadiness": ["Common Entrance numeracy", "BECE preparation foundations", "NERDC Primary 4 benchmarks"]
+        },
+        "English": {
+          "theme": "Language & Expression",
+          "units": [
+            {
+              "id": "E4-U1",
+              "title": "Advanced Grammar",
+              "topics": ["Clauses and phrases", "Compound sentences", "Complex sentences with subordinating conjunctions", "Intro to active and passive voice"],
+              "weeklyHours": 3
+            },
+            {
+              "id": "E4-U2",
+              "title": "Reading Fluency",
+              "topics": ["Reading rate and accuracy", "Expository texts", "Non-fiction comprehension strategies", "Summarising and paraphrasing"],
+              "weeklyHours": 2
+            },
+            {
+              "id": "E4-U3",
+              "title": "Creative Writing",
+              "topics": ["Descriptive writing techniques", "Story structure: beginning, middle, end", "Character development", "Writing vivid settings"],
+              "weeklyHours": 3
+            },
+            {
+              "id": "E4-U4",
+              "title": "Oral Communication",
+              "topics": ["Presentation and public speaking basics", "Simple debate structure", "Formal vs. informal language", "Active listening"],
+              "weeklyHours": 1
+            }
+          ],
+          "assessmentReadiness": ["Common Entrance English", "NERDC Primary 4 benchmarks"]
+        }
+      }
+    },
+    "P5": {
+      "label": "Primary 5",
+      "ageRange": "9–10 years",
+      "subjects": {
+        "Math": {
+          "theme": "Exam Readiness",
+          "units": [
+            {
+              "id": "M5-U1",
+              "title": "Percentages & Ratios",
+              "topics": ["Converting fractions and decimals to percentages", "Percentage of a quantity", "Ratio and proportion", "Scale drawings and maps"],
+              "weeklyHours": 3
+            },
+            {
+              "id": "M5-U2",
+              "title": "Decimals",
+              "topics": ["Decimal place value to thousandths", "Adding and subtracting decimals", "Multiplying decimals by integers", "Dividing decimals"],
+              "weeklyHours": 2
+            },
+            {
+              "id": "M5-U3",
+              "title": "Introduction to Algebra",
+              "topics": ["Variables and expressions", "Solving simple equations: x + 3 = 7", "Number patterns and rules", "Function tables and input-output"],
+              "weeklyHours": 3
+            },
+            {
+              "id": "M5-U4",
+              "title": "Geometry for Secondary",
+              "topics": ["Angles in triangles and quadrilaterals", "Circles: radius, diameter, circumference", "Area and perimeter of compound shapes", "Volume of cuboids"],
+              "weeklyHours": 2
+            }
+          ],
+          "examTargets": ["Common Entrance Exam", "BECE", "Private school entrance", "JSS placement"],
+          "assessmentReadiness": ["Full Common Entrance Math preparation", "NERDC Primary 5 benchmarks"]
+        },
+        "English": {
+          "theme": "Composition & Critical Thinking",
+          "units": [
+            {
+              "id": "E5-U1",
+              "title": "Essay Writing",
+              "topics": ["Narrative essay structure", "Descriptive essay techniques", "Expository writing", "Argumentative writing basics"],
+              "weeklyHours": 3
+            },
+            {
+              "id": "E5-U2",
+              "title": "Advanced Comprehension",
+              "topics": ["Inferential comprehension", "Literary devices: metaphor, simile, alliteration", "Author's purpose and tone", "Critical analysis"],
+              "weeklyHours": 3
+            },
+            {
+              "id": "E5-U3",
+              "title": "Grammar Mastery",
+              "topics": ["Active vs. passive voice", "Direct and indirect speech", "Conditional sentences", "Phrasal verbs in context"],
+              "weeklyHours": 2
+            },
+            {
+              "id": "E5-U4",
+              "title": "Vocabulary for Exams",
+              "topics": ["Synonyms, antonyms, homonyms", "Idioms and proverbs", "Word roots, prefixes, and suffixes", "Exam vocabulary strategies"],
+              "weeklyHours": 2
+            }
+          ],
+          "examTargets": ["Common Entrance Exam", "BECE English", "Private school entrance"],
+          "assessmentReadiness": ["Full Common Entrance English preparation", "NERDC Primary 5 benchmarks"]
+        }
+      }
+    }
+  },
+  "supplementaryModules": {
+    "Science": {
+      "P1-P2": ["Living things", "Plants and animals", "My body", "Water and weather"],
+      "P3-P4": ["States of matter", "Simple machines", "Food chains", "Human body systems"],
+      "P5": ["Reproduction in plants and animals", "Forces and motion", "Electricity basics", "Environmental science"]
+    },
+    "LocalLanguages": {
+      "offerings": ["Yoruba", "Igbo", "Hausa"],
+      "levels": ["Beginner", "Intermediate"],
+      "focus": [
+        "Oral communication and pronunciation",
+        "Reading and writing in native script",
+        "Cultural context and customs",
+        "Proverbs and traditional stories"
+      ]
+    }
+  },
+  "sessionStructure": {
+    "durationMinutes": 45,
+    "breakdown": {
+      "warmup": 5,
+      "instruction": 15,
+      "guidedPractice": 12,
+      "independentPractice": 8,
+      "assessmentRecap": 5
+    },
+    "tools": [
+      "Zoom (video call)",
+      "Google Slides (instruction delivery)",
+      "Google Jamboard (interactive whiteboard)",
+      "Google Forms (quick assessment)"
+    ]
+  }
+}

@@ -1,14 +1,13 @@
 {
-  "name": "my-saas-project",
+  "name": "edubridge-africa",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "EduBridge Africa — Online tutoring platform for Primary 1-5, connecting diaspora families with Nigerian tutors.",
+  "main": "src/server.js",
   "scripts": {
-  "start": "node src/server.js",
-  "test": "echo \"Error: no test specified\" && exit 1"
-},
-
-  "keywords": [],
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": ["edtech", "tutoring", "africa", "diaspora"],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -18,4 +17,3 @@
     "mongoose": "^8.6.1"
   }
 }
-
