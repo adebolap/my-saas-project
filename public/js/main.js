@@ -1,5 +1,5 @@
 /* =====================
-   EduBridge Africa — Shared Frontend JS
+   ThinkViva — Shared Frontend JS
    ===================== */
 
 // ---- TOAST ----
@@ -107,6 +107,25 @@ if (bookingForm) {
     }
   });
 }
+
+// ---- MOBILE STICKY CTA ----
+(function () {
+  const sticky = document.getElementById('mobile-sticky');
+  if (!sticky) return;
+  const mq = window.matchMedia('(max-width: 480px)');
+  const hero = document.querySelector('.hero');
+  function applyOffset(matches) {
+    document.body.classList.toggle('body-sticky-offset', matches);
+  }
+  function update() {
+    if (!hero) return;
+    sticky.classList.toggle('visible', window.scrollY > hero.offsetHeight * 0.5);
+  }
+  mq.addEventListener('change', e => applyOffset(e.matches));
+  applyOffset(mq.matches);
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
 
 // ---- FEEDBACK WIDGET ----
 let feedbackRating = 0;
