@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="EduBridge Africa — Expert online tutoring for Primary 1–5. Bridging literacy and numeracy gaps for children across the diaspora and Nigeria." />
+  <title>EduBridge Africa — Online Tutoring for Primary 1–5</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="logo-icon">E</div>
+      EduBridge Africa
+    </a>
+    <ul class="nav-links">
+      <li><a href="#subjects">Subjects</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#tutors">Become a Tutor</a></li>
+      <li><a href="#feedback">Feedback</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="/apply" class="btn btn-outline btn-sm">Apply to Teach</a>
+      <button class="btn btn-primary btn-sm" onclick="openBooking()">Book a Session</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span>&#127758;</span> Pilot — First 10 Families
+      </div>
+      <h1>
+        Bridging <em>literacy &amp; numeracy</em> gaps for every child
+      </h1>
+      <p>
+        Live, expert-led online tutoring for Primary 1–5. Connecting diaspora families and Nigerian households with qualified tutors who truly understand the curriculum.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-primary btn-lg" onclick="openBooking()">
+          &#128197; Book a Session
+        </button>
+        <a href="/apply" class="btn btn-outline btn-lg">Apply to Teach</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <h3>What grade is your child in?</h3>
+      <div class="grade-pill-row">
+        <button class="grade-pill" data-grade="P1">Primary 1</button>
+        <button class="grade-pill" data-grade="P2">Primary 2</button>
+        <button class="grade-pill" data-grade="P3">Primary 3</button>
+        <button class="grade-pill" data-grade="P4">Primary 4</button>
+        <button class="grade-pill" data-grade="P5">Primary 5</button>
+      </div>
+      <p class="grade-desc" id="grade-desc">Select a grade to see what we cover.</p>
+      <button class="btn btn-primary btn-block mt-4" id="hero-grade-cta" onclick="openBookingWithGrade()" style="display:none;">
+        Book for This Grade
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="container trust-bar-inner">
+    <div class="trust-item"><span class="flag">&#127468;&#127463;</span> UK Families</div>
+    <div class="trust-item"><span class="flag">&#127482;&#127480;</span> USA Families</div>
+    <div class="trust-item"><span class="flag">&#127464;&#127462;</span> Canada Families</div>
+    <div class="trust-item"><span class="flag">&#127462;&#127482;</span> Australia Families</div>
+    <div class="trust-item"><span class="flag">&#127475;&#127468;</span> Nigeria Based</div>
+    <div class="trust-item">&#9733; Vetted Tutors</div>
+    <div class="trust-item">&#128247; Zoom-Recorded Sessions</div>
+  </div>
+</div>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <h2>P1–P5</h2>
+        <p>All primary grades covered</p>
+      </div>
+      <div class="stat-item">
+        <h2>45 min</h2>
+        <p>Focused live sessions</p>
+      </div>
+      <div class="stat-item">
+        <h2>4+</h2>
+        <p>Core subjects offered</p>
+      </div>
+      <div class="stat-item">
+        <h2>100%</h2>
+        <p>Recorded &amp; reviewable</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBJECTS -->
+<section id="subjects" class="subjects-section">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">What We Teach</span>
+      <h2 class="section-title">Subjects built for exam readiness</h2>
+      <p class="section-sub">Each subject follows the NERDC curriculum and prepares students for Common Entrance and secondary school transition.</p>
+    </div>
+
+    <div class="subjects-grid">
+      <div class="subject-card">
+        <div class="subject-icon math">&#9988;&#65039;</div>
+        <h3>Mathematics</h3>
+        <p>From number recognition in P1 to algebra and geometry prep for secondary school in P5. We build real fluency, not just memorisation.</p>
+        <div class="subject-tags">
+          <span class="tag">P1: Numeracy Foundations</span>
+          <span class="tag">P3: Times Tables</span>
+          <span class="tag">P5: Algebra &amp; Percentages</span>
+          <span class="tag">Exam Readiness</span>
+        </div>
+      </div>
+
+      <div class="subject-card">
+        <div class="subject-icon english">&#128218;</div>
+        <h3>English Language</h3>
+        <p>From phonics and sight words in P1 to essay writing and advanced comprehension in P5. Critical for all Common Entrance exams.</p>
+        <div class="subject-tags">
+          <span class="tag">P1: Phonics &amp; Literacy</span>
+          <span class="tag">P3: Grammar &amp; Tenses</span>
+          <span class="tag">P5: Essay Writing</span>
+          <span class="tag">Common Entrance Prep</span>
+        </div>
+      </div>
+
+      <div class="subject-card">
+        <div class="subject-icon science">&#128300;</div>
+        <h3>Basic Science</h3>
+        <p>Hands-on concepts covering living things, states of matter, body systems, and environmental science across all grade levels.</p>
+        <div class="subject-tags">
+          <span class="tag">P1–P2: Living Things</span>
+          <span class="tag">P3–P4: Matter &amp; Forces</span>
+          <span class="tag">P5: Ecology</span>
+        </div>
+      </div>
+
+      <div class="subject-card">
+        <div class="subject-icon lang">&#127758;</div>
+        <h3>Local Languages</h3>
+        <p>Yoruba, Igbo, and Hausa — keeping children connected to their heritage while building literacy in their mother tongue.</p>
+        <div class="subject-tags">
+          <span class="tag">Yoruba</span>
+          <span class="tag">Igbo</span>
+          <span class="tag">Hausa</span>
+          <span class="tag">Beginner &amp; Intermediate</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">For Parents</span>
+      <h2 class="section-title">Getting started is simple</h2>
+      <p class="section-sub">From enquiry to first lesson in under 24 hours.</p>
+    </div>
+
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="step-number">1</div>
+        <h3>Book a Session</h3>
+        <p>Tell us your child's grade, subjects, and preferred time. We match you with a vetted tutor manually for the best fit.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-number">2</div>
+        <h3>Meet Your Tutor</h3>
+        <p>45-minute live Zoom sessions, recorded for your review. Your child's progress is tracked every session.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-number">3</div>
+        <h3>Track Progress</h3>
+        <p>Receive AI-generated session summaries after every class. Know exactly where your child is improving.</p>
+      </div>
+    </div>
+
+    <div class="text-center mt-8">
+      <button class="btn btn-navy btn-lg" onclick="openBooking()">&#128197; Book Your First Session</button>
+    </div>
+  </div>
+</section>
+
+<!-- TUTOR SECTION -->
+<section id="tutors" class="tutor-section">
+  <div class="container tutor-inner">
+    <div>
+      <span class="section-label" style="color:var(--gold);">For Tutors</span>
+      <h2>Teach from Nigeria. Reach the world.</h2>
+      <p>We're building a team of passionate, qualified tutors to serve diaspora families. If you have the skills and the setup, we want to hear from you.</p>
+      <ul class="tutor-perks">
+        <li>Flexible hours — work around your schedule</li>
+        <li>Earn in your preferred currency with consistent volume</li>
+        <li>Fully remote — all you need is a reliable connection</li>
+        <li>Training, materials, and tech support provided</li>
+        <li>Gamified dashboard to track earnings and growth</li>
+      </ul>
+      <a href="/apply" class="btn btn-primary btn-lg">Apply to Teach &#8594;</a>
+    </div>
+
+    <div class="earnings-card">
+      <h3>&#128200; Potential Monthly Earnings</h3>
+      <div class="earnings-row">
+        <span>5 sessions/week</span>
+        <span class="amount">&#8358;80,000 / mo</span>
+      </div>
+      <div class="earnings-row">
+        <span>10 sessions/week</span>
+        <span class="amount">&#8358;160,000 / mo</span>
+      </div>
+      <div class="earnings-row">
+        <span>20 sessions/week</span>
+        <span class="amount">&#8358;320,000 / mo</span>
+      </div>
+      <div class="earnings-row">
+        <span>Performance bonus</span>
+        <span class="amount">+15% incentive</span>
+      </div>
+      <p style="color:rgba(255,255,255,0.5);font-size:0.75rem;margin-top:16px;">
+        Rates based on current pilot pricing. Volume incentives apply.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FEEDBACK WIDGET -->
+<section id="feedback" class="feedback-section">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:32px;">
+      <span class="section-label">Your Voice</span>
+      <h2 class="section-title">Help us build this right</h2>
+      <p class="section-sub">We're in our pilot phase. Your feedback directly shapes the platform.</p>
+    </div>
+
+    <div class="feedback-card">
+      <h3>Share your thoughts</h3>
+      <p>Parent, tutor, or visitor — we want to hear from you.</p>
+
+      <div class="role-selector">
+        <button class="role-btn active" data-role="parent">&#128106; Parent</button>
+        <button class="role-btn" data-role="tutor">&#127979; Tutor</button>
+        <button class="role-btn" data-role="visitor">&#128100; Visitor</button>
+      </div>
+
+      <div class="star-row" id="star-row">
+        <span class="star" data-val="1">&#9733;</span>
+        <span class="star" data-val="2">&#9733;</span>
+        <span class="star" data-val="3">&#9733;</span>
+        <span class="star" data-val="4">&#9733;</span>
+        <span class="star" data-val="5">&#9733;</span>
+      </div>
+
+      <form id="feedback-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input type="text" class="form-input" id="fb-name" placeholder="Optional" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" id="fb-email" placeholder="Optional" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your Feedback <span>*</span></label>
+          <textarea class="form-textarea" id="fb-comment" placeholder="What would make this service perfect for you?" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-navy btn-block">Send Feedback</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>EduBridge Africa</h3>
+        <p>Bridging literacy and numeracy gaps for under-served and all children. Connecting diaspora families with Nigeria's finest tutors.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="#subjects">Subjects</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#tutors">For Tutors</a></li>
+          <li><a href="#feedback">Feedback</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get Started</h4>
+        <ul>
+          <li><a href="#" onclick="openBooking();return false;">Book a Session</a></li>
+          <li><a href="/apply">Apply to Teach</a></li>
+          <li><a href="mailto:hello@edubridgeafrica.com">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 EduBridge Africa. All rights reserved.</span>
+      <span class="pilot-badge">Pilot Phase</span>
+    </div>
+  </div>
+</footer>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="booking-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <h2>Book a Session</h2>
+        <p>We'll match your child with the right tutor within 24 hours.</p>
+      </div>
+      <button class="modal-close" onclick="closeModal('booking-modal')">&#10005;</button>
+    </div>
+
+    <form id="booking-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Your Name <span>*</span></label>
+          <input type="text" class="form-input" name="parentName" required placeholder="e.g. Adaeze Okafor" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Child's Name</label>
+          <input type="text" class="form-input" name="childName" placeholder="e.g. Emeka" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Email <span>*</span></label>
+          <input type="email" class="form-input" name="email" required placeholder="you@email.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone / WhatsApp</label>
+          <input type="tel" class="form-input" name="phone" placeholder="+44 7700 900000" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Your Country <span>*</span></label>
+          <select class="form-select" name="country" required>
+            <option value="">Select country</option>
+            <option>United Kingdom</option>
+            <option>United States</option>
+            <option>Canada</option>
+            <option>Australia</option>
+            <option>Nigeria</option>
+            <option>Republic of Ireland</option>
+            <option>Germany</option>
+            <option>Netherlands</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Child's Grade <span>*</span></label>
+          <select class="form-select" name="grade" id="booking-grade" required>
+            <option value="">Select grade</option>
+            <option value="P1">Primary 1</option>
+            <option value="P2">Primary 2</option>
+            <option value="P3">Primary 3</option>
+            <option value="P4">Primary 4</option>
+            <option value="P5">Primary 5</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Subjects Needed <span>*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label"><input type="checkbox" name="subjects" value="Math" /> Math</label>
+          <label class="checkbox-label"><input type="checkbox" name="subjects" value="English" /> English</label>
+          <label class="checkbox-label"><input type="checkbox" name="subjects" value="Science" /> Science</label>
+          <label class="checkbox-label"><input type="checkbox" name="subjects" value="Local Languages" /> Local Languages</label>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Preferred Days</label>
+          <div class="checkbox-group">
+            <label class="checkbox-label"><input type="checkbox" name="preferredDays" value="Mon" /> Mon</label>
+            <label class="checkbox-label"><input type="checkbox" name="preferredDays" value="Tue" /> Tue</label>
+            <label class="checkbox-label"><input type="checkbox" name="preferredDays" value="Wed" /> Wed</label>
+            <label class="checkbox-label"><input type="checkbox" name="preferredDays" value="Thu" /> Thu</label>
+            <label class="checkbox-label"><input type="checkbox" name="preferredDays" value="Fri" /> Fri</label>
+            <label class="checkbox-label"><input type="checkbox" name="preferredDays" value="Sat" /> Sat</label>
+            <label class="checkbox-label"><input type="checkbox" name="preferredDays" value="Sun" /> Sun</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Preferred Time (your local time)</label>
+        <select class="form-select" name="preferredTime">
+          <option value="">No preference</option>
+          <option>Morning (8am–12pm)</option>
+          <option>Afternoon (12pm–4pm)</option>
+          <option>Evening (4pm–8pm)</option>
+          <option>Weekend mornings</option>
+          <option>Weekend afternoons</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Anything else we should know?</label>
+        <textarea class="form-textarea" name="message" placeholder="e.g. specific areas of struggle, learning style, previous tutoring experience..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block btn-lg">
+        &#128197; Submit Booking Request
+      </button>
+      <p style="text-align:center;font-size:0.8rem;color:var(--muted);margin-top:10px;">We'll contact you within 24 hours to confirm your first session.</p>
+    </form>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="/js/main.js"></script>
+</body>
+</html>
