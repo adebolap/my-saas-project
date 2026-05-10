@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ThinkViva Tutoring Packages — flexible pricing for every family. Book a session today." />
+  <title>Pricing — ThinkViva</title>
+  <link rel="canonical" href="https://thinkviva.org/pricing" />
+  <meta property="og:title" content="Pricing — ThinkViva" />
+  <meta property="og:url" content="https://thinkviva.org/pricing" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="logo-icon">T</div>
+      <div>
+        ThinkViva
+        <span class="nav-tagline">Smart Learning for Growing Minds</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#subjects">Subjects</a></li>
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/apply">Apply to Teach</a></li>
+      <li><a href="/about">About Us</a></li>
+      <li><a href="/#contact">Contact Us</a></li>
+      <li><a href="/pricing" style="color:var(--navy);font-weight:700;">Pricing</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="/" class="btn btn-outline-dark btn-sm">&#8592; Home</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="pricing-hero">
+  <div class="container">
+    <div class="hero-badge" style="margin:0 auto 16px;">
+      <span>&#128197;</span> Tutoring Packages
+    </div>
+    <h1>Simple, Transparent Pricing</h1>
+    <p>Flexible packages designed to support every child's learning journey. Pricing details coming soon — <a href="mailto:info@thinkviva.org" style="color:var(--celadon);">get in touch</a> to discuss what works for your family.</p>
+  </div>
+</div>
+
+<!-- PACKAGES -->
+<section style="background:var(--warm-white);padding:64px 0;">
+  <div class="container">
+    <div class="pricing-grid">
+
+      <div class="pricing-card">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-price">Coming Soon</div>
+        <p class="pricing-desc">Perfect for children who need occasional support with homework or a specific topic.</p>
+        <ul class="pricing-features">
+          <li>&#10003; 1 session per week</li>
+          <li>&#10003; 45-minute sessions</li>
+          <li>&#10003; 1 subject</li>
+          <li>&#10003; Session notes provided</li>
+          <li>&#10003; Live on Zoom / Google Meet</li>
+        </ul>
+        <a href="mailto:info@thinkviva.org" class="btn btn-outline-dark btn-block" style="margin-top:auto;">Get in Touch</a>
+      </div>
+
+      <div class="pricing-card pricing-featured">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-tier">Standard</div>
+        <div class="pricing-price">Coming Soon</div>
+        <p class="pricing-desc">Ideal for consistent weekly learning with homework support included.</p>
+        <ul class="pricing-features">
+          <li>&#10003; 2 sessions per week</li>
+          <li>&#10003; 45–60 minute sessions</li>
+          <li>&#10003; Up to 2 subjects</li>
+          <li>&#10003; Progress reports</li>
+          <li>&#10003; Homework support sessions</li>
+          <li>&#10003; Live on Zoom / Google Meet</li>
+        </ul>
+        <a href="mailto:info@thinkviva.org" class="btn btn-primary btn-block" style="margin-top:auto;">Get in Touch</a>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pricing-tier">Premium</div>
+        <div class="pricing-price">Coming Soon</div>
+        <p class="pricing-desc">Full support for children preparing for exams or needing intensive academic help.</p>
+        <ul class="pricing-features">
+          <li>&#10003; 3+ sessions per week</li>
+          <li>&#10003; Up to 60-minute sessions</li>
+          <li>&#10003; All subjects</li>
+          <li>&#10003; Weekly progress reports</li>
+          <li>&#10003; Exam prep plan included</li>
+          <li>&#10003; Priority tutor matching</li>
+        </ul>
+        <a href="mailto:info@thinkviva.org" class="btn btn-outline-dark btn-block" style="margin-top:auto;">Get in Touch</a>
+      </div>
+
+    </div>
+
+    <div class="pricing-note">
+      <span>&#128161;</span>
+      All packages include a <strong>free 15-minute consultation</strong> before your first session. Contact us at <a href="mailto:info@thinkviva.org">info@thinkviva.org</a> or <a href="https://wa.me/2347077340116" target="_blank" rel="noopener">WhatsApp +234 707 734 0116</a> to get started.
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <span>&copy; 2026 ThinkViva. All rights reserved.</span>
+      <a href="/" style="color:rgba(255,255,255,0.6);font-size:0.875rem;">&#8592; Back to Home</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="/js/main.js"></script>
+
+<style>
+.pricing-hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+  padding: 60px 0;
+  text-align: center;
+}
+.pricing-hero h1 { color:var(--white); font-size:clamp(1.8rem,3vw,2.4rem); font-weight:800; margin-bottom:12px; }
+.pricing-hero p { color:rgba(255,255,255,0.82); font-size:1rem; max-width:560px; margin:0 auto; line-height:1.7; }
+.pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:40px; }
+.pricing-card {
+  background:var(--white);
+  border:2px solid var(--border);
+  border-radius:16px;
+  padding:28px 22px;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+}
+.pricing-featured { border-color:var(--gold); box-shadow:var(--shadow-lg); }
+.pricing-badge {
+  position:absolute;
+  top:-12px;
+  left:50%;
+  transform:translateX(-50%);
+  background:var(--gold);
+  color:var(--white);
+  font-size:0.72rem;
+  font-weight:700;
+  padding:4px 14px;
+  border-radius:20px;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+  white-space:nowrap;
+}
+.pricing-tier { font-size:1.1rem; font-weight:800; color:var(--navy); margin-bottom:8px; }
+.pricing-price { font-size:1.6rem; font-weight:800; color:var(--gold); margin-bottom:10px; }
+.pricing-desc { font-size:0.875rem; color:var(--muted); line-height:1.55; margin-bottom:20px; }
+.pricing-features { list-style:none; margin-bottom:24px; flex:1; }
+.pricing-features li { font-size:0.875rem; color:var(--text); padding:7px 0; border-bottom:1px solid var(--border); }
+.pricing-features li:last-child { border-bottom:none; }
+.pricing-note {
+  background:var(--bg);
+  border-radius:10px;
+  padding:18px 22px;
+  font-size:0.9rem;
+  color:var(--text);
+  line-height:1.65;
+  text-align:center;
+}
+.pricing-note a { color:var(--gold); text-decoration:none; font-weight:600; }
+@media(max-width:768px) { .pricing-grid { grid-template-columns:1fr; max-width:400px; margin:0 auto 40px; } }
+</style>
+</body>
+</html>
