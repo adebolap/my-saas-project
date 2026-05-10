@@ -35,7 +35,8 @@ const gradeDescriptions = {
   P2: 'Primary 2 (age 6–7): Numbers to 200, multiplication introduction, reading comprehension, and sentence writing.',
   P3: 'Primary 3 (age 7–8): Times tables, fractions, tenses, parts of speech — a critical year for fluency.',
   P4: 'Primary 4 (age 8–9): Long multiplication/division, decimals, advanced grammar, and creative writing.',
-  P5: 'Primary 5 (age 9–10): Algebra, percentages, essay writing, and exam readiness for Common Entrance / BECE.',
+  P5: 'Primary 5 (age 9–10): Algebra, percentages, essay writing, and targeted exam preparation across all curricula.',
+  P6: 'Primary 6 (age 10–11): Advanced algebra, data handling, persuasive and analytical writing, and comprehensive exam preparation.',
 };
 
 let selectedGrade = '';
@@ -202,4 +203,12 @@ if (feedbackForm) {
       btn.textContent = 'Send Feedback';
     }
   });
+}
+
+// ---- FAQ ACCORDION ----
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
 }

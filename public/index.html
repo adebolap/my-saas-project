@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="ThinkViva — Expert online tutoring for Primary 1–5. Bridging literacy and numeracy gaps for children across the diaspora and Nigeria." />
-  <title>ThinkViva — Online Tutoring for Primary 1–5</title>
+  <meta name="description" content="ThinkViva — Expert 1-on-1 online tutoring for Primary 1–6. Connecting diaspora families with qualified Nigerian tutors. Flexible, personalised, and results-driven." />
+  <title>ThinkViva — Smart Learning for Growing Minds</title>
   <link rel="canonical" href="https://thinkviva.org/" />
-  <meta property="og:title" content="ThinkViva — Online Tutoring for Primary 1–5" />
-  <meta property="og:description" content="Live, expert-led online tutoring for Primary 1–5. Connecting diaspora families and Nigerian households with qualified tutors who truly understand the curriculum." />
+  <meta property="og:title" content="ThinkViva — Smart Learning for Growing Minds" />
+  <meta property="og:description" content="Expert 1-on-1 online tutoring for Primary 1–6. Connecting diaspora families with qualified Nigerian tutors." />
   <meta property="og:url" content="https://thinkviva.org/" />
   <meta property="og:type" content="website" />
   <link rel="stylesheet" href="/css/style.css" />
@@ -19,13 +19,18 @@
   <div class="container nav-inner">
     <a href="/" class="nav-logo">
       <div class="logo-icon">T</div>
-      ThinkViva
+      <div>
+        ThinkViva
+        <span class="nav-tagline">Smart Learning for Growing Minds</span>
+      </div>
     </a>
     <ul class="nav-links">
       <li><a href="#subjects">Subjects</a></li>
       <li><a href="#how-it-works">How It Works</a></li>
       <li><a href="/apply">Apply to Teach</a></li>
-      <li><a href="#feedback">Feedback</a></li>
+      <li><a href="/about">About Us</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+      <li><a href="/pricing">Pricing</a></li>
     </ul>
     <div class="nav-cta">
       <button class="btn btn-primary btn-sm" onclick="openBooking()">Book a Session</button>
@@ -37,15 +42,19 @@
 <section class="hero">
   <div class="container hero-inner">
     <div class="hero-content">
-      <div class="hero-badge">
-        <span>&#127758;</span> Pilot — First 10 Families
+      <div class="hero-flags">
+        <span class="hero-flags-label">Serving families in:</span>
+        <span title="Nigeria">&#127475;&#127468;</span>
+        <span title="Canada">&#127464;&#127462;</span>
+        <span title="United States">&#127482;&#127480;</span>
+        <span title="Australia">&#127462;&#127482;</span>
+        <span title="UAE">&#127462;&#127466;</span>
       </div>
-      <p class="hero-tagline">Where Every Child Shines.</p>
       <h1>
-        Bridging <em>literacy &amp; numeracy</em> gaps for every child
+        Fostering <em>exceptional education</em> and bridging learning gaps for every child.
       </h1>
       <p>
-        Live, expert-led online tutoring and homework support for Primary 1–5. Connecting diaspora families and Nigerian households with qualified tutors who truly understand the curriculum.
+        Our expert tutors work one-on-one to help students improve grades, stay motivated, and build skills that last far beyond the classroom. Whether your child needs homework support, wants to get ahead, or is preparing for important exams, we create a positive learning experience that fits your child's needs and family's schedule — connecting diaspora families with qualified Nigerian tutors who truly understand the curriculum. We match students with tutors in less than 24 hours.
       </p>
       <div class="hero-actions">
         <button class="btn btn-primary btn-lg" onclick="openBooking()">
@@ -53,57 +62,86 @@
         </button>
         <a href="/apply" class="btn btn-outline-dark btn-lg">Apply to Teach</a>
       </div>
-      <div class="hero-flags">
-        <span class="hero-flags-label">Serving families in:</span>
-        <span title="United Kingdom">&#127468;&#127463;</span>
-        <span title="United States">&#127482;&#127480;</span>
-        <span title="Canada">&#127464;&#127462;</span>
-        <span title="Nigeria">&#127475;&#127468;</span>
+      <div class="hero-trust">
+        <div class="hero-trust-item">
+          <span class="hero-trust-icon">&#127891;</span>
+          <span>Expert-led 1-1 online tutoring</span>
+        </div>
+        <div class="hero-trust-item">
+          <span class="hero-trust-icon">&#128187;</span>
+          <span>Live on GoogleMeet / Zoom</span>
+        </div>
+        <div class="hero-trust-item">
+          <span class="hero-trust-icon">&#128197;</span>
+          <span>Flexible schedule &amp; homework support</span>
+        </div>
       </div>
     </div>
 
-    <div class="hero-card">
-      <h3>What grade is your child in?</h3>
-      <div class="grade-pill-row">
-        <button class="grade-pill" data-grade="P1">Primary 1</button>
-        <button class="grade-pill" data-grade="P2">Primary 2</button>
-        <button class="grade-pill" data-grade="P3">Primary 3</button>
-        <button class="grade-pill" data-grade="P4">Primary 4</button>
-        <button class="grade-pill" data-grade="P5">Primary 5</button>
+    <div class="hero-visual">
+      <div class="hero-stats">
+        <div class="hero-stat" style="background:#DFF0ED;">
+          <div class="hero-stat-val">24hrs</div>
+          <div class="hero-stat-label">Tutor Matching</div>
+        </div>
+        <div class="hero-stat" style="background:#F3E9D2;">
+          <div class="hero-stat-val">45min</div>
+          <div class="hero-stat-label">Per Session</div>
+        </div>
+        <div class="hero-stat" style="background:#DFF5E8;">
+          <div class="hero-stat-val">P1–P6</div>
+          <div class="hero-stat-label">Grades Covered</div>
+        </div>
+        <div class="hero-stat" style="background:#E8F2EA;">
+          <div class="hero-stat-val">1-on-1</div>
+          <div class="hero-stat-label">Personalised</div>
+        </div>
       </div>
-      <p class="grade-desc" id="grade-desc">Select a grade to see what we cover.</p>
-      <button class="btn btn-primary btn-block mt-4" id="hero-grade-cta" onclick="openBookingWithGrade()" style="display:none;">
-        Book for This Grade
-      </button>
+      <div class="grade-picker">
+        <h3>What grade is your child in?</h3>
+        <div class="grade-pill-row">
+          <button class="grade-pill" data-grade="P1">Primary 1</button>
+          <button class="grade-pill" data-grade="P2">Primary 2</button>
+          <button class="grade-pill" data-grade="P3">Primary 3</button>
+          <button class="grade-pill" data-grade="P4">Primary 4</button>
+          <button class="grade-pill" data-grade="P5">Primary 5</button>
+          <button class="grade-pill" data-grade="P6">Primary 6</button>
+        </div>
+        <p class="grade-desc" id="grade-desc">Select a grade to see what we cover.</p>
+        <button class="btn btn-primary btn-block mt-4" id="hero-grade-cta" onclick="openBookingWithGrade()" style="display:none;">
+          Book for This Grade
+        </button>
+        <p class="grade-footnote"><em>Grade level coverage will expand as demand for tutors and database of teachers increase.</em></p>
+      </div>
     </div>
   </div>
 </section>
 
-
-<!-- TRUST ROW -->
-<section class="trust-row">
+<!-- BENEFITS -->
+<section class="benefits-section">
   <div class="container">
-    <div class="trust-grid">
-      <div class="trust-feature">
-        <div class="trust-feature-icon">&#127979;</div>
-        <div>
-          <h4>Vetted Tutors</h4>
-          <p>Qualified teachers who know the Nigerian curriculum inside out</p>
-        </div>
+    <div class="text-center" style="margin-bottom:32px;">
+      <span class="section-label" style="color:var(--celadon);">Why ThinkViva</span>
+      <h2 class="section-title" style="color:var(--white);">Built for families. Built for results.</h2>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefits-card">
+        <div class="benefits-icon">&#127968;</div>
+        <h3>For Parents</h3>
+        <p class="benefits-sub">What you get / How you benefit</p>
+        <ul class="benefits-list">
+          <li>Free up your time — we get how it can feel like you're the student! Let our tutors do the work and say goodbye to homework stress.</li>
+          <li>Watch your child grow confident and stay ahead with expert-led online sessions.</li>
+        </ul>
       </div>
-      <div class="trust-feature">
-        <div class="trust-feature-icon">&#128249;</div>
-        <div>
-          <h4>Live on Zoom</h4>
-          <p>45-minute sessions, fully recorded so you can replay any lesson, anytime</p>
-        </div>
-      </div>
-      <div class="trust-feature">
-        <div class="trust-feature-icon">&#128218;</div>
-        <div>
-          <h4>Homework Support</h4>
-          <p>Extra sessions for assignments and exam prep, on demand</p>
-        </div>
+      <div class="benefits-card">
+        <div class="benefits-icon">&#127891;</div>
+        <h3>For Students</h3>
+        <p class="benefits-sub">Personalised learning, Unlimited growth</p>
+        <ul class="benefits-list">
+          <li>Unlock academic success with your ultimate study partner — your dedicated tutor.</li>
+          <li>Enjoy fully interactive sessions where you express yourself and engage in fun activities.</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -114,15 +152,15 @@
   <div class="container">
     <div class="text-center">
       <span class="section-label">What We Teach</span>
-      <h2 class="section-title">Subjects built for exam readiness</h2>
-      <p class="section-sub">Expert tuition in core primary subjects — adapted to your child's curriculum, whether you're in Nigeria, the UK, the US, or Canada.</p>
+      <h2 class="section-title">Curriculum built for exam readiness and success</h2>
+      <p class="section-sub">Expert tutoring in core foundational subjects, adapted to your child's curriculum — whether you are in Nigeria, UK, US, Canada, or Australia.</p>
     </div>
 
     <div class="subjects-grid">
       <div class="subject-card">
         <div class="subject-icon math">&#128290;</div>
         <h3>Mathematics</h3>
-        <p>Number fluency, problem-solving, and algebra readiness from P1 to P5.</p>
+        <p>Number fluency, problem-solving, and algebra readiness from P1 to P6.</p>
       </div>
 
       <div class="subject-card">
@@ -154,86 +192,169 @@
 <!-- HOW IT WORKS -->
 <section id="how-it-works">
   <div class="container">
-    <div class="text-center">
-      <span class="section-label">How It Works</span>
-      <h2 class="section-title">Simple Steps to Success</h2>
-      <p class="section-sub">Book, meet, and learn — all within 24 hours.</p>
-    </div>
-
-    <div class="how-grid">
-      <div class="how-step">
-        <div class="step-number">1</div>
-        <h3>Book a Session</h3>
-        <p>Tell us your child's grade, subjects, and preferred time. We match you with a vetted tutor manually for the best fit.</p>
+    <div class="how-layout">
+      <div class="how-intro">
+        <span class="section-label">How It Works</span>
+        <h2 class="section-title">Simple Steps to Success</h2>
+        <p class="section-sub">Start your learning journey in just a few easy steps.</p>
+        <button class="btn btn-primary btn-lg" onclick="openBooking()" style="margin-top:20px;">&#128197; Get Started</button>
       </div>
-      <div class="how-step">
-        <div class="step-number">2</div>
-        <h3>Meet Your Tutor</h3>
-        <p>45-minute live Zoom sessions, recorded for your review. Your child's progress is tracked every session.</p>
+      <div class="how-grid">
+        <div class="how-step">
+          <div class="step-number">1</div>
+          <h3>Book a Session</h3>
+          <p>Tell us your child's grade and subjects. We match you with a vetted tutor for the best fit.</p>
+        </div>
+        <div class="how-step">
+          <div class="step-number">2</div>
+          <h3>Meet Your Tutor</h3>
+          <p>Live sessions on Zoom or Google Meet, recorded on request. Progress tracked every class.</p>
+        </div>
+        <div class="how-step">
+          <div class="step-number">3</div>
+          <h3>Track Progress</h3>
+          <p>Receive session summaries after every class — know exactly where your child is improving.</p>
+        </div>
+        <div class="how-step">
+          <div class="step-number">4</div>
+          <h3>Homework Support</h3>
+          <p>Book extra sessions for assignments and exam prep. Your child gets support — you get your evenings back.</p>
+        </div>
       </div>
-      <div class="how-step">
-        <div class="step-number">3</div>
-        <h3>Track Progress</h3>
-        <p>Receive session summaries after every class. Know exactly where your child is improving week by week.</p>
-      </div>
-      <div class="how-step">
-        <div class="step-number">4</div>
-        <h3>Homework Support</h3>
-        <p>Book additional sessions for homework, assignments, and exam prep. Your child gets guided support — you get your evenings back.</p>
-      </div>
-    </div>
-
-    <div class="text-center mt-8">
-      <button class="btn btn-primary btn-lg" onclick="openBooking()">&#128197; Get Started</button>
     </div>
   </div>
 </section>
 
-
-<!-- FEEDBACK WIDGET -->
-<section id="feedback" class="feedback-section">
+<!-- READY CTA BANNER -->
+<section class="ready-section">
   <div class="container">
-    <div class="text-center" style="margin-bottom:32px;">
-      <span class="section-label">Your Voice</span>
-      <h2 class="section-title">Help us build this right</h2>
-      <p class="section-sub">We're in our pilot phase. Your feedback directly shapes the platform.</p>
+    <div class="ready-inner">
+      <div class="ready-text">
+        <h2>Ready to Start Learning?</h2>
+        <p>Book your first session and take the first step towards achieving your goals.</p>
+        <button class="btn btn-primary btn-lg" onclick="openBooking()" style="margin-top:18px;">&#128197; Book a Session</button>
+      </div>
+      <div class="ready-visual">
+        <div class="ready-icon-stack">
+          <span style="font-size:3.5rem;">&#128218;</span>
+          <span style="font-size:2.5rem;margin-left:-10px;">&#9998;&#65039;</span>
+          <span style="font-size:2rem;margin-left:-8px;">&#127807;</span>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <div class="feedback-card">
-      <h3>Share your thoughts</h3>
-      <p>Parent, tutor, or visitor — we want to hear from you.</p>
+<!-- FAQ -->
+<section id="faq" class="faq-section">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:40px;">
+      <span class="section-label">FAQ</span>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-sub">Everything you need to know before getting started.</p>
+    </div>
+    <div class="faq-list">
 
-      <div class="role-selector">
-        <button class="role-btn active" data-role="parent">&#128106; Parent</button>
-        <button class="role-btn" data-role="tutor">&#127979; Tutor</button>
-        <button class="role-btn" data-role="visitor">&#128100; Visitor</button>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>How do you match tutors with students?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-a">
+          <p>We carefully pair each child with a tutor depending on their grade and tutor's expertise while also aligning their personality and learning style. Our goal is to create a supportive and engaging environment that helps each child thrive.</p>
+        </div>
       </div>
 
-      <div class="star-row" id="star-row">
-        <span class="star" data-val="1">&#9733;</span>
-        <span class="star" data-val="2">&#9733;</span>
-        <span class="star" data-val="3">&#9733;</span>
-        <span class="star" data-val="4">&#9733;</span>
-        <span class="star" data-val="5">&#9733;</span>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>How long are the tutoring sessions?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-a">
+          <p>Each session typically lasts 45 mins – 60 mins (1hr), depending on the child's age, attention span, and tutoring package selected. We recommend consistency, such as one or two sessions per week.</p>
+        </div>
       </div>
 
-      <form id="feedback-form">
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Your Name</label>
-            <input type="text" class="form-input" id="fb-name" placeholder="Optional" />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-input" id="fb-email" placeholder="Optional" />
-          </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Can tutoring help my child if they are struggling or falling behind?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-a">
+          <p>Absolutely. Our tutors assess your child's strengths and areas that need improvement, then create a personalized plan to close gaps, build confidence, and ensure they catch up academically.</p>
         </div>
-        <div class="form-group">
-          <label class="form-label">Your Feedback <span>*</span></label>
-          <textarea class="form-textarea" id="fb-comment" placeholder="What would make this service perfect for you?" required></textarea>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Will my child get homework or practice between sessions?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-a">
+          <p>Yes! We provide targeted exercises and activities to reinforce concepts learned in each session. This helps children retain knowledge while keeping learning enjoyable and stress-free.</p>
         </div>
-        <button type="submit" class="btn btn-navy btn-block">Send Feedback</button>
-      </form>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>What makes your tutoring different from traditional tutoring or school?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-a">
+          <p>We combine personalized attention, interactive online tools, and a nurturing approach to make learning engaging. Unlike crowded classrooms, your child gets focused support tailored to their pace, helping them gain confidence and achieve lasting results.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Do I need to provide any special equipment?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-a">
+          <p>No special equipment is required. A computer or tablet with internet access, a webcam, and audio capabilities is sufficient. All learning materials are provided digitally by our tutors.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Will the sessions be recorded?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-a">
+          <p>Session recordings are optional and based on request by the parent or guardian.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>How can I track my child's progress?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-a">
+          <p>Parents receive regular updates and progress reports. You can also connect directly with tutors after a session to discuss goals and achievements, giving you peace of mind that your child is thriving.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-text">
+        <h2>Get in Touch</h2>
+        <p>Have a question not covered above? We'd love to hear from you.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:info@thinkviva.org" class="contact-link">
+          <span>&#128231;</span> info@thinkviva.org
+        </a>
+        <a href="https://wa.me/2347077340116" class="contact-link" target="_blank" rel="noopener">
+          <span>&#128241;</span> +234 707 734 0116
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -244,15 +365,17 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <h3>ThinkViva</h3>
-        <p>Bridging literacy and numeracy gaps for under-served and all children. Connecting diaspora families with Nigeria's finest tutors.</p>
+        <p>Fostering exceptional education and bridging learning gaps for under-served and all children. Connecting diaspora families to Nigerian tutors.</p>
+        <p class="footer-tagline-text">Smart Learning for Growing Minds</p>
       </div>
       <div class="footer-col">
         <h4>Platform</h4>
         <ul>
-          <li><a href="#subjects">Subjects</a></li>
+          <li><a href="#subjects">Explore all Subjects</a></li>
           <li><a href="#how-it-works">How It Works</a></li>
           <li><a href="/apply">Apply to Teach</a></li>
-          <li><a href="#feedback">Feedback</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/pricing">Pricing</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -260,21 +383,30 @@
         <ul>
           <li><a href="#" onclick="openBooking();return false;">Book a Session</a></li>
           <li><a href="/apply">Apply to Teach</a></li>
-          <li><a href="mailto:hello@thinkviva.org">Contact Us</a></li>
+        </ul>
+        <h4 style="margin-top:20px;">Contact Us</h4>
+        <ul>
+          <li><a href="mailto:info@thinkviva.org" class="footer-contact-link">&#128231; info@thinkviva.org</a></li>
+          <li><a href="https://wa.me/2347077340116" class="footer-contact-link" target="_blank" rel="noopener">&#128241; +234 707 734 0116</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Stay Connected</h4>
-        <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;margin-bottom:12px;">Get learning tips and updates.</p>
+        <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;margin-bottom:12px;">Get learning tips and schedule updates.</p>
         <form class="newsletter-form" onsubmit="return false;">
           <input type="email" class="newsletter-input" placeholder="Enter your email" aria-label="Email address" />
           <button type="submit" class="btn btn-primary btn-sm" style="padding:10px 16px;">&#8594;</button>
         </form>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-btn" aria-label="LinkedIn" title="LinkedIn">&#128279;</a>
+          <a href="#" class="footer-social-btn" aria-label="Threads" title="Threads">&#64;</a>
+          <a href="#" class="footer-social-btn" aria-label="Instagram" title="Instagram">&#128247;</a>
+        </div>
       </div>
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 ThinkViva. All rights reserved.</span>
-      <span class="pilot-badge">Pilot Phase</span>
+      <a href="/terms" class="footer-terms-link">Terms &amp; Conditions</a>
     </div>
   </div>
 </footer>
@@ -320,6 +452,7 @@
             <option>United States</option>
             <option>Canada</option>
             <option>Australia</option>
+            <option>UAE</option>
             <option>Nigeria</option>
             <option>Republic of Ireland</option>
             <option>Germany</option>
@@ -336,6 +469,7 @@
             <option value="P3">Primary 3</option>
             <option value="P4">Primary 4</option>
             <option value="P5">Primary 5</option>
+            <option value="P6">Primary 6</option>
           </select>
         </div>
       </div>

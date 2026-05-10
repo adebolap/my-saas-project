@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ThinkViva Terms and Conditions — please read before using our tutoring services." />
+  <title>Terms &amp; Conditions — ThinkViva</title>
+  <link rel="canonical" href="https://thinkviva.org/terms" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="logo-icon">T</div>
+      <div>
+        ThinkViva
+        <span class="nav-tagline">Smart Learning for Growing Minds</span>
+      </div>
+    </a>
+    <div class="nav-cta">
+      <a href="/" class="btn btn-outline-dark btn-sm">&#8592; Back to Home</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="terms-hero">
+  <div class="container">
+    <h1>Terms &amp; Conditions</h1>
+    <p>Last updated: May 2026. Please read these terms carefully before using ThinkViva's services.</p>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<section style="background:var(--warm-white);padding:60px 0;">
+  <div class="container">
+    <div class="terms-body">
+
+      <div class="terms-section">
+        <h2>1. Acceptance of Terms</h2>
+        <p>By booking a session, creating an account, or using any part of the ThinkViva platform, you agree to be bound by these Terms and Conditions. If you do not agree, please do not use our services.</p>
+      </div>
+
+      <div class="terms-section">
+        <h2>2. Service Description</h2>
+        <p>ThinkViva provides online, one-on-one tutoring services for children in Primary 1 through Primary 6. Sessions are conducted via Zoom or Google Meet and are facilitated by vetted, qualified tutors based primarily in Nigeria.</p>
+      </div>
+
+      <div class="terms-section">
+        <h2>3. Booking and Cancellation</h2>
+        <p>Session bookings are confirmed within 24 hours of submission. Cancellations must be made at least 24 hours before the scheduled session. Late cancellations or no-shows may result in forfeiture of the session fee. ThinkViva reserves the right to reschedule sessions due to tutor unavailability with reasonable prior notice.</p>
+      </div>
+
+      <div class="terms-section">
+        <h2>4. Payments</h2>
+        <p>Payment terms and rates are provided upon package selection and confirmed via email. All fees are due before the commencement of sessions unless otherwise agreed. ThinkViva reserves the right to update pricing with 14 days' notice to existing clients.</p>
+      </div>
+
+      <div class="terms-section">
+        <h2>5. Session Recordings</h2>
+        <p>Sessions may be recorded at the request of the parent or guardian, for the sole purpose of review by the enrolled child and their family. Recordings must not be shared, redistributed, or published in any form. ThinkViva does not record sessions by default.</p>
+      </div>
+
+      <div class="terms-section">
+        <h2>6. Privacy and Data</h2>
+        <p>We collect personal information (name, email, phone, child's grade) solely to provide our tutoring services. We do not sell or share your data with third parties for marketing purposes. Data is stored securely and you may request deletion at any time by contacting us at <a href="mailto:info@thinkviva.org">info@thinkviva.org</a>.</p>
+      </div>
+
+      <div class="terms-section">
+        <h2>7. Code of Conduct</h2>
+        <p>All parties — tutors, students, and parents — are expected to engage respectfully during sessions. ThinkViva reserves the right to suspend or terminate services for any party who engages in abusive, disrespectful, or inappropriate behaviour.</p>
+      </div>
+
+      <div class="terms-section">
+        <h2>8. Limitation of Liability</h2>
+        <p>ThinkViva provides tutoring as a supplemental educational service. We do not guarantee specific academic outcomes. Our liability is limited to the value of sessions paid for in the current billing period.</p>
+      </div>
+
+      <div class="terms-section">
+        <h2>9. Changes to Terms</h2>
+        <p>ThinkViva may update these Terms at any time. Continued use of our services following notification of changes constitutes acceptance of the revised Terms.</p>
+      </div>
+
+      <div class="terms-section">
+        <h2>10. Contact</h2>
+        <p>For questions about these Terms, contact us at <a href="mailto:info@thinkviva.org">info@thinkviva.org</a> or via WhatsApp at <a href="https://wa.me/2347077340116" target="_blank" rel="noopener">+234 707 734 0116</a>.</p>
+      </div>
+
+      <!-- AGREE / DISAGREE -->
+      <div class="terms-actions">
+        <p>By clicking <strong>Agree</strong>, you confirm that you have read and accept these Terms &amp; Conditions.</p>
+        <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+          <button class="btn btn-primary btn-lg" onclick="acceptTerms()">&#10003; I Agree</button>
+          <a href="/" class="btn btn-outline-dark btn-lg">&#10005; Decline &amp; Go Back</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <span>&copy; 2026 ThinkViva. All rights reserved.</span>
+      <a href="/" style="color:rgba(255,255,255,0.6);font-size:0.875rem;">&#8592; Back to Home</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="/js/main.js"></script>
+<script>
+function acceptTerms() {
+  showToast('Thank you — you have accepted the ThinkViva Terms & Conditions.', 'success');
+  setTimeout(() => { window.location.href = '/'; }, 2200);
+}
+</script>
+
+<style>
+.terms-hero {
+  background: var(--navy);
+  padding: 48px 0;
+  text-align: center;
+}
+.terms-hero h1 { color:var(--white); font-size:clamp(1.6rem,3vw,2.2rem); font-weight:800; margin-bottom:10px; }
+.terms-hero p { color:rgba(255,255,255,0.7); font-size:0.9rem; }
+.terms-body { max-width: 760px; margin: 0 auto; }
+.terms-section { margin-bottom:32px; padding-bottom:28px; border-bottom:1px solid var(--border); }
+.terms-section:last-of-type { border-bottom:none; }
+.terms-section h2 { font-size:1.05rem; font-weight:700; color:var(--navy); margin-bottom:10px; }
+.terms-section p { font-size:0.925rem; color:var(--muted); line-height:1.75; }
+.terms-section a { color:var(--gold); text-decoration:none; font-weight:500; }
+.terms-actions {
+  background:var(--bg);
+  border-radius:12px;
+  padding:24px;
+  margin-top:16px;
+  text-align:center;
+}
+.terms-actions p { color:var(--text); font-size:0.925rem; }
+.terms-actions > div { justify-content:center; }
+</style>
+</body>
+</html>
