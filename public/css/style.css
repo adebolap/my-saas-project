@@ -465,7 +465,7 @@ section { padding: 72px 0; }
 .stat-item p { color: rgba(255,255,255,0.75); font-size: 0.875rem; }
 
 /* ---- SUBJECTS ---- */
-.subjects-section { background: var(--white); }
+.subjects-section { background: var(--warm-white); }
 .subjects-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
