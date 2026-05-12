@@ -717,6 +717,24 @@ section { padding: 72px 0; }
   transition: background 0.2s;
 }
 .contact-link:hover { background: rgba(255,255,255,0.25); }
+.whatsapp-btn {
+  background: #25D366 !important;
+  border-color: #25D366 !important;
+  color: var(--white) !important;
+}
+.whatsapp-btn:hover { background: #1EBE5C !important; border-color: #1EBE5C !important; }
+.wa-icon { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
+.footer-whatsapp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #25D366 !important;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+.footer-whatsapp-link:hover { opacity: 0.8; }
 
 /* ---- FEEDBACK WIDGET (kept for admin/apply reuse) ---- */
 .feedback-section { background: var(--white); padding: 48px 0; }
