@@ -360,6 +360,38 @@ body {
   letter-spacing: 0.6px;
   margin-bottom: 3px;
 }
+.board-check-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 4px 0 3px;
+  flex-wrap: wrap;
+}
+.board-wrong {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #c53030;
+  text-decoration: line-through;
+  text-decoration-color: #c53030;
+}
+.board-arrow {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.board-right {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--gold);
+  background: rgba(46,125,74,0.1);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.board-tutor-note {
+  font-size: 0.63rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 2px;
+}
 .board-eq {
   font-size: 1.1rem;
   font-weight: 800;
