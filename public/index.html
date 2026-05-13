@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="ThinkViva — Expert 1-on-1 online tutoring for Primary 1–6. Connecting diaspora families with qualified Nigerian tutors. Flexible, personalised, and results-driven." />
-  <title>ThinkViva — Smart Learning for Growing Minds</title>
+  <meta name="description" content="ThinkViva: Expert 1-on-1 online tutoring for Kindergarten to Primary 6. Connecting diaspora families with qualified Nigerian tutors. Flexible, personalised, and results-driven." />
+  <title>ThinkViva | Smart Learning for Growing Minds</title>
   <link rel="canonical" href="https://thinkviva.org/" />
-  <meta property="og:title" content="ThinkViva — Smart Learning for Growing Minds" />
+  <meta property="og:title" content="ThinkViva | Smart Learning for Growing Minds" />
   <meta property="og:description" content="Expert 1-on-1 online tutoring for Primary 1–6. Connecting diaspora families with qualified Nigerian tutors." />
   <meta property="og:url" content="https://thinkviva.org/" />
   <meta property="og:type" content="website" />
@@ -18,7 +18,7 @@
 <nav class="nav">
   <div class="container nav-inner">
     <a href="/" class="nav-logo">
-      <img src="/img/logo.png" alt="ThinkViva — Smart Learning for Growing Minds" class="nav-logo-img" />
+      <img src="/img/logo.png" alt="ThinkViva | Smart Learning for Growing Minds" class="nav-logo-img" />
     </a>
     <ul class="nav-links">
       <li><a href="#subjects">Subjects</a></li>
@@ -50,7 +50,7 @@
         Fostering <em>exceptional education</em> and bridging learning gaps for every child.
       </h1>
       <p>
-        Our expert tutors work one-on-one to help students improve grades, stay motivated, and build skills that last far beyond the classroom. Whether your child needs homework support, wants to get ahead, or is preparing for important exams, we create a positive learning experience that fits your child's needs and family's schedule — connecting diaspora families with qualified Nigerian tutors who truly understand the curriculum. We match students with tutors in less than 24 hours.
+        Our expert tutors work one-on-one to help students improve grades, stay motivated, and build skills that last far beyond the classroom. Whether your child needs homework support, wants to get ahead, or is preparing for important exams, we create a positive learning experience that fits your child's needs and family's schedule, connecting diaspora families with qualified Nigerian tutors who truly understand the curriculum. We match students with tutors in less than 24 hours.
       </p>
       <div class="hero-actions">
         <button class="btn btn-primary btn-lg" onclick="openBooking()">
@@ -60,54 +60,70 @@
       </div>
       <div class="hero-trust">
         <div class="hero-trust-item">
-          <span class="hero-trust-icon">&#127891;</span>
+          <img src="/img/icons/icon-lightbulb.png" class="trust-icon-img" alt="" />
           <span>Expert-led 1-1 online tutoring</span>
         </div>
         <div class="hero-trust-item">
-          <span class="hero-trust-icon">&#128187;</span>
+          <img src="/img/icons/icon-video.png" class="trust-icon-img" alt="" />
           <span>Live on GoogleMeet / Zoom</span>
         </div>
         <div class="hero-trust-item">
-          <span class="hero-trust-icon">&#128197;</span>
+          <img src="/img/icons/icon-calendar.png" class="trust-icon-img" alt="" />
           <span>Flexible schedule &amp; homework support</span>
         </div>
       </div>
     </div>
 
     <div class="hero-visual">
-      <div class="hero-stats">
-        <div class="hero-stat" style="background:#DFF0ED;">
-          <div class="hero-stat-val">24hrs</div>
-          <div class="hero-stat-label">Tutor Matching</div>
+      <!-- Live session UI card -->
+      <div class="session-card">
+        <div class="session-header">
+          <div class="session-live"><span class="live-dot"></span>LIVE SESSION</div>
+          <div class="session-brand">ThinkViva</div>
         </div>
-        <div class="hero-stat" style="background:#F3E9D2;">
-          <div class="hero-stat-val">45min</div>
-          <div class="hero-stat-label">Per Session</div>
+        <div class="session-body">
+          <!-- Tutor panel -->
+          <div class="session-tutor">
+            <div class="tutor-avatar-wrap">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="rgba(255,255,255,0.9)"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+            </div>
+            <div class="tutor-label">Ms. Amara</div>
+            <div class="tutor-badge">Tutor</div>
+          </div>
+          <!-- Lesson board -->
+          <div class="session-board">
+            <div class="board-tag">Mathematics</div>
+            <div class="board-eq">23 + 17 = <span>40</span></div>
+            <div class="board-line"></div>
+            <div class="board-tag" style="margin-top:6px;">English</div>
+            <div class="board-sentence">The sun is <u>bright</u>.</div>
+            <div class="chat-pop">&#127775; Great work!</div>
+          </div>
         </div>
-        <div class="hero-stat" style="background:#DFF5E8;">
-          <div class="hero-stat-val">P1–P6</div>
-          <div class="hero-stat-label">Grades Covered</div>
+        <!-- Session footer -->
+        <div class="session-footer">
+          <span class="subj-chip">&#128290; Maths</span>
+          <span class="subj-chip">&#128214; English</span>
+          <span class="subj-chip">&#128300; Science</span>
         </div>
-        <div class="hero-stat" style="background:#E8F2EA;">
-          <div class="hero-stat-val">1-on-1</div>
-          <div class="hero-stat-label">Personalised</div>
+        <!-- Progress bar -->
+        <div class="session-progress">
+          <div class="progress-bar"><div class="progress-fill" style="width:60%;"></div></div>
+          <span class="progress-label">27 / 45 min</span>
         </div>
       </div>
-      <div class="grade-picker">
-        <h3>What grade is your child in?</h3>
-        <div class="grade-pill-row">
-          <button class="grade-pill" data-grade="P1">Primary 1</button>
-          <button class="grade-pill" data-grade="P2">Primary 2</button>
-          <button class="grade-pill" data-grade="P3">Primary 3</button>
-          <button class="grade-pill" data-grade="P4">Primary 4</button>
-          <button class="grade-pill" data-grade="P5">Primary 5</button>
-          <button class="grade-pill" data-grade="P6">Primary 6</button>
-        </div>
-        <p class="grade-desc" id="grade-desc">Select a grade to see what we cover.</p>
-        <button class="btn btn-primary btn-block mt-4" id="hero-grade-cta" onclick="openBookingWithGrade()" style="display:none;">
-          Book for This Grade
-        </button>
-        <p class="grade-footnote"><em>Grade level coverage will expand as demand for tutors and database of teachers increase.</em></p>
+      <!-- Floating stat badges -->
+      <div class="float-badge" style="top:-14px;right:10px;">
+        <div class="float-val">24hrs</div>
+        <div class="float-lbl">Tutor Matching</div>
+      </div>
+      <div class="float-badge" style="bottom:70px;right:-18px;">
+        <div class="float-val">K–P6</div>
+        <div class="float-lbl">All Grades</div>
+      </div>
+      <div class="float-badge" style="bottom:-14px;left:20px;">
+        <div class="float-val">1-on-1</div>
+        <div class="float-lbl">Personalised</div>
       </div>
     </div>
   </div>
@@ -122,21 +138,21 @@
     </div>
     <div class="benefits-grid">
       <div class="benefits-card">
-        <div class="benefits-icon">&#127968;</div>
+        <img src="/img/icons/icon-thumbsup.png" class="benefits-icon-img" alt="" />
         <h3>For Parents</h3>
         <p class="benefits-sub">What you get / How you benefit</p>
         <ul class="benefits-list">
-          <li>Free up your time — we get how it can feel like you're the student! Let our tutors do the work and say goodbye to homework stress.</li>
+          <li>Free up your time! We get how it can feel like you're the student. Let our tutors do the work and say goodbye to homework stress.</li>
           <li>Watch your child grow confident and stay ahead with expert-led online sessions.</li>
         </ul>
       </div>
       <div class="benefits-card">
-        <div class="benefits-icon">&#127891;</div>
+        <img src="/img/icons/icon-lightbulb.png" class="benefits-icon-img" alt="" />
         <h3>For Students</h3>
         <p class="benefits-sub">Personalised learning, Unlimited growth</p>
         <ul class="benefits-list">
-          <li>Unlock academic success with your ultimate study partner — your dedicated tutor.</li>
-          <li>Enjoy fully interactive sessions where you express yourself and engage in fun activities.</li>
+          <li>Unlock academic success with your ultimate study partner, your dedicated tutor.</li>
+          <li>Enjoy fully interactive sessions that are engaging and equipped with fun learning activities.</li>
         </ul>
       </div>
     </div>
@@ -149,7 +165,7 @@
     <div class="text-center">
       <span class="section-label">What We Teach</span>
       <h2 class="section-title">Curriculum built for exam readiness and success</h2>
-      <p class="section-sub">Expert tutoring in core foundational subjects, adapted to your child's curriculum — whether you are in Nigeria, UK, US, Canada, or Australia.</p>
+      <p class="section-sub">Expert tutoring in core foundational subjects, adapted to your child's curriculum, whether you are in Nigeria, UK, US, Canada, or Australia.</p>
     </div>
 
     <div class="subjects-grid">
@@ -175,7 +191,7 @@
         <div class="coming-soon-badge">Coming Soon</div>
         <div class="subject-icon lang">&#127758;</div>
         <h3>Local Languages</h3>
-        <p>Yoruba, Igbo &amp; Hausa — an exclusive add-on for enrolled students.</p>
+        <p>Yoruba, Igbo &amp; Hausa, an exclusive add-on for enrolled students.</p>
       </div>
     </div>
 
@@ -209,12 +225,12 @@
         <div class="how-step">
           <div class="step-number">3</div>
           <h3>Track Progress</h3>
-          <p>Receive session summaries after every class — know exactly where your child is improving.</p>
+          <p>Receive session summaries after every class. Know exactly where your child is improving.</p>
         </div>
         <div class="how-step">
           <div class="step-number">4</div>
           <h3>Homework Support</h3>
-          <p>Book extra sessions for assignments and exam prep. Your child gets support — you get your evenings back.</p>
+          <p>Book extra sessions for assignments and exam prep. Your child gets support and you get your evenings back.</p>
         </div>
       </div>
     </div>
@@ -361,8 +377,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <h3>ThinkViva</h3>
-        <p class="footer-tagline-text">Smart Learning for Growing Minds</p>
+        <img src="/img/logo.png" alt="ThinkViva" class="footer-logo" />
         <p>Fostering exceptional education and bridging learning gaps for under-served and all children. Connecting diaspora families to Nigerian tutors.</p>
       </div>
       <div class="footer-col">
@@ -461,6 +476,7 @@
           <label class="form-label">Child's Grade <span>*</span></label>
           <select class="form-select" name="grade" id="booking-grade" required>
             <option value="">Select grade</option>
+            <option value="K">Kindergarten</option>
             <option value="P1">Primary 1</option>
             <option value="P2">Primary 2</option>
             <option value="P3">Primary 3</option>
