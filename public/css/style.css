@@ -63,7 +63,7 @@ body {
   background: var(--gold);
   color: var(--white);
   border-color: var(--gold);
-  box-shadow: 0 4px 14px rgba(26,147,111,0.28);
+  box-shadow: 0 4px 14px rgba(46,125,74,0.28);
 }
 .btn-primary:hover { background: var(--gold-light); border-color: var(--gold-light); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,147,111,0.38); }
 .btn-outline {
@@ -96,7 +96,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 1px 8px rgba(17,75,95,0.06);
+  box-shadow: 0 1px 8px rgba(30,90,58,0.06);
 }
 .nav-inner {
   display: flex;
@@ -203,8 +203,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(26,147,111,0.2);
-  border: 1px solid rgba(26,147,111,0.4);
+  background: rgba(46,125,74,0.2);
+  border: 1px solid rgba(46,125,74,0.4);
   color: var(--gold);
   padding: 6px 14px;
   border-radius: 20px;
@@ -570,7 +570,7 @@ section { padding: 72px 0; }
   font-size: 1.1rem;
   font-weight: 800;
   margin: 0 auto 16px;
-  box-shadow: 0 4px 12px rgba(10,61,98,0.25);
+  box-shadow: 0 4px 12px rgba(30,90,58,0.25);
 }
 .how-step h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
 .how-step p { font-size: 0.875rem; color: var(--muted); }
@@ -825,7 +825,7 @@ section { padding: 72px 0; }
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(7,45,74,0.75);
+  background: rgba(22,48,37,0.75);
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -911,7 +911,7 @@ section { padding: 72px 0; }
   font-family: inherit;
 }
 .newsletter-input::placeholder { color: rgba(255,255,255,0.45); }
-.newsletter-input:focus { outline: none; border-color: rgba(26,147,111,0.7); }
+.newsletter-input:focus { outline: none; border-color: rgba(46,125,74,0.7); }
 
 /* ---- FOOTER ---- */
 .footer {
@@ -1151,8 +1151,8 @@ section { padding: 72px 0; }
   letter-spacing: 0.3px;
 }
 .status-new      { background: #DFF0EC; color: #1E5A3A; }
-.status-active   { background: #DFF5E8; color: #1A936F; }
-.status-approved { background: #DFF5E8; color: #1A936F; }
+.status-active   { background: #DFF5E8; color: #2E7D4A; }
+.status-approved { background: #DFF5E8; color: #2E7D4A; }
 .status-pending  { background: #FEF9E7; color: #9A7D0A; }
 .status-rejected { background: #FDEDEC; color: #922B21; }
 
@@ -1164,7 +1164,7 @@ section { padding: 72px 0; }
   background: var(--white);
   padding: 12px 20px;
   padding-bottom: max(14px, env(safe-area-inset-bottom));
-  box-shadow: 0 -4px 24px rgba(10,61,98,0.12);
+  box-shadow: 0 -4px 24px rgba(30,90,58,0.12);
   border-top: 1px solid var(--border);
   z-index: 300;
   opacity: 0;
