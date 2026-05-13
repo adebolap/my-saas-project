@@ -75,40 +75,55 @@
     </div>
 
     <div class="hero-visual">
-      <div class="hero-stats">
-        <div class="hero-stat" style="background:#DFF0ED;">
-          <div class="hero-stat-val">24hrs</div>
-          <div class="hero-stat-label">Tutor Matching</div>
+      <!-- Live session UI card -->
+      <div class="session-card">
+        <div class="session-header">
+          <div class="session-live"><span class="live-dot"></span>LIVE SESSION</div>
+          <div class="session-brand">ThinkViva</div>
         </div>
-        <div class="hero-stat" style="background:#F3E9D2;">
-          <div class="hero-stat-val">45min</div>
-          <div class="hero-stat-label">Per Session</div>
+        <div class="session-body">
+          <!-- Tutor panel -->
+          <div class="session-tutor">
+            <div class="tutor-avatar-wrap">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="rgba(255,255,255,0.9)"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+            </div>
+            <div class="tutor-label">Ms. Amara</div>
+            <div class="tutor-badge">Tutor</div>
+          </div>
+          <!-- Lesson board -->
+          <div class="session-board">
+            <div class="board-tag">Mathematics</div>
+            <div class="board-eq">23 + 17 = <span>40</span></div>
+            <div class="board-line"></div>
+            <div class="board-tag" style="margin-top:6px;">English</div>
+            <div class="board-sentence">The sun is <u>bright</u>.</div>
+            <div class="chat-pop">&#127775; Great work!</div>
+          </div>
         </div>
-        <div class="hero-stat" style="background:#DFF5E8;">
-          <div class="hero-stat-val">K–P6</div>
-          <div class="hero-stat-label">Grades Covered</div>
+        <!-- Session footer -->
+        <div class="session-footer">
+          <span class="subj-chip">&#128290; Maths</span>
+          <span class="subj-chip">&#128214; English</span>
+          <span class="subj-chip">&#128300; Science</span>
         </div>
-        <div class="hero-stat" style="background:#E8F2EA;">
-          <div class="hero-stat-val">1-on-1</div>
-          <div class="hero-stat-label">Personalised</div>
+        <!-- Progress bar -->
+        <div class="session-progress">
+          <div class="progress-bar"><div class="progress-fill" style="width:60%;"></div></div>
+          <span class="progress-label">27 / 45 min</span>
         </div>
       </div>
-      <div class="grade-picker">
-        <h3>What grade is your child in?</h3>
-        <div class="grade-pill-row">
-          <button class="grade-pill" data-grade="K">Kindergarten</button>
-          <button class="grade-pill" data-grade="P1">Primary 1</button>
-          <button class="grade-pill" data-grade="P2">Primary 2</button>
-          <button class="grade-pill" data-grade="P3">Primary 3</button>
-          <button class="grade-pill" data-grade="P4">Primary 4</button>
-          <button class="grade-pill" data-grade="P5">Primary 5</button>
-          <button class="grade-pill" data-grade="P6">Primary 6</button>
-        </div>
-        <p class="grade-desc" id="grade-desc">Select a grade to see what we cover.</p>
-        <button class="btn btn-primary btn-block mt-4" id="hero-grade-cta" onclick="openBookingWithGrade()" style="display:none;">
-          Book for This Grade
-        </button>
-        <p class="grade-footnote"><em>Other grade levels coming soon.</em></p>
+      <!-- Floating stat badges -->
+      <div class="float-badge" style="top:-14px;right:10px;">
+        <div class="float-val">24hrs</div>
+        <div class="float-lbl">Tutor Matching</div>
+      </div>
+      <div class="float-badge" style="bottom:70px;right:-18px;">
+        <div class="float-val">K–P6</div>
+        <div class="float-lbl">All Grades</div>
+      </div>
+      <div class="float-badge" style="bottom:-14px;left:20px;">
+        <div class="float-val">1-on-1</div>
+        <div class="float-lbl">Personalised</div>
       </div>
     </div>
   </div>
