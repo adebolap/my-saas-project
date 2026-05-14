@@ -206,10 +206,80 @@ if (feedbackForm) {
   });
 }
 
+// ---- MOBILE HAMBURGER NAV ----
+function toggleMobileMenu(btn) {
+  const nav = document.querySelector('.nav');
+  const isOpen = nav.classList.toggle('mobile-open');
+  if (btn) {
+    btn.classList.toggle('open', isOpen);
+    btn.setAttribute('aria-expanded', String(isOpen));
+  }
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    const nav = document.querySelector('.nav');
+    const btn = document.querySelector('.nav-hamburger');
+    if (!nav.classList.contains('mobile-open')) return;
+    nav.classList.remove('mobile-open');
+    if (btn) { btn.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+    document.body.style.overflow = '';
+  });
+});
+
+// ---- NEWSLETTER FORM ----
+const newsletterForm = document.querySelector('.newsletter-form');
+if (newsletterForm) {
+  newsletterForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const input = newsletterForm.querySelector('input[type=email]');
+    const email = (input?.value || '').trim();
+    if (!email) return;
+    const btn = newsletterForm.querySelector('[type=submit]');
+    const orig = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = '…';
+    try {
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, type: 'newsletter' }),
+      });
+      showToast("You’re on the list! We’ll be in touch soon.", 'success');
+      newsletterForm.reset();
+    } catch {
+      showToast('Could not subscribe. Please try again.', 'error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = orig;
+    }
+  });
+}
+
 // ---- FAQ ACCORDION ----
 function toggleFaq(btn) {
   const item = btn.closest('.faq-item');
   const wasOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
-  if (!wasOpen) item.classList.add('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => {
+    el.classList.remove('open');
+    el.querySelector('.faq-q')?.setAttribute('aria-expanded', 'false');
+  });
+  if (!wasOpen) {
+    item.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+  }
 }
+
+// ---- SCROLL REVEAL ----
+(function () {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+})();

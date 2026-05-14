@@ -9,12 +9,15 @@
   <meta property="og:title" content="Pricing | ThinkViva" />
   <meta property="og:url" content="https://thinkviva.org/pricing" />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://thinkviva.org/img/og-image.png" />
+  <link rel="icon" href="/img/favicon.ico" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
 
 <!-- NAV -->
-<nav class="nav">
+<nav class="nav" aria-label="Main navigation">
   <div class="container nav-inner">
     <a href="/" class="nav-logo">
       <img src="/img/logo.png" alt="ThinkViva | Smart Learning for Growing Minds" class="nav-logo-img" />
@@ -27,6 +30,9 @@
       <li><a href="/#contact">Contact Us</a></li>
       <li><a href="/pricing" style="color:var(--navy);font-weight:700;">Pricing</a></li>
     </ul>
+    <button class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" onclick="toggleMobileMenu(this)">
+      <span></span><span></span><span></span>
+    </button>
     <div class="nav-cta">
       <a href="/" class="btn btn-outline-dark btn-sm">&#8592; Home</a>
     </div>
