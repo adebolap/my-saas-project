@@ -148,8 +148,8 @@ body {
   line-height: 1.2;
 }
 @media (max-width: 600px) {
-  .nav-brand-tag { display: none; }
   .nav-brand-name { font-size: 1rem; }
+  .nav-brand-tag { font-size: 0.55rem; }
 }
 .nav-logo .logo-icon {
   width: 36px; height: 36px;
