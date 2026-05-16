@@ -89,6 +89,25 @@ body {
 .btn-block { width: 100%; }
 
 /* ---- NAV ---- */
+/* Tutor top bar */
+.tutor-bar {
+  background: var(--navy);
+  color: rgba(255,255,255,0.82);
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 8px 16px;
+  letter-spacing: 0.1px;
+}
+.tutor-bar a {
+  color: var(--celadon);
+  font-weight: 700;
+  text-decoration: none;
+  margin-left: 6px;
+  white-space: nowrap;
+}
+.tutor-bar a:hover { text-decoration: underline; }
+
 .nav {
   background: var(--white);
   border-bottom: 1px solid var(--border);
