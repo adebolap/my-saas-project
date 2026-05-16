@@ -277,18 +277,45 @@ body {
 
 /* Hero visual — real photo with floating badges */
 .hero-visual {
-  position: relative;
   flex-shrink: 0;
   width: 100%;
-  max-width: 520px;
-  padding: 16px 32px 16px 32px;
+  max-width: 540px;
+}
+.hero-photo-wrap {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 12px 48px rgba(30,90,58,0.18);
 }
 .hero-photo {
   width: 100%;
   height: auto;
-  border-radius: 20px;
   display: block;
-  box-shadow: var(--shadow-lg);
+}
+/* Badge positions — overlaid on photo corners */
+.float-badge--tl {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+}
+.float-badge--mr {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+}
+.float-badge--bl {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+}
+.float-badge--tl,
+.float-badge--mr,
+.float-badge--bl {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.7);
 }
 
 /* Session card */
@@ -790,7 +817,10 @@ section { padding: 72px 0; }
 }
 
 /* ---- HOW IT WORKS ---- */
-.how-section { background: var(--bg); padding: 60px 0; }
+.how-section {
+  background: var(--bg) url('/img/thought-leadership.png') center bottom / contain no-repeat;
+  padding: 60px 0;
+}
 .how-layout {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -824,8 +854,6 @@ section { padding: 72px 0; }
 }
 .how-step h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
 .how-step p { font-size: 0.875rem; color: var(--muted); }
-.how-illustration { text-align: center; margin-top: 40px; }
-.how-illustration img { max-width: 820px; width: 100%; height: auto; border-radius: 16px; }
 
 /* ---- TUTOR SECTION ---- */
 .tutor-section {
