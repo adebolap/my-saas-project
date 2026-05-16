@@ -275,13 +275,20 @@ body {
 .trust-icon-img { width: 26px; height: 26px; object-fit: contain; flex-shrink: 0; }
 .benefits-icon-img { width: 52px; height: 52px; object-fit: contain; margin-bottom: 12px; display: block; }
 
-/* Hero visual — live session UI card */
+/* Hero visual — real photo with floating badges */
 .hero-visual {
   position: relative;
   flex-shrink: 0;
   width: 100%;
-  max-width: 420px;
-  padding: 22px 110px 22px 8px;
+  max-width: 520px;
+  padding: 16px 32px 16px 32px;
+}
+.hero-photo {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  display: block;
+  box-shadow: var(--shadow-lg);
 }
 
 /* Session card */
@@ -654,6 +661,16 @@ body {
   left: 0;
   color: var(--celadon);
   font-weight: 700;
+}
+.benefits-illustration {
+  margin-top: 36px;
+  text-align: center;
+}
+.benefits-illustration img {
+  max-width: 780px;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
 }
 
 /* ---- SECTION HEADERS ---- */
