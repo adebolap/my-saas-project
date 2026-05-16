@@ -88,58 +88,17 @@
     </div>
 
     <div class="hero-visual">
-      <!-- Live session UI card -->
-      <div class="session-card">
-        <div class="session-header">
-          <div class="session-live"><span class="live-dot"></span>LIVE SESSION</div>
-          <div class="session-brand">ThinkViva</div>
-        </div>
-        <div class="session-body">
-          <!-- Tutor panel -->
-          <div class="session-tutor">
-            <div class="tutor-avatar-wrap">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="rgba(255,255,255,0.9)"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
-            </div>
-            <div class="tutor-label">Ms. Amara</div>
-            <div class="tutor-badge">Tutor</div>
-          </div>
-          <!-- Lesson board -->
-          <div class="session-board">
-            <div class="board-tag">&#128203; Homework Check</div>
-            <div class="board-check-row">
-              <span class="board-wrong">6 &times; 8 = 42</span>
-              <span class="board-arrow">&#8594;</span>
-              <span class="board-right">48 &#10003;</span>
-            </div>
-            <div class="board-tutor-note">Times tables — let&rsquo;s practise!</div>
-            <div class="board-line"></div>
-            <div class="board-tag" style="margin-top:6px;">English</div>
-            <div class="board-sentence">The sun is <u>bright</u>.</div>
-            <div class="chat-pop">&#127775; Great work!</div>
-          </div>
-        </div>
-        <!-- Session footer -->
-        <div class="session-footer">
-          <span class="subj-chip">&#128290; Maths</span>
-          <span class="subj-chip">&#128214; English</span>
-          <span class="subj-chip">&#128300; Science</span>
-        </div>
-        <!-- Progress bar -->
-        <div class="session-progress">
-          <div class="progress-bar"><div class="progress-fill" style="width:60%;"></div></div>
-          <span class="progress-label">27 / 45 min</span>
-        </div>
-      </div>
+      <img src="/img/hero-main.png" alt="Child learning online with ThinkViva tutor" class="hero-photo" />
       <!-- Floating stat badges -->
-      <div class="float-badge" style="top:-16px;left:50%;transform:translateX(-50%);">
+      <div class="float-badge" style="top:16px;left:-18px;">
         <div class="float-val">24hrs</div>
         <div class="float-lbl">Tutor Matching</div>
       </div>
-      <div class="float-badge" style="top:50%;right:-105px;transform:translateY(-50%);">
+      <div class="float-badge" style="top:50%;right:-18px;transform:translateY(-50%);">
         <div class="float-val">K–P6</div>
         <div class="float-lbl">All Grades</div>
       </div>
-      <div class="float-badge" style="bottom:-16px;left:50%;transform:translateX(-50%);">
+      <div class="float-badge" style="bottom:24px;left:-18px;">
         <div class="float-val">1-on-1</div>
         <div class="float-lbl">Personalised</div>
       </div>
@@ -165,7 +124,7 @@
         </ul>
       </div>
       <div class="benefits-card">
-        <img src="/img/icons/icon-lightbulb.png" class="benefits-icon-img" alt="" loading="lazy" />
+        <img src="/img/icons/icon-idea.png" class="benefits-icon-img" alt="" loading="lazy" />
         <h3>For Students</h3>
         <p class="benefits-sub">Personalised learning, Unlimited growth</p>
         <ul class="benefits-list">
@@ -174,7 +133,11 @@
         </ul>
       </div>
     </div>
-    <div class="text-center" style="margin-top:32px;">
+    <!-- Benefits illustration -->
+    <div class="benefits-illustration">
+      <img src="/img/illustration-benefits.png" alt="Student learning online with ThinkViva" loading="lazy" />
+    </div>
+    <div class="text-center" style="margin-top:24px;">
       <button class="btn btn-outline btn-lg" onclick="openBooking()">&#128197; Book a Free Consultation</button>
     </div>
   </div>
@@ -255,6 +218,9 @@
           <p>Book extra sessions for assignments and exam prep. Your child gets support and you get your evenings back.</p>
         </div>
       </div>
+    </div>
+    <div class="how-illustration">
+      <img src="/img/thought-leadership.png" alt="Interactive online tutoring session" loading="lazy" />
     </div>
   </div>
 </section>
@@ -605,7 +571,7 @@
           <label class="checkbox-label"><input type="checkbox" name="subjects" value="Math" /> Math</label>
           <label class="checkbox-label"><input type="checkbox" name="subjects" value="English" /> English</label>
           <label class="checkbox-label"><input type="checkbox" name="subjects" value="Science" /> Science</label>
-          <label class="checkbox-label"><input type="checkbox" name="subjects" value="Local Languages" /> Local Languages</label>
+          <label class="checkbox-label checkbox-coming-soon"><input type="checkbox" name="subjects" value="Local Languages" disabled /> Local Languages <span class="cs-tag">Coming Soon</span></label>
         </div>
       </div>
       <div class="form-row">
