@@ -824,6 +824,8 @@ section { padding: 72px 0; }
 }
 .how-step h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
 .how-step p { font-size: 0.875rem; color: var(--muted); }
+.how-illustration { text-align: center; margin-top: 40px; }
+.how-illustration img { max-width: 820px; width: 100%; height: auto; border-radius: 16px; }
 
 /* ---- TUTOR SECTION ---- */
 .tutor-section {
@@ -1070,6 +1072,9 @@ section { padding: 72px 0; }
 }
 .checkbox-label:has(input:checked) { border-color: var(--navy); background: #DFF0EC; }
 .checkbox-label input { width: 16px; height: 16px; accent-color: var(--navy); }
+.checkbox-coming-soon { opacity: 0.5; cursor: not-allowed; }
+.checkbox-coming-soon input { cursor: not-allowed; }
+.cs-tag { font-size: 0.62rem; font-weight: 700; background: var(--bg); color: var(--muted); padding: 2px 7px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.4px; }
 
 /* ---- MODAL ---- */
 .modal-overlay {
