@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Frequently Asked Questions about ThinkViva tutoring — sessions, equipment, progress tracking, and more." />
+  <title>FAQs | ThinkViva</title>
+  <link rel="canonical" href="https://thinkviva.org/faq" />
+  <meta property="og:title" content="FAQs | ThinkViva" />
+  <meta property="og:url" content="https://thinkviva.org/faq" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://thinkviva.org/img/og-image.png" />
+  <link rel="icon" href="/img/favicon.ico" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<!-- TUTOR BAR -->
+<div class="tutor-bar">
+  Are you a tutor? Join our growing team of expert educators.
+  <a href="/apply">Apply here &rarr;</a>
+</div>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Main navigation">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="/img/logo.jpeg" alt="ThinkViva" class="nav-logo-img" />
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">ThinkViva</span>
+        <span class="nav-brand-tag">Smart Learning for Growing Minds</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#subjects">Subjects</a></li>
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/about">About Us</a></li>
+      <li><a href="/#contact">Contact Us</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" onclick="toggleMobileMenu(this)">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-cta">
+      <button class="btn btn-primary btn-sm" onclick="openBooking()">Book a Session</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="faq-page-hero">
+  <div class="container">
+    <span class="section-label" style="color:var(--celadon);">Got Questions?</span>
+    <h1>Frequently Asked Questions</h1>
+    <p>Everything you need to know about ThinkViva tutoring sessions.</p>
+  </div>
+</div>
+
+<!-- FAQ LIST -->
+<section style="background:var(--warm-white);padding:56px 0;">
+  <div class="container" style="max-width:760px;">
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span>How do you match tutors with students?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-a">
+          <p>We carefully pair each child with a tutor depending on their grade and tutor's expertise while also aligning their personality and learning style. Our goal is to create a supportive and engaging environment that helps each child thrive.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span>How long are the tutoring sessions?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-a">
+          <p>Each session typically lasts 45 mins – 60 mins (1hr), depending on the child's age, attention span, and tutoring package selected. We recommend consistency, such as one or two sessions per week.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span>Can tutoring help my child if they are struggling or falling behind?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-a">
+          <p>Absolutely. Our tutors assess your child's strengths and areas that need improvement, then create a personalized plan to close gaps, build confidence, and ensure they catch up academically.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span>Will my child get homework or practice between sessions?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-a">
+          <p>Yes! We provide targeted exercises and activities to reinforce concepts learned in each session. This helps children retain knowledge while keeping learning enjoyable and stress-free.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span>What makes your tutoring different from traditional tutoring or school?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-a">
+          <p>We combine personalized attention, interactive online tools, and a nurturing approach to make learning engaging. Unlike crowded classrooms, your child gets focused support tailored to their pace, helping them gain confidence and achieve lasting results.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span>Do I need to provide any special equipment?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-a">
+          <p>No special equipment is required. A computer or tablet with internet access, a webcam, and audio capabilities is sufficient. All learning materials are provided digitally by our tutors.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span>Will the sessions be recorded?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-a">
+          <p>Session recordings are optional and based on request by the parent or guardian.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span>How can I track my child's progress?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-a">
+          <p>Parents receive regular updates and progress reports. You can also connect directly with tutors after a session to discuss goals and achievements, giving you peace of mind that your child is thriving.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center" style="margin-top:40px;">
+      <p style="color:var(--muted);margin-bottom:16px;">Still have a question? We're happy to help.</p>
+      <a href="mailto:info@thinkviva.org" class="btn btn-outline-dark">&#128231; Email Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo-wrap">
+          <img src="/img/logo.jpeg" alt="ThinkViva" class="footer-logo" />
+          <div class="footer-brand-text">
+            <span class="footer-brand-name">ThinkViva</span>
+            <span class="footer-brand-tag">Smart Learning for Growing Minds</span>
+          </div>
+        </a>
+        <p>Fostering exceptional education and bridging learning gaps for under-served and all children. Connecting diaspora families to Nigerian tutors.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="/#subjects">Explore all Subjects</a></li>
+          <li><a href="/#how-it-works">How It Works</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get Started</h4>
+        <ul>
+          <li><a href="#" onclick="openBooking();return false;">Book a Session</a></li>
+        </ul>
+        <h4 style="margin-top:20px;">Contact Us</h4>
+        <ul>
+          <li><a href="mailto:info@thinkviva.org" class="footer-contact-link">&#128231; info@thinkviva.org</a></li>
+          <li><a href="https://wa.me/2347077340116" class="footer-whatsapp-link" target="_blank" rel="noopener">&#128222; +234 707 734 0116</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Stay Connected</h4>
+        <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;margin-bottom:12px;">Get learning tips and schedule updates.</p>
+        <form class="newsletter-form" onsubmit="return false;">
+          <input type="email" class="newsletter-input" placeholder="Enter your email" aria-label="Email address" />
+          <button type="submit" class="btn btn-primary btn-sm" style="padding:10px 16px;">&#8594;</button>
+        </form>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-btn" aria-label="LinkedIn">&#128279;</a>
+          <a href="#" class="footer-social-btn" aria-label="Threads">&#64;</a>
+          <a href="#" class="footer-social-btn" aria-label="Instagram">&#128247;</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 ThinkViva. All rights reserved. &nbsp;&middot;&nbsp; RC: 9552865</span>
+      <a href="/terms" class="footer-terms-link">Terms &amp; Conditions</a>
+    </div>
+  </div>
+</footer>
+
+<div class="mobile-sticky" id="mobile-sticky">
+  <div class="container">
+    <button class="btn btn-primary btn-block btn-lg" onclick="openBooking()">&#128197; Book a Session</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="/js/main.js"></script>
+
+<style>
+.faq-page-hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+  padding: 56px 0;
+  text-align: center;
+}
+.faq-page-hero h1 { color: var(--white); font-size: clamp(1.8rem,3vw,2.4rem); font-weight:800; margin-bottom:10px; }
+.faq-page-hero p { color:rgba(255,255,255,0.82); font-size:1rem; max-width:520px; margin:0 auto; line-height:1.7; }
+</style>
+</body>
+</html>

@@ -28,6 +28,9 @@ app.get('/terms', (req, res) =>
 app.get('/about', (req, res) =>
   res.sendFile(path.join(__dirname, '../public/about.html'))
 );
+app.get('/faq', (req, res) =>
+  res.sendFile(path.join(__dirname, '../public/faq.html'))
+);
 
 // Serverless-safe connection cache — reuses the connection across warm invocations
 let cachedConn = null;
