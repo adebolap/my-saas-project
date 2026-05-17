@@ -936,7 +936,12 @@ section { padding: 72px 0; }
 #how-it-works { background: var(--bg); }
 
 /* ---- READY CTA BANNER ---- */
-.ready-section { background: var(--tea); padding: 48px 0; }
+.ready-section {
+  background:
+    linear-gradient(rgba(243,233,210,0.88), rgba(243,233,210,0.88)),
+    url('/img/lampstand%20pic.jpeg') center/cover no-repeat;
+  padding: 48px 0;
+}
 .ready-inner {
   display: flex;
   align-items: center;
