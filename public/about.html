@@ -92,17 +92,17 @@
     </div>
     <div class="values-grid">
       <div class="value-card">
-        <div class="value-icon">&#127919;</div>
+        <div class="value-icon"><img src="/img/icons/icon-thumbsup.png" alt="Excellence" class="value-icon-img" /></div>
         <h3>Excellence</h3>
         <p>We hold every session to a high standard: vetted tutors, structured lessons, and measurable progress.</p>
       </div>
       <div class="value-card">
-        <div class="value-icon">&#128100;</div>
+        <div class="value-icon"><img src="/img/icons/icon-idea.png" alt="Personalisation" class="value-icon-img" /></div>
         <h3>Personalisation</h3>
         <p>Every child learns differently. We tailor sessions to your child's pace, learning style, and goals.</p>
       </div>
       <div class="value-card">
-        <div class="value-icon">&#128275;</div>
+        <div class="value-icon"><img src="/img/icons/icon-support.png" alt="Accessibility" class="value-icon-img" /></div>
         <h3>Accessibility</h3>
         <p>Quality education should reach every child, regardless of location, time zone, or background.</p>
       </div>
@@ -192,7 +192,8 @@
 .about-stat small { font-size:0.72rem; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:0.4px; }
 .values-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
 .value-card { background:var(--white); border-radius:var(--radius); padding:22px 18px; box-shadow:var(--shadow); text-align:center; }
-.value-icon { font-size:1.8rem; margin-bottom:10px; }
+.value-icon { font-size:1.8rem; margin-bottom:10px; display:flex; justify-content:center; }
+.value-icon-img { width:48px; height:48px; object-fit:contain; }
 .value-card h3 { font-size:0.95rem; font-weight:700; color:var(--navy); margin-bottom:8px; }
 .value-card p { font-size:0.845rem; color:var(--muted); line-height:1.55; }
 .team-placeholder { text-align:center; padding:40px; background:var(--bg); border-radius:14px; border:2px dashed var(--border); }
