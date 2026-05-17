@@ -944,9 +944,10 @@ section { padding: 72px 0; }
 }
 .ready-inner {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 32px;
+  text-align: center;
+  gap: 16px;
 }
 .ready-text h2 {
   font-size: clamp(1.4rem, 2.5vw, 1.9rem);
