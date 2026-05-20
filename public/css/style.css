@@ -196,7 +196,7 @@ body {
 /* ---- HERO ---- */
 .hero {
   background: var(--warm-white);
-  padding: 64px 0 72px;
+  padding: 48px 0 52px;
   position: relative;
   overflow: hidden;
 }
@@ -205,7 +205,7 @@ body {
 .hero-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  gap: 44px;
   align-items: center;
 }
 .hero-tagline {
@@ -220,7 +220,7 @@ body {
   align-items: center;
   gap: 10px;
   margin-top: 0;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   flex-wrap: wrap;
 }
 .hero-flags-label {
@@ -261,14 +261,14 @@ body {
   font-weight: 800;
   color: var(--navy);
   line-height: 1.18;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
   letter-spacing: -0.4px;
 }
 .hero h1 em { color: var(--gold); font-style: normal; }
 .hero p {
   color: var(--text);
   font-size: 1.05rem;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   max-width: 480px;
   line-height: 1.65;
 }
@@ -278,8 +278,8 @@ body {
 .hero-trust {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px 22px;
-  margin-top: 22px;
+  gap: 12px 20px;
+  margin-top: 16px;
   max-width: 540px;
 }
 .hero-trust-item {
@@ -1504,7 +1504,7 @@ section { padding: 72px 0; }
   section { padding: 48px 0; }
   .hero-inner { grid-template-columns: 1fr; gap: 32px; }
   .hero-visual { display: block; max-width: 480px; margin: 0 auto; }
-  .hero { padding: 48px 0 56px; }
+  .hero { padding: 36px 0 40px; }
   .hero h1 { font-size: 1.85rem; line-height: 1.22; }
   .hero p { font-size: 1rem; margin-bottom: 28px; }
   .trust-grid { grid-template-columns: 1fr; gap: 20px; }
