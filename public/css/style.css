@@ -763,7 +763,11 @@ section { padding: 72px 0; }
 .stat-item p { color: rgba(255,255,255,0.75); font-size: 0.875rem; }
 
 /* ---- SUBJECTS ---- */
-.subjects-section { background: var(--warm-white); }
+.subjects-section {
+  background:
+    linear-gradient(rgba(250,247,242,0.88), rgba(250,247,242,0.88)),
+    url('/img/illustration-benefits.png') center/cover no-repeat;
+}
 .subjects-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
