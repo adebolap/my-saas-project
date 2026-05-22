@@ -82,6 +82,7 @@ if (bookingForm) {
     data.country    = fd.get('country');
     data.childName  = fd.get('childName') || undefined;
     data.grade      = fd.get('grade');
+    data.package    = fd.get('package') || undefined;
     data.subjects   = fd.getAll('subjects');
     data.preferredDays = fd.getAll('preferredDays');
     data.preferredTime = fd.get('preferredTime') || undefined;

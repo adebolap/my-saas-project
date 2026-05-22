@@ -1130,9 +1130,38 @@ section { padding: 72px 0; }
 }
 .checkbox-label:has(input:checked) { border-color: var(--navy); background: #DFF0EC; }
 .checkbox-label input { width: 16px; height: 16px; accent-color: var(--navy); }
-.checkbox-coming-soon { opacity: 0.5; cursor: not-allowed; }
+.checkbox-coming-soon { opacity: 0.55; cursor: not-allowed; }
 .checkbox-coming-soon input { cursor: not-allowed; }
-.cs-tag { font-size: 0.62rem; font-weight: 700; background: var(--bg); color: var(--muted); padding: 2px 7px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.4px; }
+.cs-tag { display: inline-block; font-size: 0.62rem; font-weight: 700; background: var(--bg); color: var(--muted); padding: 2px 7px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.4px; white-space: nowrap; }
+
+/* ---- PACKAGE PICKER ---- */
+.package-picker { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.package-option { cursor: pointer; }
+.package-option input[type=radio] { display: none; }
+.package-card {
+  display: flex; flex-direction: column; gap: 3px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  background: var(--warm-white);
+  transition: all 0.2s;
+  position: relative;
+  min-height: 58px;
+}
+.package-option input:checked + .package-card {
+  border-color: var(--navy);
+  background: #DFF0EC;
+}
+.package-card:hover { border-color: var(--gold); }
+.package-name { font-size: 0.85rem; font-weight: 700; color: var(--navy); }
+.package-detail { font-size: 0.75rem; color: var(--muted); }
+.package-badge {
+  position: absolute; top: -8px; right: 8px;
+  background: var(--gold); color: var(--white);
+  font-size: 0.6rem; font-weight: 700;
+  padding: 2px 7px; border-radius: 10px;
+  text-transform: uppercase; letter-spacing: 0.4px;
+}
 
 /* ---- MODAL ---- */
 .modal-overlay {
@@ -1552,6 +1581,7 @@ section { padding: 72px 0; }
   .hero-trust { flex-direction: column; gap: 10px; align-items: flex-start; }
   .btn-lg { width: 100%; justify-content: center; }
   .subjects-grid { grid-template-columns: 1fr; }
+  .package-picker { grid-template-columns: 1fr; }
   .how-grid { grid-template-columns: 1fr; }
   .metric-grid { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
