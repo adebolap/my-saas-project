@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const TutorApplication = require('../models/TutorApplication');
 const Session = require('../models/Session');
+const { notifyAdminNewApplication, confirmApplicant } = require('../services/email');
 
 const IT_TEST = [
   {
@@ -74,6 +75,22 @@ router.post('/', async (req, res) => {
       status: passed ? 'equipment_check' : 'it_test_pending',
     });
     await tutor.save();
+
+    // Send emails in background — don't block the response
+    notifyAdminNewApplication({
+      name: applicationData.name,
+      email: applicationData.email,
+      subjects: applicationData.subjects || [],
+      score: itTestScore,
+      passed,
+      id: tutor._id,
+    });
+    confirmApplicant({
+      name: applicationData.name,
+      email: applicationData.email,
+      score: itTestScore,
+      passed,
+    });
 
     res.status(201).json({
       success: true,
