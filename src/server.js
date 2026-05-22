@@ -8,6 +8,28 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
 
+// Serverless-safe connection cache — reuses the connection across warm invocations
+let cachedConn = null;
+
+async function connectDB() {
+  if (cachedConn && mongoose.connection.readyState === 1) return cachedConn;
+  cachedConn = await mongoose.connect(process.env.MONGODB_URI);
+  return cachedConn;
+}
+
+if (process.env.VERCEL) {
+  // On Vercel: connect lazily per request — must be registered BEFORE routes
+  app.use(async (req, res, next) => {
+    try {
+      await connectDB();
+      next();
+    } catch (err) {
+      console.error('DB connection error:', err);
+      res.status(503).json({ error: 'Database unavailable. Please try again.' });
+    }
+  });
+}
+
 app.use('/api/leads', require('./routes/leads'));
 app.use('/api/tutors', require('./routes/tutors'));
 app.use('/api/admin', require('./routes/admin'));
@@ -32,27 +54,7 @@ app.get('/faq', (req, res) =>
   res.sendFile(path.join(__dirname, '../public/faq.html'))
 );
 
-// Serverless-safe connection cache — reuses the connection across warm invocations
-let cachedConn = null;
-
-async function connectDB() {
-  if (cachedConn && mongoose.connection.readyState === 1) return cachedConn;
-  cachedConn = await mongoose.connect(process.env.MONGODB_URI);
-  return cachedConn;
-}
-
-if (process.env.VERCEL) {
-  // On Vercel: connect lazily per request so cold starts don't fail
-  app.use(async (req, res, next) => {
-    try {
-      await connectDB();
-      next();
-    } catch (err) {
-      console.error('DB connection error:', err);
-      res.status(503).json({ error: 'Database unavailable. Please try again.' });
-    }
-  });
-} else {
+if (!process.env.VERCEL) {
   // Local dev: connect once then start listening
   connectDB()
     .then(() => {
