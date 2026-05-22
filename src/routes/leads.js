@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Lead = require('../models/Lead');
 const Session = require('../models/Session');
-const { notifyAdminNewLead, confirmLead } = require('../services/email');
+const { notifyAdminNewLead } = require('../services/email');
 
 router.post('/', async (req, res) => {
   try {
@@ -20,14 +20,6 @@ router.post('/', async (req, res) => {
       message: lead.message,
       id: lead._id,
     }).catch(err => console.error('[email] admin lead alert failed:', err.message));
-
-    confirmLead({
-      parentName: lead.parentName,
-      email: lead.email,
-      childName: lead.childName,
-      grade: lead.grade,
-      subjects: lead.subjects,
-    }).catch(err => console.error('[email] lead confirmation failed:', err.message));
 
     res.status(201).json({
       success: true,

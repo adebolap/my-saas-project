@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const TutorApplication = require('../models/TutorApplication');
 const Session = require('../models/Session');
-const { notifyAdminNewApplication, confirmApplicant } = require('../services/email');
+const { notifyAdminNewApplication } = require('../services/email');
 
 const IT_TEST = [
   {
@@ -115,13 +115,6 @@ router.post('/', async (req, res) => {
       passed,
       id: tutor._id,
     }).catch(err => console.error('[email] admin tutor alert failed:', err.message));
-
-    confirmApplicant({
-      name: applicationData.name,
-      email: applicationData.email,
-      score: itTestScore,
-      passed,
-    }).catch(err => console.error('[email] tutor confirmation failed:', err.message));
 
     res.status(201).json({
       success: true,

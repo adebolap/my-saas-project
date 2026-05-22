@@ -142,4 +142,4 @@ async function confirmApplicant({ name, email, score, passed }) {
   });
 }
 
-module.exports = { notifyAdminNewApplication, confirmApplicant, notifyAdminNewLead, confirmLead };
+module.exports = { notifyAdminNewApplication, notifyAdminNewLead };
