@@ -16,6 +16,7 @@ router.post('/', async (req, res) => {
       country: lead.country,
       childName: lead.childName,
       grade: lead.grade,
+      package: lead.package,
       subjects: lead.subjects,
       message: lead.message,
       id: lead._id,

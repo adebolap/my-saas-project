@@ -21,7 +21,7 @@ async function send({ to, subject, html }) {
   }
 }
 
-async function notifyAdminNewLead({ parentName, email, phone, country, childName, grade, subjects, message, id }) {
+async function notifyAdminNewLead({ parentName, email, phone, country, childName, grade, package: pkg, subjects, message, id }) {
   await send({
     to: ADMIN,
     subject: `New Booking Request — ${parentName}`,
@@ -34,6 +34,7 @@ async function notifyAdminNewLead({ parentName, email, phone, country, childName
           ${phone ? `<tr><td style="padding:8px 0;color:#555;">Phone</td><td style="padding:8px 0;">${phone}</td></tr>` : ''}
           ${childName ? `<tr><td style="padding:8px 0;color:#555;">Child</td><td style="padding:8px 0;">${childName}</td></tr>` : ''}
           <tr><td style="padding:8px 0;color:#555;">Grade</td><td style="padding:8px 0;">${grade}</td></tr>
+          ${pkg ? `<tr><td style="padding:8px 0;color:#555;">Package</td><td style="padding:8px 0;font-weight:600;color:#1E5A3A;">${pkg}</td></tr>` : ''}
           <tr><td style="padding:8px 0;color:#555;">Subjects</td><td style="padding:8px 0;">${(subjects || []).join(', ') || '—'}</td></tr>
           <tr><td style="padding:8px 0;color:#555;">Country</td><td style="padding:8px 0;">${country}</td></tr>
           ${message ? `<tr><td style="padding:8px 0;color:#555;vertical-align:top;">Note</td><td style="padding:8px 0;">${message}</td></tr>` : ''}
