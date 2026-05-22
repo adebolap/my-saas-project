@@ -193,6 +193,11 @@ async function submitApplication() {
       body: JSON.stringify(payload),
     });
     const json = await res.json();
+    if (json.alreadyApplied) {
+      renderAlreadyApplied(json.message);
+      updateStepUI(4);
+      return;
+    }
     renderResult(json);
     updateStepUI(4);
   } catch {
@@ -240,5 +245,16 @@ function renderResult(json) {
       </div>
     `}
     <a href="/" class="btn btn-navy mt-8" style="margin-top:24px;display:inline-flex;">← Back to Home</a>
+  `;
+}
+
+function renderAlreadyApplied(message) {
+  const el = document.getElementById('score-display');
+  if (!el) return;
+  el.innerHTML = `
+    <div style="font-size:3rem;margin-bottom:16px;">📋</div>
+    <h2 style="color:var(--navy);font-size:1.3rem;font-weight:800;margin-bottom:12px;">Application Already Submitted</h2>
+    <p style="color:var(--muted);max-width:420px;margin:0 auto 24px;font-size:0.95rem;">${message}</p>
+    <a href="/" class="btn btn-navy" style="display:inline-flex;">← Back to Home</a>
   `;
 }

@@ -60,6 +60,36 @@ router.post('/', async (req, res) => {
   try {
     const { itTestAnswers, ...applicationData } = req.body;
 
+    // Check for existing application by email
+    const existing = await TutorApplication.findOne({
+      email: applicationData.email?.toLowerCase().trim(),
+    }).sort({ createdAt: -1 });
+
+    if (existing) {
+      const BLOCKED = ['equipment_check', 'interview_scheduled', 'approved'];
+      if (BLOCKED.includes(existing.status)) {
+        return res.status(409).json({
+          success: false,
+          alreadyApplied: true,
+          message: `You have already submitted an application and it is currently under review. Please wait for our team to contact you.`,
+        });
+      }
+      // Failed applicant — enforce 7-day cooldown
+      if (existing.status === 'it_test_pending') {
+        const daysSince = (Date.now() - new Date(existing.createdAt)) / (1000 * 60 * 60 * 24);
+        if (daysSince < 7) {
+          const canRetry = new Date(existing.createdAt);
+          canRetry.setDate(canRetry.getDate() + 7);
+          const retryDate = canRetry.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+          return res.status(409).json({
+            success: false,
+            alreadyApplied: true,
+            message: `You can re-apply from ${retryDate}. Please use that time to review your tech setup.`,
+          });
+        }
+      }
+    }
+
     let itTestScore = 0;
     if (itTestAnswers && typeof itTestAnswers === 'object') {
       IT_TEST.forEach((q) => {
