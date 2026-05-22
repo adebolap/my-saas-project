@@ -7,7 +7,7 @@ const leadSchema = new mongoose.Schema({
   country: { type: String, required: true, trim: true },
   timezone: { type: String },
   childName: { type: String, trim: true },
-  grade: { type: String, enum: ['P1', 'P2', 'P3', 'P4', 'P5'], required: true },
+  grade: { type: String, enum: ['K', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6'], required: true },
   subjects: [{ type: String, enum: ['Math', 'English', 'Science', 'Local Languages'] }],
   preferredDays: [{ type: String }],
   preferredTime: { type: String },
