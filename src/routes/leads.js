@@ -2,11 +2,32 @@ const express = require('express');
 const router = express.Router();
 const Lead = require('../models/Lead');
 const Session = require('../models/Session');
+const { notifyAdminNewLead, confirmLead } = require('../services/email');
 
 router.post('/', async (req, res) => {
   try {
     const lead = new Lead(req.body);
     await lead.save();
+
+    notifyAdminNewLead({
+      parentName: lead.parentName,
+      email: lead.email,
+      phone: lead.phone,
+      country: lead.country,
+      childName: lead.childName,
+      grade: lead.grade,
+      subjects: lead.subjects,
+      message: lead.message,
+      id: lead._id,
+    });
+    confirmLead({
+      parentName: lead.parentName,
+      email: lead.email,
+      childName: lead.childName,
+      grade: lead.grade,
+      subjects: lead.subjects,
+    });
+
     res.status(201).json({
       success: true,
       message:
