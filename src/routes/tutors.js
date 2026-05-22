@@ -84,13 +84,14 @@ router.post('/', async (req, res) => {
       score: itTestScore,
       passed,
       id: tutor._id,
-    });
+    }).catch(err => console.error('[email] admin tutor alert failed:', err.message));
+
     confirmApplicant({
       name: applicationData.name,
       email: applicationData.email,
       score: itTestScore,
       passed,
-    });
+    }).catch(err => console.error('[email] tutor confirmation failed:', err.message));
 
     res.status(201).json({
       success: true,
