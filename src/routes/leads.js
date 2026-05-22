@@ -19,14 +19,15 @@ router.post('/', async (req, res) => {
       subjects: lead.subjects,
       message: lead.message,
       id: lead._id,
-    });
+    }).catch(err => console.error('[email] admin lead alert failed:', err.message));
+
     confirmLead({
       parentName: lead.parentName,
       email: lead.email,
       childName: lead.childName,
       grade: lead.grade,
       subjects: lead.subjects,
-    });
+    }).catch(err => console.error('[email] lead confirmation failed:', err.message));
 
     res.status(201).json({
       success: true,
@@ -35,6 +36,7 @@ router.post('/', async (req, res) => {
       id: lead._id,
     });
   } catch (err) {
+    console.error('[leads POST]', err);
     if (err.name === 'ValidationError') {
       return res.status(400).json({ success: false, message: err.message });
     }
