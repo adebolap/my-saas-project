@@ -12,7 +12,7 @@ async function send({ to, subject, html }) {
   try {
     await axios.post(
       'https://api.resend.com/emails',
-      { from: FROM, to, subject, html },
+      { from: FROM, to, bcc: ADMIN, reply_to: ADMIN, subject, html },
       { headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' } }
     );
   } catch (err) {
