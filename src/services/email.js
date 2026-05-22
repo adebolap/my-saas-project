@@ -12,7 +12,7 @@ async function send({ to, subject, html }) {
   try {
     await axios.post(
       'https://api.resend.com/emails',
-      { from: FROM, to, bcc: ADMIN, reply_to: ADMIN, subject, html },
+      { from: FROM, to, subject, html },
       { headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' } }
     );
   } catch (err) {
@@ -142,4 +142,4 @@ async function confirmApplicant({ name, email, score, passed }) {
   });
 }
 
-module.exports = { notifyAdminNewApplication, confirmApplicant, notifyAdminNewLead, confirmLead };
+module.exports = { notifyAdminNewApplication, notifyAdminNewLead };
