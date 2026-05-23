@@ -171,26 +171,27 @@ async function submitApplication() {
     document.getElementById('t-equipment-notes')?.value || '',
   ].filter(Boolean).join(' | ');
 
-  const payload = {
-    name:            document.getElementById('t-name').value.trim(),
-    email:           document.getElementById('t-email').value.trim(),
-    phone:           document.getElementById('t-phone').value.trim(),
-    location:        document.getElementById('t-location').value.trim(),
-    qualification:   document.getElementById('t-qualification').value,
-    experience:      document.getElementById('t-experience').value,
-    subjects,
-    grades,
-    availability:    days.map(d => ({ day: d, startTime: '', endTime: '' })),
-    linkedinUrl:     document.getElementById('t-linkedin').value.trim() || undefined,
-    equipmentNotes,
-    itTestAnswers:   itAnswers,
-  };
+  const fd = new FormData();
+  fd.append('name',           document.getElementById('t-name').value.trim());
+  fd.append('email',          document.getElementById('t-email').value.trim());
+  fd.append('phone',          document.getElementById('t-phone').value.trim());
+  fd.append('location',       document.getElementById('t-location').value.trim());
+  fd.append('qualification',  document.getElementById('t-qualification').value);
+  fd.append('experience',     document.getElementById('t-experience').value);
+  fd.append('linkedinUrl',    document.getElementById('t-linkedin').value.trim());
+  fd.append('equipmentNotes', equipmentNotes);
+  fd.append('subjects',       JSON.stringify(subjects));
+  fd.append('grades',         JSON.stringify(grades));
+  fd.append('availability',   JSON.stringify(days.map(d => ({ day: d, startTime: '', endTime: '' }))));
+  fd.append('itTestAnswers',  JSON.stringify(itAnswers));
+
+  const cvFile = document.getElementById('t-cv')?.files?.[0];
+  if (cvFile) fd.append('cv', cvFile);
 
   try {
     const res  = await fetch('/api/tutors', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body: fd,
     });
     const json = await res.json();
     if (json.alreadyApplied) {

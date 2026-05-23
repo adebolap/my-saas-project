@@ -1,8 +1,19 @@
 const express = require('express');
-const router = express.Router();
+const multer  = require('multer');
+const router  = express.Router();
 const TutorApplication = require('../models/TutorApplication');
 const Session = require('../models/Session');
 const { notifyAdminNewApplication } = require('../services/email');
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
+  fileFilter(req, file, cb) {
+    const allowed = ['application/pdf', 'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+    cb(null, allowed.includes(file.mimetype));
+  },
+});
 
 const IT_TEST = [
   {
@@ -56,9 +67,34 @@ router.get('/it-test', (req, res) => {
   res.json(IT_TEST.map(({ id, question, options }) => ({ id, question, options })));
 });
 
-router.post('/', async (req, res) => {
+router.post('/', upload.single('cv'), async (req, res) => {
   try {
-    const { itTestAnswers, ...applicationData } = req.body;
+    // Body arrives as multipart/form-data; arrays and objects are JSON-encoded strings
+    const body = req.body;
+    const parseJSON = (val) => { try { return JSON.parse(val); } catch { return val; } };
+
+    const itTestAnswers    = parseJSON(body.itTestAnswers);
+    const subjects         = parseJSON(body.subjects);
+    const grades           = parseJSON(body.grades);
+    const availability     = parseJSON(body.availability);
+
+    const applicationData = {
+      name:           body.name,
+      email:          body.email,
+      phone:          body.phone,
+      location:       body.location,
+      timezone:       body.timezone,
+      qualification:  body.qualification,
+      experience:     body.experience,
+      linkedinUrl:    body.linkedinUrl,
+      equipmentNotes: body.equipmentNotes,
+      subjects,
+      grades,
+      availability,
+    };
+
+    // Strip undefined keys so Mongoose defaults apply correctly
+    Object.keys(applicationData).forEach(k => applicationData[k] === undefined && delete applicationData[k]);
 
     // Check for existing application by email
     const existing = await TutorApplication.findOne({
@@ -98,22 +134,43 @@ router.post('/', async (req, res) => {
     }
 
     const passed = itTestScore >= 60;
-    const tutor = new TutorApplication({
+
+    const tutorDoc = {
       ...applicationData,
       itTestAnswers,
       itTestScore,
       status: passed ? 'equipment_check' : 'it_test_pending',
-    });
+    };
+
+    if (req.file) {
+      tutorDoc.cvData     = req.file.buffer;
+      tutorDoc.cvFilename = req.file.originalname;
+      tutorDoc.cvMimeType = req.file.mimetype;
+    }
+
+    const tutor = new TutorApplication(tutorDoc);
     await tutor.save();
 
     // Send emails in background — don't block the response
     notifyAdminNewApplication({
-      name: applicationData.name,
-      email: applicationData.email,
-      subjects: applicationData.subjects || [],
-      score: itTestScore,
+      name:           applicationData.name,
+      email:          applicationData.email,
+      phone:          applicationData.phone,
+      location:       applicationData.location,
+      qualification:  applicationData.qualification,
+      experience:     applicationData.experience,
+      subjects:       applicationData.subjects || [],
+      grades:         applicationData.grades || [],
+      availability:   applicationData.availability || [],
+      linkedinUrl:    applicationData.linkedinUrl,
+      equipmentNotes: applicationData.equipmentNotes,
+      itTestAnswers,
+      score:          itTestScore,
       passed,
-      id: tutor._id,
+      id:             tutor._id,
+      cvData:         req.file?.buffer,
+      cvFilename:     req.file?.originalname,
+      cvMimeType:     req.file?.mimetype,
     }).catch(err => console.error('[email] admin tutor alert failed:', err.message));
 
     res.status(201).json({

@@ -3,16 +3,18 @@ const axios = require('axios');
 const ADMIN = process.env.ADMIN_EMAIL || 'info@thinkviva.org';
 const FROM  = process.env.FROM_EMAIL  || 'ThinkViva <onboarding@resend.dev>';
 
-async function send({ to, subject, html }) {
+async function send({ to, subject, html, attachments }) {
   const key = process.env.RESEND_API_KEY;
   if (!key) {
     console.warn('[email] RESEND_API_KEY not set — skipping:', subject);
     return;
   }
+  const body = { from: FROM, to, subject, html };
+  if (attachments?.length) body.attachments = attachments;
   try {
     await axios.post(
       'https://api.resend.com/emails',
-      { from: FROM, to, subject, html },
+      body,
       { headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' } }
     );
   } catch (err) {
@@ -73,25 +75,101 @@ async function confirmLead({ parentName, email, childName, grade, subjects }) {
   });
 }
 
-async function notifyAdminNewApplication({ name, email, subjects, score, passed, id }) {
+const IT_QUESTIONS = [
+  'Which tool would you use for a live video call with your student?',
+  'What is the minimum internet speed recommended for online teaching?',
+  'A student cannot hear you during a Zoom call. What do you check first?',
+  'What is Google Drive primarily used for?',
+  'How would you share a worksheet with a student during class?',
+];
+const IT_OPTIONS = [
+  ['WhatsApp Chat only', 'Zoom or Google Meet', 'SMS', 'Email'],
+  ['1 Mbps', '5 Mbps', '10 Mbps', '50 Mbps'],
+  ['Restart your entire computer', 'Check that your microphone is not muted in Zoom', 'Ask the student to leave and rejoin', 'End the call immediately'],
+  ['Video calls only', 'Storing and sharing files in the cloud', 'Internet browsing', 'Sending money transfers'],
+  ['Print it and post it to them', 'Share your screen or send a Google Drive link in the Zoom chat', 'Read the whole worksheet aloud only', 'Take a photo and send it on WhatsApp after the class'],
+];
+
+function row(label, value) {
+  if (!value && value !== 0) return '';
+  return `<tr><td style="padding:7px 12px 7px 0;color:#555;vertical-align:top;white-space:nowrap;">${label}</td><td style="padding:7px 0;font-weight:500;">${value}</td></tr>`;
+}
+
+async function notifyAdminNewApplication({
+  name, email, phone, location, qualification, experience,
+  subjects, grades, availability, linkedinUrl, equipmentNotes,
+  itTestAnswers, score, passed, id, cvData, cvFilename, cvMimeType,
+}) {
   const statusBadge = passed
     ? '<span style="color:#1E5A3A;font-weight:700;">PASSED ✓</span>'
     : '<span style="color:#C0392B;font-weight:700;">FAILED ✗</span>';
 
+  const availDays = Array.isArray(availability)
+    ? availability.map(a => a.day).filter(Boolean).join(', ') || '—'
+    : '—';
+
+  const itAnswerRows = IT_QUESTIONS.map((q, i) => {
+    const qid = i + 1;
+    const chosen = itTestAnswers?.[qid] ?? itTestAnswers?.[String(qid)];
+    const answer = (chosen !== undefined && chosen !== null)
+      ? (IT_OPTIONS[i]?.[parseInt(chosen)] || `Option ${chosen}`)
+      : '<em style="color:#999;">Not answered</em>';
+    const isCorrect = parseInt(chosen) === 1;
+    const mark = (chosen !== undefined && chosen !== null)
+      ? (isCorrect ? '<span style="color:#1E5A3A;">✓</span>' : '<span style="color:#C0392B;">✗</span>')
+      : '';
+    return `
+      <tr>
+        <td colspan="2" style="padding:6px 0 2px;font-size:13px;color:#444;">${qid}. ${q}</td>
+      </tr>
+      <tr>
+        <td style="padding:0 12px 8px 16px;font-size:13px;" colspan="2">↳ ${answer} ${mark}</td>
+      </tr>`;
+  }).join('');
+
+  const attachments = [];
+  if (cvData) {
+    attachments.push({
+      filename: cvFilename || 'cv.pdf',
+      content: cvData.toString('base64'),
+    });
+  }
+
   await send({
     to: ADMIN,
     subject: `New Tutor Application — ${name}`,
+    attachments,
     html: `
-      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;">
-        <h2 style="color:#1E5A3A;">New Tutor Application Received</h2>
-        <table style="width:100%;border-collapse:collapse;font-size:15px;">
-          <tr><td style="padding:8px 0;color:#555;">Name</td><td style="padding:8px 0;font-weight:600;">${name}</td></tr>
-          <tr><td style="padding:8px 0;color:#555;">Email</td><td style="padding:8px 0;"><a href="mailto:${email}">${email}</a></td></tr>
-          <tr><td style="padding:8px 0;color:#555;">Subjects</td><td style="padding:8px 0;">${subjects.join(', ')}</td></tr>
-          <tr><td style="padding:8px 0;color:#555;">IT Score</td><td style="padding:8px 0;">${score}% — ${statusBadge}</td></tr>
-          <tr><td style="padding:8px 0;color:#555;">Application ID</td><td style="padding:8px 0;font-family:monospace;font-size:13px;">${id}</td></tr>
+      <div style="font-family:sans-serif;max-width:620px;margin:0 auto;color:#222;">
+        <h2 style="color:#1E5A3A;margin-bottom:4px;">New Tutor Application Received</h2>
+        <p style="color:#888;font-size:13px;margin-top:0;">ID: <code>${id}</code></p>
+
+        <h3 style="color:#1E5A3A;border-bottom:1px solid #eee;padding-bottom:6px;">Personal Information</h3>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          ${row('Name', `<strong>${name}</strong>`)}
+          ${row('Email', `<a href="mailto:${email}">${email}</a>`)}
+          ${row('Phone', phone)}
+          ${row('Location', location)}
+          ${row('Qualification', qualification)}
+          ${row('Experience', experience)}
+          ${row('Subjects', (subjects || []).join(', ') || '—')}
+          ${row('Grades', (grades || []).join(', ') || '—')}
+          ${row('Availability', availDays)}
+          ${linkedinUrl ? row('LinkedIn', `<a href="${linkedinUrl}">${linkedinUrl}</a>`) : ''}
+          ${row('CV', cvFilename ? `Attached (${cvFilename})` : '<em style="color:#999;">Not provided</em>')}
         </table>
-        <p style="margin-top:24px;color:#888;font-size:13px;">Review in the admin dashboard.</p>
+
+        <h3 style="color:#1E5A3A;border-bottom:1px solid #eee;padding-bottom:6px;margin-top:24px;">Equipment &amp; Setup</h3>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          ${row('Notes', equipmentNotes || '—')}
+        </table>
+
+        <h3 style="color:#1E5A3A;border-bottom:1px solid #eee;padding-bottom:6px;margin-top:24px;">IT Readiness Test — ${score}% ${statusBadge}</h3>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          ${itAnswerRows}
+        </table>
+
+        <p style="margin-top:24px;color:#888;font-size:12px;">Review and update status in the admin dashboard.</p>
       </div>
     `,
   });
