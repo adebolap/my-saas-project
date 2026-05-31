@@ -3,7 +3,7 @@ const multer  = require('multer');
 const router  = express.Router();
 const TutorApplication = require('../models/TutorApplication');
 const Session = require('../models/Session');
-const { notifyAdminNewApplication } = require('../services/email');
+const { notifyAdminNewApplication, confirmApplicant } = require('../services/email');
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -172,6 +172,9 @@ router.post('/', upload.single('cv'), async (req, res) => {
       cvFilename:     req.file?.originalname,
       cvMimeType:     req.file?.mimetype,
     }).catch(err => console.error('[email] admin tutor alert failed:', err.message));
+
+    confirmApplicant({ name: applicationData.name, email: applicationData.email })
+      .catch(err => console.error('[email] applicant confirm failed:', err.message));
 
     res.status(201).json({
       success: true,

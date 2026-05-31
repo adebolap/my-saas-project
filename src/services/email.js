@@ -175,50 +175,25 @@ async function notifyAdminNewApplication({
   });
 }
 
-async function confirmApplicant({ name, email, score, passed }) {
-  const html = passed
-    ? `
-      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;">
-        <h2 style="color:#1E5A3A;">Application Received — You Passed!</h2>
-        <p>Hi ${name},</p>
-        <p>Great news! Your ThinkViva tutor application has been received and you scored <strong>${score}%</strong> on the IT readiness test.</p>
-        <div style="background:#EAFAF1;border-left:4px solid #1E5A3A;padding:16px 20px;border-radius:6px;margin:20px 0;">
-          <p style="margin:0;font-weight:700;color:#1E5A3A;">What happens next:</p>
-          <ul style="margin:12px 0 0;padding-left:20px;color:#333;">
-            <li style="margin-bottom:8px;">Our team will review your application within <strong>48 hours</strong></li>
-            <li style="margin-bottom:8px;">You'll receive a follow-up email with further instructions</li>
-            <li>An equipment verification call will be scheduled</li>
-          </ul>
-        </div>
-        <p style="color:#555;">Thank you for wanting to be part of the ThinkViva family. We'll be in touch soon.</p>
-        <p style="color:#555;">— The ThinkViva Team</p>
-      </div>
-    `
-    : `
-      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;">
-        <h2 style="color:#1E5A3A;">Application Received</h2>
-        <p>Hi ${name},</p>
-        <p>Thank you for applying to teach with ThinkViva. Your application has been submitted — however, your IT readiness score was <strong>${score}%</strong> and we require 60% or above.</p>
-        <div style="background:#FEF9E7;border-left:4px solid #F39C12;padding:16px 20px;border-radius:6px;margin:20px 0;">
-          <p style="margin:0;font-weight:700;color:#9A7D0A;">Tips to improve before re-applying:</p>
-          <ul style="margin:12px 0 0;padding-left:20px;color:#333;">
-            <li style="margin-bottom:8px;">Download Zoom and practise using it</li>
-            <li style="margin-bottom:8px;">Explore Google Drive and Google Meet</li>
-            <li>You may re-apply after 7 days</li>
-          </ul>
-        </div>
-        <p style="color:#555;">We hope to hear from you again soon.</p>
-        <p style="color:#555;">— The ThinkViva Team</p>
-      </div>
-    `;
-
+async function confirmApplicant({ name, email }) {
   await send({
     to: email,
-    subject: passed
-      ? 'Your ThinkViva Application Has Been Received'
-      : 'Your ThinkViva Application — Next Steps',
-    html,
+    subject: 'Thank You for Applying to Become a ThinkViva Tutor',
+    html: `
+      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#222;">
+        <h2 style="color:#1E5A3A;">Thank You for Applying to Become a ThinkViva Tutor</h2>
+        <p>Dear ${name},</p>
+        <p>Thank you for your interest in joining ThinkViva as an online tutor.</p>
+        <p>We appreciate the time you took to submit your application and learn more about our mission to support young learners through engaging and accessible education. We are excited to review your application and get to know you better.</p>
+        <p>Our team will carefully assess your submission, and if your profile matches our current needs, you will be contacted within the next week for the next stage of the process, which may include a short interview and/or teaching demonstration.</p>
+        <div style="background:#EAFAF1;border-left:4px solid #1E5A3A;padding:16px 20px;border-radius:6px;margin:20px 0;">
+          <p style="margin:0;color:#1E5A3A;font-size:0.9rem;">Due to the number of applications we receive, only shortlisted candidates will be contacted. However, we truly appreciate your interest in being part of the ThinkViva community.</p>
+        </div>
+        <p>We wish you the very best and look forward to the possibility of working with you.</p>
+        <p style="margin-top:32px;color:#555;">Warm regards,<br/><strong>The ThinkViva Team</strong><br/><span style="color:#888;font-size:0.875rem;">ThinkViva — Smart Learning for Growing Minds</span></p>
+      </div>
+    `,
   });
 }
 
-module.exports = { notifyAdminNewApplication, notifyAdminNewLead };
+module.exports = { notifyAdminNewApplication, notifyAdminNewLead, confirmApplicant, confirmLead };
