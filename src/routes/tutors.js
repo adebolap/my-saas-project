@@ -15,6 +15,14 @@ const upload = multer({
   },
 });
 
+// Wrap multer so a bad/missing file never blocks the route handler
+const uploadCV = (req, res, next) => {
+  upload.single('cv')(req, res, (err) => {
+    if (err) console.warn('[upload] CV parse error:', err.message);
+    next();
+  });
+};
+
 const IT_TEST = [
   {
     id: 1,
@@ -67,7 +75,7 @@ router.get('/it-test', (req, res) => {
   res.json(IT_TEST.map(({ id, question, options }) => ({ id, question, options })));
 });
 
-router.post('/', upload.single('cv'), async (req, res) => {
+router.post('/', uploadCV, async (req, res) => {
   try {
     // Body arrives as multipart/form-data; arrays and objects are JSON-encoded strings
     const body = req.body;
