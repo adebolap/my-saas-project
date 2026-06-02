@@ -9,26 +9,28 @@ router.post('/', async (req, res) => {
     const lead = new Lead(req.body);
     await lead.save();
 
-    notifyAdminNewLead({
-      parentName: lead.parentName,
-      email: lead.email,
-      phone: lead.phone,
-      country: lead.country,
-      childName: lead.childName,
-      grade: lead.grade,
-      package: lead.package,
-      subjects: lead.subjects,
-      message: lead.message,
-      id: lead._id,
-    }).catch(err => console.error('[email] admin lead alert failed:', err.message));
-
-    confirmLead({
-      parentName: lead.parentName,
-      email: lead.email,
-      childName: lead.childName,
-      grade: lead.grade,
-      subjects: lead.subjects,
-    }).catch(err => console.error('[email] booking confirm failed:', err.message));
+    // Await emails before responding — Vercel freezes the function on res.json()
+    await Promise.allSettled([
+      notifyAdminNewLead({
+        parentName: lead.parentName,
+        email: lead.email,
+        phone: lead.phone,
+        country: lead.country,
+        childName: lead.childName,
+        grade: lead.grade,
+        package: lead.package,
+        subjects: lead.subjects,
+        message: lead.message,
+        id: lead._id,
+      }),
+      confirmLead({
+        parentName: lead.parentName,
+        email: lead.email,
+        childName: lead.childName,
+        grade: lead.grade,
+        subjects: lead.subjects,
+      }),
+    ]);
 
     res.status(201).json({
       success: true,

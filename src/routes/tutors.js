@@ -159,30 +159,31 @@ router.post('/', uploadCV, async (req, res) => {
     const tutor = new TutorApplication(tutorDoc);
     await tutor.save();
 
-    // Send emails in background — don't block the response
-    notifyAdminNewApplication({
-      name:           applicationData.name,
-      email:          applicationData.email,
-      phone:          applicationData.phone,
-      location:       applicationData.location,
-      qualification:  applicationData.qualification,
-      experience:     applicationData.experience,
-      subjects:       applicationData.subjects || [],
-      grades:         applicationData.grades || [],
-      availability:   applicationData.availability || [],
-      linkedinUrl:    applicationData.linkedinUrl,
-      equipmentNotes: applicationData.equipmentNotes,
-      itTestAnswers,
-      score:          itTestScore,
-      passed,
-      id:             tutor._id,
-      cvData:         req.file?.buffer,
-      cvFilename:     req.file?.originalname,
-      cvMimeType:     req.file?.mimetype,
-    }).catch(err => console.error('[email] admin tutor alert failed:', err.message));
-
-    confirmApplicant({ name: applicationData.name, email: applicationData.email })
-      .catch(err => console.error('[email] applicant confirm failed:', err.message));
+    // Await emails before responding — Vercel freezes the function on res.json()
+    // which kills any in-flight HTTP connections (TLS disconnect)
+    await Promise.allSettled([
+      notifyAdminNewApplication({
+        name:           applicationData.name,
+        email:          applicationData.email,
+        phone:          applicationData.phone,
+        location:       applicationData.location,
+        qualification:  applicationData.qualification,
+        experience:     applicationData.experience,
+        subjects:       applicationData.subjects || [],
+        grades:         applicationData.grades || [],
+        availability:   applicationData.availability || [],
+        linkedinUrl:    applicationData.linkedinUrl,
+        equipmentNotes: applicationData.equipmentNotes,
+        itTestAnswers,
+        score:          itTestScore,
+        passed,
+        id:             tutor._id,
+        cvData:         req.file?.buffer,
+        cvFilename:     req.file?.originalname,
+        cvMimeType:     req.file?.mimetype,
+      }),
+      confirmApplicant({ name: applicationData.name, email: applicationData.email }),
+    ]);
 
     res.status(201).json({
       success: true,
