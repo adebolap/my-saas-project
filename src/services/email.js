@@ -184,13 +184,19 @@ async function confirmApplicant({ name, email }) {
         <h2 style="color:#1E5A3A;">Thank You for Applying to Become a ThinkViva Tutor</h2>
         <p>Dear ${name},</p>
         <p>Thank you for your interest in joining ThinkViva as an online tutor.</p>
-        <p>We appreciate the time you took to submit your application and learn more about our mission to support young learners through engaging and accessible education. We are excited to review your application and get to know you better.</p>
         <p>Our team will carefully assess your submission, and if your profile matches our current needs, you will be contacted within the next week for the next stage of the process, which may include a short interview and/or teaching demonstration.</p>
-        <div style="background:#EAFAF1;border-left:4px solid #1E5A3A;padding:16px 20px;border-radius:6px;margin:20px 0;">
-          <p style="margin:0;color:#1E5A3A;font-size:0.9rem;">Due to the number of applications we receive, only shortlisted candidates will be contacted. However, we truly appreciate your interest in being part of the ThinkViva community.</p>
+        <div style="background:#EAFAF1;border-left:4px solid #1E5A3A;padding:14px 18px;border-radius:6px;margin:20px 0;">
+          <p style="margin:0;color:#1E5A3A;font-size:0.9rem;">Due to the number of applications we receive, only shortlisted candidates will be contacted. We truly appreciate your interest in being part of the ThinkViva community.</p>
         </div>
         <p>We wish you the very best and look forward to the possibility of working with you.</p>
-        <p style="margin-top:32px;color:#555;">Warm regards,<br/><strong>The ThinkViva Team</strong><br/><span style="color:#888;font-size:0.875rem;">ThinkViva — Smart Learning for Growing Minds</span></p>
+        <p style="margin-top:32px;color:#555;">
+          Warm regards,<br/>
+          <strong>The ThinkViva Team</strong><br/>
+          <span style="color:#888;font-size:0.875rem;">ThinkViva — Smart Learning for Growing Minds</span><br/><br/>
+          <span style="font-size:0.875rem;color:#555;">🌐 <a href="https://thinkviva.org" style="color:#1E5A3A;">thinkviva.org</a></span><br/>
+          <span style="font-size:0.875rem;color:#555;">📞 +234 707 734 0116</span><br/>
+          <span style="font-size:0.875rem;color:#555;">📸 <a href="https://instagram.com/thinkviva_ng" style="color:#1E5A3A;">@thinkviva_ng</a></span>
+        </p>
       </div>
     `,
   });
