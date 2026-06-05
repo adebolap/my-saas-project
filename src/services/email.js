@@ -1,28 +1,40 @@
-const axios = require('axios');
+const nodemailer = require('nodemailer');
 const EmailLog = require('../models/EmailLog');
 
 const ADMIN = process.env.ADMIN_EMAIL || 'info@thinkviva.org';
-const FROM  = process.env.FROM_EMAIL  || 'ThinkViva <onboarding@resend.dev>';
+const FROM  = process.env.FROM_EMAIL  || process.env.SMTP_USER;
+
+function createTransport() {
+  const port = parseInt(process.env.SMTP_PORT || '465');
+  return nodemailer.createTransport({
+    host:   process.env.SMTP_HOST || 'smtp.gmail.com',
+    port,
+    secure: port === 465,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  });
+}
 
 async function send({ to, subject, html, attachments, type }) {
-  const key = process.env.RESEND_API_KEY;
-  if (!key) {
-    console.warn('[email] RESEND_API_KEY not set — skipping:', subject);
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    console.warn('[email] SMTP credentials not set — skipping:', subject);
     return;
   }
-  const body = { from: FROM, to, subject, html };
-  if (attachments?.length) body.attachments = attachments;
+  const mailOptions = { from: FROM, to, subject, html };
+  if (attachments?.length) {
+    mailOptions.attachments = attachments.map(a => ({
+      filename: a.filename,
+      content:  Buffer.from(a.content, 'base64'),
+    }));
+  }
   try {
-    await axios.post(
-      'https://api.resend.com/emails',
-      body,
-      { headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' } }
-    );
+    await createTransport().sendMail(mailOptions);
     EmailLog.create({ to, subject, type: type || 'other', status: 'sent' }).catch(() => {});
   } catch (err) {
-    const detail = err.response?.data || err.message;
-    console.error('[email] Failed to send:', subject, detail);
-    EmailLog.create({ to, subject, type: type || 'other', status: 'failed', error: String(detail) }).catch(() => {});
+    console.error('[email] Failed to send:', subject, err.message);
+    EmailLog.create({ to, subject, type: type || 'other', status: 'failed', error: err.message }).catch(() => {});
   }
 }
 
