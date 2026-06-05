@@ -1,9 +1,10 @@
 const axios = require('axios');
+const EmailLog = require('../models/EmailLog');
 
 const ADMIN = process.env.ADMIN_EMAIL || 'info@thinkviva.org';
 const FROM  = process.env.FROM_EMAIL  || 'ThinkViva <onboarding@resend.dev>';
 
-async function send({ to, subject, html, attachments }) {
+async function send({ to, subject, html, attachments, type }) {
   const key = process.env.RESEND_API_KEY;
   if (!key) {
     console.warn('[email] RESEND_API_KEY not set — skipping:', subject);
@@ -17,15 +18,18 @@ async function send({ to, subject, html, attachments }) {
       body,
       { headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' } }
     );
+    EmailLog.create({ to, subject, type: type || 'other', status: 'sent' }).catch(() => {});
   } catch (err) {
     const detail = err.response?.data || err.message;
     console.error('[email] Failed to send:', subject, detail);
+    EmailLog.create({ to, subject, type: type || 'other', status: 'failed', error: String(detail) }).catch(() => {});
   }
 }
 
 async function notifyAdminNewLead({ parentName, email, phone, country, childName, grade, package: pkg, subjects, message, id }) {
   await send({
     to: ADMIN,
+    type: 'admin_booking',
     subject: `New Booking Request — ${parentName}`,
     html: `
       <div style="font-family:sans-serif;max-width:560px;margin:0 auto;">
@@ -54,6 +58,7 @@ async function confirmLead({ parentName, email, childName, grade, subjects }) {
 
   await send({
     to: email,
+    type: 'parent_confirm',
     subject: "We've received your ThinkViva booking request",
     html: `
       <div style="font-family:sans-serif;max-width:560px;margin:0 auto;">
@@ -137,6 +142,7 @@ async function notifyAdminNewApplication({
 
   await send({
     to: ADMIN,
+    type: 'admin_application',
     subject: `New Tutor Application — ${name}`,
     attachments,
     html: `
@@ -178,6 +184,7 @@ async function notifyAdminNewApplication({
 async function confirmApplicant({ name, email }) {
   await send({
     to: email,
+    type: 'applicant_confirm',
     subject: 'Thank You for Applying to Become a ThinkViva Tutor',
     html: `
       <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#222;">

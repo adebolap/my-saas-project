@@ -84,6 +84,7 @@
         <button class="admin-tab active" onclick="switchTab('leads', this)">Parent Leads</button>
         <button class="admin-tab" onclick="switchTab('tutors', this)">Tutor Applications</button>
         <button class="admin-tab" onclick="switchTab('sessions', this)">Sessions</button>
+        <button class="admin-tab" onclick="switchTab('emails', this)">Email Log</button>
       </div>
 
       <!-- LEADS TABLE -->
@@ -149,6 +150,26 @@
             </thead>
             <tbody id="sessions-tbody">
               <tr><td colspan="7" style="text-align:center;color:var(--muted);padding:32px;">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- EMAIL LOG TABLE -->
+      <div class="admin-panel" id="panel-emails">
+        <div style="overflow-x:auto;">
+          <table class="data-table" id="emails-table">
+            <thead>
+              <tr>
+                <th>Date &amp; Time</th>
+                <th>To</th>
+                <th>Type</th>
+                <th>Subject</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="emails-tbody">
+              <tr><td colspan="5" style="text-align:center;color:var(--muted);padding:32px;">Loading...</td></tr>
             </tbody>
           </table>
         </div>

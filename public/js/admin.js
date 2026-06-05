@@ -17,6 +17,7 @@ function adminLogin() {
   loadLeads();
   loadTutors();
   loadSessions();
+  loadEmailLogs();
 }
 
 function adminLogout() {
@@ -199,6 +200,50 @@ async function loadSessions() {
   } catch (err) {
     showToast('Error loading sessions: ' + err.message, 'error');
   }
+}
+
+// ---- EMAIL LOG ----
+const EMAIL_TYPE_LABELS = {
+  applicant_confirm: { label: 'Application Confirmation', color: '#1E5A3A' },
+  admin_application: { label: 'Application Alert (Admin)', color: '#3A3A8C' },
+  parent_confirm:    { label: 'Booking Confirmation', color: '#B45309' },
+  admin_booking:     { label: 'Booking Alert (Admin)', color: '#6B3A8C' },
+  other:             { label: 'Other', color: '#666' },
+};
+
+async function loadEmailLogs() {
+  try {
+    const res  = await fetch('/api/admin/email-logs', { headers: apiHeaders() });
+    const data = await res.json();
+    const tbody = document.getElementById('emails-tbody');
+
+    if (!data.length) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:32px;">No emails logged yet. Logs appear after the next submission.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = data.map(e => {
+      const meta  = EMAIL_TYPE_LABELS[e.type] || EMAIL_TYPE_LABELS.other;
+      const badge = e.status === 'sent'
+        ? '<span style="color:#1E5A3A;font-weight:700;font-size:0.8rem;">✓ Sent</span>'
+        : `<span style="color:#C0392B;font-weight:700;font-size:0.8rem;" title="${esc(e.error || '')}">✗ Failed</span>`;
+      return `
+        <tr>
+          <td style="font-size:0.8rem;color:var(--muted);white-space:nowrap;">${fmtDateTime(e.sentAt)}</td>
+          <td style="font-size:0.85rem;">${esc(e.to)}</td>
+          <td><span style="font-size:0.75rem;font-weight:700;color:${meta.color};background:${meta.color}18;padding:3px 8px;border-radius:20px;white-space:nowrap;">${meta.label}</span></td>
+          <td style="font-size:0.8rem;color:var(--muted);">${esc(e.subject)}</td>
+          <td>${badge}</td>
+        </tr>`;
+    }).join('');
+  } catch (err) {
+    showToast('Error loading email logs: ' + err.message, 'error');
+  }
+}
+
+function fmtDateTime(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 }
 
 // ---- TABS ----
