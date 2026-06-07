@@ -178,6 +178,7 @@ async function submitApplication() {
   fd.append('location',       document.getElementById('t-location').value.trim());
   fd.append('qualification',  document.getElementById('t-qualification').value);
   fd.append('experience',     document.getElementById('t-experience').value);
+  fd.append('referralSource', document.getElementById('t-referral').value);
   fd.append('linkedinUrl',    document.getElementById('t-linkedin').value.trim());
   fd.append('equipmentNotes', equipmentNotes);
   fd.append('subjects',       JSON.stringify(subjects));

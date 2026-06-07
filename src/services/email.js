@@ -114,7 +114,7 @@ function row(label, value) {
 
 async function notifyAdminNewApplication({
   name, email, phone, location, qualification, experience,
-  subjects, grades, availability, linkedinUrl, equipmentNotes,
+  subjects, grades, availability, linkedinUrl, referralSource, equipmentNotes,
   itTestAnswers, score, passed, id, cvData, cvFilename, cvMimeType,
 }) {
   const statusBadge = passed
@@ -174,6 +174,7 @@ async function notifyAdminNewApplication({
           ${row('Grades', (grades || []).join(', ') || '—')}
           ${row('Availability', availDays)}
           ${linkedinUrl ? row('LinkedIn', `<a href="${linkedinUrl}">${linkedinUrl}</a>`) : ''}
+          ${row('Heard about us', referralSource || '—')}
           ${row('CV', cvFilename ? `Attached (${cvFilename})` : '<em style="color:#999;">Not provided</em>')}
         </table>
 
