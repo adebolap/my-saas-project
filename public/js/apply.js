@@ -14,6 +14,11 @@ const stepSubs = ['Personal Info', 'Tech Setup', 'IT Readiness Test', 'Applicati
 let currentStep = 1;
 let itAnswers   = {};  // { questionId: selectedOptionIndex }
 
+function toggleReferralOther(val) {
+  const el = document.getElementById('t-referral-other');
+  if (el) el.style.display = val === 'Other (please specify)' ? 'block' : 'none';
+}
+
 function updateStepUI(step) {
   for (let i = 1; i <= STEPS; i++) {
     const el = document.getElementById('step-' + i);
@@ -178,6 +183,9 @@ async function submitApplication() {
   fd.append('location',       document.getElementById('t-location').value.trim());
   fd.append('qualification',  document.getElementById('t-qualification').value);
   fd.append('experience',     document.getElementById('t-experience').value);
+  const referralVal   = document.getElementById('t-referral').value;
+  const referralOther = document.getElementById('t-referral-other').value.trim();
+  fd.append('referralSource', referralVal === 'Other (please specify)' && referralOther ? `Other: ${referralOther}` : referralVal);
   fd.append('linkedinUrl',    document.getElementById('t-linkedin').value.trim());
   fd.append('equipmentNotes', equipmentNotes);
   fd.append('subjects',       JSON.stringify(subjects));

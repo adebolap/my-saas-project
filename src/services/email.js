@@ -1,31 +1,47 @@
-const axios = require('axios');
+const nodemailer = require('nodemailer');
+const EmailLog = require('../models/EmailLog');
 
 const ADMIN = process.env.ADMIN_EMAIL || 'info@thinkviva.org';
-const FROM  = process.env.FROM_EMAIL  || 'ThinkViva <onboarding@resend.dev>';
+const FROM  = process.env.FROM_EMAIL  || process.env.SMTP_USER;
 
-async function send({ to, subject, html, attachments }) {
-  const key = process.env.RESEND_API_KEY;
-  if (!key) {
-    console.warn('[email] RESEND_API_KEY not set — skipping:', subject);
+function createTransport() {
+  const port = parseInt(process.env.SMTP_PORT || '465');
+  return nodemailer.createTransport({
+    host:   process.env.SMTP_HOST || 'smtp.gmail.com',
+    port,
+    secure: port === 465,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  });
+}
+
+async function send({ to, subject, html, attachments, type }) {
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    console.warn('[email] SMTP credentials not set — skipping:', subject);
     return;
   }
-  const body = { from: FROM, to, subject, html };
-  if (attachments?.length) body.attachments = attachments;
+  const mailOptions = { from: FROM, to, subject, html };
+  if (attachments?.length) {
+    mailOptions.attachments = attachments.map(a => ({
+      filename: a.filename,
+      content:  Buffer.from(a.content, 'base64'),
+    }));
+  }
   try {
-    await axios.post(
-      'https://api.resend.com/emails',
-      body,
-      { headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' } }
-    );
+    await createTransport().sendMail(mailOptions);
+    EmailLog.create({ to, subject, type: type || 'other', status: 'sent' }).catch(() => {});
   } catch (err) {
-    const detail = err.response?.data || err.message;
-    console.error('[email] Failed to send:', subject, detail);
+    console.error('[email] Failed to send:', subject, err.message);
+    EmailLog.create({ to, subject, type: type || 'other', status: 'failed', error: err.message }).catch(() => {});
   }
 }
 
 async function notifyAdminNewLead({ parentName, email, phone, country, childName, grade, package: pkg, subjects, message, id }) {
   await send({
     to: ADMIN,
+    type: 'admin_booking',
     subject: `New Booking Request — ${parentName}`,
     html: `
       <div style="font-family:sans-serif;max-width:560px;margin:0 auto;">
@@ -54,6 +70,7 @@ async function confirmLead({ parentName, email, childName, grade, subjects }) {
 
   await send({
     to: email,
+    type: 'parent_confirm',
     subject: "We've received your ThinkViva booking request",
     html: `
       <div style="font-family:sans-serif;max-width:560px;margin:0 auto;">
@@ -97,7 +114,7 @@ function row(label, value) {
 
 async function notifyAdminNewApplication({
   name, email, phone, location, qualification, experience,
-  subjects, grades, availability, linkedinUrl, equipmentNotes,
+  subjects, grades, availability, linkedinUrl, referralSource, equipmentNotes,
   itTestAnswers, score, passed, id, cvData, cvFilename, cvMimeType,
 }) {
   const statusBadge = passed
@@ -137,6 +154,7 @@ async function notifyAdminNewApplication({
 
   await send({
     to: ADMIN,
+    type: 'admin_application',
     subject: `New Tutor Application — ${name}`,
     attachments,
     html: `
@@ -156,6 +174,7 @@ async function notifyAdminNewApplication({
           ${row('Grades', (grades || []).join(', ') || '—')}
           ${row('Availability', availDays)}
           ${linkedinUrl ? row('LinkedIn', `<a href="${linkedinUrl}">${linkedinUrl}</a>`) : ''}
+          ${row('Heard about us', referralSource || '—')}
           ${row('CV', cvFilename ? `Attached (${cvFilename})` : '<em style="color:#999;">Not provided</em>')}
         </table>
 
@@ -178,19 +197,26 @@ async function notifyAdminNewApplication({
 async function confirmApplicant({ name, email }) {
   await send({
     to: email,
+    type: 'applicant_confirm',
     subject: 'Thank You for Applying to Become a ThinkViva Tutor',
     html: `
       <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#222;">
         <h2 style="color:#1E5A3A;">Thank You for Applying to Become a ThinkViva Tutor</h2>
         <p>Dear ${name},</p>
         <p>Thank you for your interest in joining ThinkViva as an online tutor.</p>
-        <p>We appreciate the time you took to submit your application and learn more about our mission to support young learners through engaging and accessible education. We are excited to review your application and get to know you better.</p>
         <p>Our team will carefully assess your submission, and if your profile matches our current needs, you will be contacted within the next week for the next stage of the process, which may include a short interview and/or teaching demonstration.</p>
-        <div style="background:#EAFAF1;border-left:4px solid #1E5A3A;padding:16px 20px;border-radius:6px;margin:20px 0;">
-          <p style="margin:0;color:#1E5A3A;font-size:0.9rem;">Due to the number of applications we receive, only shortlisted candidates will be contacted. However, we truly appreciate your interest in being part of the ThinkViva community.</p>
+        <div style="background:#EAFAF1;border-left:4px solid #1E5A3A;padding:14px 18px;border-radius:6px;margin:20px 0;">
+          <p style="margin:0;color:#1E5A3A;font-size:0.9rem;">Due to the number of applications we receive, only shortlisted candidates will be contacted. We truly appreciate your interest in being part of the ThinkViva community.</p>
         </div>
         <p>We wish you the very best and look forward to the possibility of working with you.</p>
-        <p style="margin-top:32px;color:#555;">Warm regards,<br/><strong>The ThinkViva Team</strong><br/><span style="color:#888;font-size:0.875rem;">ThinkViva — Smart Learning for Growing Minds</span></p>
+        <p style="margin-top:32px;color:#555;">
+          Warm regards,<br/>
+          <strong>The ThinkViva Team</strong><br/>
+          <span style="color:#888;font-size:0.875rem;">ThinkViva — Smart Learning for Growing Minds</span><br/><br/>
+          <span style="font-size:0.875rem;color:#555;">🌐 <a href="https://thinkviva.org" style="color:#1E5A3A;">thinkviva.org</a></span><br/>
+          <span style="font-size:0.875rem;color:#555;">📞 +234 707 734 0116</span><br/>
+          <span style="font-size:0.875rem;color:#555;">📸 <a href="https://instagram.com/thinkviva_ng" style="color:#1E5A3A;">@thinkviva_ng</a></span>
+        </p>
       </div>
     `,
   });

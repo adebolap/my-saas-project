@@ -15,6 +15,14 @@ const upload = multer({
   },
 });
 
+// Wrap multer so a bad/missing file never blocks the route handler
+const uploadCV = (req, res, next) => {
+  upload.single('cv')(req, res, (err) => {
+    if (err) console.warn('[upload] CV parse error:', err.message);
+    next();
+  });
+};
+
 const IT_TEST = [
   {
     id: 1,
@@ -67,7 +75,7 @@ router.get('/it-test', (req, res) => {
   res.json(IT_TEST.map(({ id, question, options }) => ({ id, question, options })));
 });
 
-router.post('/', upload.single('cv'), async (req, res) => {
+router.post('/', uploadCV, async (req, res) => {
   try {
     // Body arrives as multipart/form-data; arrays and objects are JSON-encoded strings
     const body = req.body;
@@ -87,6 +95,7 @@ router.post('/', upload.single('cv'), async (req, res) => {
       qualification:  body.qualification,
       experience:     body.experience,
       linkedinUrl:    body.linkedinUrl,
+      referralSource: body.referralSource,
       equipmentNotes: body.equipmentNotes,
       subjects,
       grades,
@@ -151,30 +160,32 @@ router.post('/', upload.single('cv'), async (req, res) => {
     const tutor = new TutorApplication(tutorDoc);
     await tutor.save();
 
-    // Send emails in background — don't block the response
-    notifyAdminNewApplication({
-      name:           applicationData.name,
-      email:          applicationData.email,
-      phone:          applicationData.phone,
-      location:       applicationData.location,
-      qualification:  applicationData.qualification,
-      experience:     applicationData.experience,
-      subjects:       applicationData.subjects || [],
-      grades:         applicationData.grades || [],
-      availability:   applicationData.availability || [],
-      linkedinUrl:    applicationData.linkedinUrl,
-      equipmentNotes: applicationData.equipmentNotes,
-      itTestAnswers,
-      score:          itTestScore,
-      passed,
-      id:             tutor._id,
-      cvData:         req.file?.buffer,
-      cvFilename:     req.file?.originalname,
-      cvMimeType:     req.file?.mimetype,
-    }).catch(err => console.error('[email] admin tutor alert failed:', err.message));
-
-    confirmApplicant({ name: applicationData.name, email: applicationData.email })
-      .catch(err => console.error('[email] applicant confirm failed:', err.message));
+    // Await emails before responding — Vercel freezes the function on res.json()
+    // which kills any in-flight HTTP connections (TLS disconnect)
+    await Promise.allSettled([
+      notifyAdminNewApplication({
+        name:           applicationData.name,
+        email:          applicationData.email,
+        phone:          applicationData.phone,
+        location:       applicationData.location,
+        qualification:  applicationData.qualification,
+        experience:     applicationData.experience,
+        subjects:       applicationData.subjects || [],
+        grades:         applicationData.grades || [],
+        availability:   applicationData.availability || [],
+        linkedinUrl:    applicationData.linkedinUrl,
+        referralSource: applicationData.referralSource,
+        equipmentNotes: applicationData.equipmentNotes,
+        itTestAnswers,
+        score:          itTestScore,
+        passed,
+        id:             tutor._id,
+        cvData:         req.file?.buffer,
+        cvFilename:     req.file?.originalname,
+        cvMimeType:     req.file?.mimetype,
+      }),
+      confirmApplicant({ name: applicationData.name, email: applicationData.email }),
+    ]);
 
     res.status(201).json({
       success: true,

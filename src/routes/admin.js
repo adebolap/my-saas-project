@@ -3,6 +3,7 @@ const router = express.Router();
 const Lead = require('../models/Lead');
 const TutorApplication = require('../models/TutorApplication');
 const Session = require('../models/Session');
+const EmailLog = require('../models/EmailLog');
 
 // Simple header-token auth — replace with proper auth before going to prod
 router.use((req, res, next) => {
@@ -115,6 +116,15 @@ router.get('/sessions', async (req, res) => {
       .populate('lead', 'parentName childName grade country')
       .populate('tutor', 'name email');
     res.json(sessions);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get('/email-logs', async (req, res) => {
+  try {
+    const logs = await EmailLog.find().sort({ sentAt: -1 }).limit(300);
+    res.json(logs);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

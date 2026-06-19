@@ -23,7 +23,8 @@ const tutorSchema = new mongoose.Schema({
   itTestAnswers: { type: mongoose.Schema.Types.Mixed },
   equipmentVerified: { type: Boolean, default: false },
   equipmentNotes: { type: String },
-  linkedinUrl: { type: String },
+  linkedinUrl:    { type: String },
+  referralSource: { type: String },
   status: {
     type: String,
     enum: [
