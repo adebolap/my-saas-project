@@ -207,6 +207,18 @@ if (feedbackForm) {
   });
 }
 
+// ---- REFERRAL LINK ----
+function copyReferralLink(btn) {
+  navigator.clipboard.writeText('https://thinkviva.org').then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓ Link Copied!';
+    showToast('Referral link copied! Share it with family and friends.', 'success');
+    setTimeout(() => { btn.textContent = orig; }, 2500);
+  }).catch(() => {
+    showToast('Could not copy — please copy the link manually: thinkviva.org', 'error');
+  });
+}
+
 // ---- MOBILE HAMBURGER NAV ----
 function toggleMobileMenu(btn) {
   const nav = document.querySelector('.nav');
