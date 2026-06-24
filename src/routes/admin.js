@@ -179,7 +179,11 @@ Criteria:
 
 Return exactly this JSON:
 {
+  "firstName": "first name only",
+  "lastName": "last name / surname only",
   "name": "full name from CV",
+  "email": "email address from CV or empty string",
+  "phone": "phone number from CV or empty string",
   "recommendation": "Shortlist" or "Maybe" or "Reject",
   "summary": "2-3 sentence hiring manager summary",
   "qualification": "highest qualification",

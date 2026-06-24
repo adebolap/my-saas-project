@@ -154,6 +154,39 @@
 
           <div id="cv-verdict" style="margin-top:28px;display:none;"></div>
         </div>
+
+        <!-- SHORTLIST -->
+        <div style="max-width:860px;margin:0 auto;padding:0 0 40px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
+            <div>
+              <h3 style="color:var(--navy);font-size:1rem;font-weight:800;margin-bottom:2px;">Shortlist</h3>
+              <p style="color:var(--muted);font-size:0.8rem;" id="shortlist-count">0 candidates shortlisted</p>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-sm" style="border:1px solid var(--border);background:var(--white);color:#C0392B;font-size:0.8rem;" onclick="clearShortlist()">Clear All</button>
+              <button class="btn btn-sm btn-navy" style="font-size:0.8rem;" onclick="downloadShortlistCSV()">&#11123; Download CSV</button>
+            </div>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="data-table" id="shortlist-table">
+              <thead>
+                <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Subjects</th>
+                  <th>Verdict</th>
+                  <th>Shortlisted</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="shortlist-tbody">
+                <tr><td colspan="8" style="text-align:center;color:var(--muted);padding:28px;font-size:0.875rem;">No candidates shortlisted yet. Screen a CV and click "Add to Shortlist".</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
       <!-- SESSIONS TABLE -->
