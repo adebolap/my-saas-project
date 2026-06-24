@@ -71,7 +71,7 @@ router.post('/general-feedback', async (req, res) => {
       parentName: name || 'Anonymous',
       email: email || 'feedback@edubridge.com',
       country: 'Feedback',
-      grade: 'P1', // placeholder required field
+      grade: 'G1',
       message: `[${role || 'visitor'}] Rating: ${rating}/5 — ${comment}`,
       source: 'feedback_widget',
       status: 'new',
