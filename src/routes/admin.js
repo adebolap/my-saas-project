@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const Groq = require('groq-sdk');
-const pdfParse = require('pdf-parse');
-const mammoth = require('mammoth');
 const Lead = require('../models/Lead');
 const TutorApplication = require('../models/TutorApplication');
 const Session = require('../models/Session');
@@ -152,9 +150,11 @@ router.post('/screen-cv', (req, res, next) => {
   try {
     const mime = req.file.mimetype;
     if (mime === 'application/pdf') {
+      const pdfParse = require('pdf-parse/lib/pdf-parse.js');
       const parsed = await pdfParse(req.file.buffer);
       text = parsed.text;
     } else {
+      const mammoth = require('mammoth');
       const result = await mammoth.extractRawText({ buffer: req.file.buffer });
       text = result.value;
     }
