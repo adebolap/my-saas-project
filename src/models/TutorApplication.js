@@ -12,7 +12,7 @@ const tutorSchema = new mongoose.Schema({
   location: { type: String, trim: true },
   timezone: { type: String, default: 'Africa/Lagos' },
   subjects: [{ type: String, enum: ['Math', 'English', 'Science', 'Local Languages'] }],
-  grades: [{ type: String, enum: ['K', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6'] }],
+  grades: [{ type: String, enum: ['K', 'G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9'] }],
   cvData: { type: Buffer },
   cvFilename: { type: String },
   cvMimeType: { type: String },

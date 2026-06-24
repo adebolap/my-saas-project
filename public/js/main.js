@@ -32,12 +32,15 @@ document.querySelectorAll('.modal-overlay').forEach(el => {
 // ---- GRADE PILLS (hero) ----
 const gradeDescriptions = {
   K:  'Kindergarten (age 3–5): Early number sense, letter recognition, phonics, colours, and shapes. A gentle, playful start to lifelong learning.',
-  P1: 'Primary 1 (age 5–6): Number recognition, basic addition/subtraction, phonics, and sight words. Building the very first learning foundations.',
-  P2: 'Primary 2 (age 6–7): Numbers to 200, multiplication introduction, reading comprehension, and sentence writing.',
-  P3: 'Primary 3 (age 7–8): Times tables, fractions, tenses, and parts of speech. A critical year for fluency.',
-  P4: 'Primary 4 (age 8–9): Long multiplication/division, decimals, advanced grammar, and creative writing.',
-  P5: 'Primary 5 (age 9–10): Algebra, percentages, essay writing, and targeted exam preparation across all curricula.',
-  P6: 'Primary 6 (age 10–11): Advanced algebra, data handling, persuasive and analytical writing, and comprehensive exam preparation.',
+  G1: 'Grade 1 (age 5–6): Number recognition, basic addition/subtraction, phonics, and sight words. Building the very first learning foundations.',
+  G2: 'Grade 2 (age 6–7): Numbers to 200, multiplication introduction, reading comprehension, and sentence writing.',
+  G3: 'Grade 3 (age 7–8): Times tables, fractions, tenses, and parts of speech. A critical year for fluency.',
+  G4: 'Grade 4 (age 8–9): Long multiplication/division, decimals, advanced grammar, and creative writing.',
+  G5: 'Grade 5 (age 9–10): Algebra, percentages, essay writing, and targeted exam preparation across all curricula.',
+  G6: 'Grade 6 (age 10–11): Advanced algebra, data handling, persuasive and analytical writing, and comprehensive exam preparation.',
+  G7: 'Grade 7 / JS1 (age 11–12): Introduction to secondary school Maths, English Language, and core sciences. Building strong foundations for junior secondary.',
+  G8: 'Grade 8 / JS2 (age 12–13): Algebra, geometry, literature, and the sciences. A key year for developing subject depth.',
+  G9: 'Grade 9 / JS3 (age 13–14): BECE preparation, advanced problem-solving, essay writing, and science fundamentals.',
 };
 
 let selectedGrade = '';
