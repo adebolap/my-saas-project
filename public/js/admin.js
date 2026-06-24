@@ -18,6 +18,7 @@ function adminLogin() {
   loadTutors();
   loadSessions();
   loadEmailLogs();
+  renderShortlist();
 }
 
 function adminLogout() {
@@ -369,10 +370,90 @@ function renderVerdict(v) {
         <span style="font-weight:700;color:var(--navy);">Suggested next step:</span> ${esc(v.nextStep)}
       </div>` : ''}
 
-      <button class="btn btn-sm" style="margin-top:20px;border:1px solid var(--border);background:var(--white);color:var(--navy);cursor:pointer;" onclick="resetScreener()">
-        &#8592; Screen another CV
-      </button>
+      <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;">
+        ${rec !== 'Reject' ? `<button class="btn btn-sm btn-navy" onclick='addToShortlist(${JSON.stringify(v)})'>+ Add to Shortlist</button>` : ''}
+        <button class="btn btn-sm" style="border:1px solid var(--border);background:var(--white);color:var(--navy);cursor:pointer;" onclick="resetScreener()">&#8592; Screen another CV</button>
+      </div>
     </div>`;
+}
+
+// ---- SHORTLIST ----
+const SHORTLIST_KEY = 'tv_shortlist';
+
+function getShortlist() {
+  try { return JSON.parse(localStorage.getItem(SHORTLIST_KEY) || '[]'); } catch { return []; }
+}
+function saveShortlist(list) {
+  localStorage.setItem(SHORTLIST_KEY, JSON.stringify(list));
+}
+
+function addToShortlist(v) {
+  const list = getShortlist();
+  list.push({
+    firstName:      v.firstName || v.name?.split(' ')[0] || '—',
+    lastName:       v.lastName  || v.name?.split(' ').slice(1).join(' ') || '—',
+    email:          v.email     || '',
+    phone:          v.phone     || '',
+    subjects:       (v.subjects || []).join(', '),
+    recommendation: v.recommendation || '',
+    shortlistedAt:  new Date().toISOString(),
+  });
+  saveShortlist(list);
+  renderShortlist();
+  showToast('Added to shortlist ✓', 'success');
+}
+
+function removeFromShortlist(idx) {
+  const list = getShortlist();
+  list.splice(idx, 1);
+  saveShortlist(list);
+  renderShortlist();
+}
+
+function clearShortlist() {
+  if (!confirm('Clear all shortlisted candidates?')) return;
+  saveShortlist([]);
+  renderShortlist();
+}
+
+function renderShortlist() {
+  const list  = getShortlist();
+  const tbody = document.getElementById('shortlist-tbody');
+  const count = document.getElementById('shortlist-count');
+  if (count) count.textContent = list.length + ' candidate' + (list.length !== 1 ? 's' : '') + ' shortlisted';
+  if (!tbody) return;
+  if (!list.length) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:28px;font-size:0.875rem;">No candidates shortlisted yet. Screen a CV and click "Add to Shortlist".</td></tr>';
+    return;
+  }
+  const recColor = r => r === 'Shortlist' ? '#1E5A3A' : r === 'Maybe' ? '#B45309' : '#555';
+  tbody.innerHTML = list.map((c, i) => `
+    <tr>
+      <td><strong>${esc(c.firstName)}</strong></td>
+      <td>${esc(c.lastName)}</td>
+      <td style="font-size:0.8rem;">${esc(c.email) || '<span style="color:var(--muted);">—</span>'}</td>
+      <td style="font-size:0.8rem;">${esc(c.phone) || '<span style="color:var(--muted);">—</span>'}</td>
+      <td style="font-size:0.8rem;">${esc(c.subjects) || '—'}</td>
+      <td><span style="font-size:0.75rem;font-weight:700;color:${recColor(c.recommendation)};">${esc(c.recommendation)}</span></td>
+      <td style="font-size:0.75rem;color:var(--muted);white-space:nowrap;">${fmtDateTime(c.shortlistedAt)}</td>
+      <td><button onclick="removeFromShortlist(${i})" style="background:none;border:none;color:#C0392B;cursor:pointer;font-size:0.8rem;padding:4px 8px;" title="Remove">✕</button></td>
+    </tr>`).join('');
+}
+
+function downloadShortlistCSV() {
+  const list = getShortlist();
+  if (!list.length) { showToast('Shortlist is empty.', 'error'); return; }
+  const header = ['First Name', 'Last Name', 'Email', 'Phone', 'Subjects', 'Verdict', 'Shortlisted At'];
+  const rows = list.map(c => [
+    c.firstName, c.lastName, c.email, c.phone, c.subjects, c.recommendation,
+    new Date(c.shortlistedAt).toLocaleString('en-GB'),
+  ].map(v => `"${(v || '').replace(/"/g, '""')}"`));
+  const csv  = [header, ...rows].map(r => r.join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'thinkviva-shortlist.csv'; a.click();
+  URL.revokeObjectURL(url);
 }
 
 function resetScreener() {
