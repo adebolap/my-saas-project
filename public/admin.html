@@ -83,6 +83,7 @@
       <div class="admin-tabs">
         <button class="admin-tab active" onclick="switchTab('leads', this)">Parent Leads</button>
         <button class="admin-tab" onclick="switchTab('tutors', this)">Tutor Applications</button>
+        <button class="admin-tab" onclick="switchTab('screener', this)">&#129302; CV Screener</button>
         <button class="admin-tab" onclick="switchTab('sessions', this)">Sessions</button>
         <button class="admin-tab" onclick="switchTab('emails', this)">Email Log</button>
       </div>
@@ -130,6 +131,28 @@
               <tr><td colspan="8" style="text-align:center;color:var(--muted);padding:32px;">Loading...</td></tr>
             </tbody>
           </table>
+        </div>
+      </div>
+
+      <!-- CV SCREENER -->
+      <div class="admin-panel" id="panel-screener">
+        <div style="max-width:680px;margin:0 auto;padding:8px 0 32px;">
+          <h3 style="color:var(--navy);font-size:1rem;font-weight:800;margin-bottom:4px;">AI CV Screener</h3>
+          <p style="color:var(--muted);font-size:0.875rem;margin-bottom:24px;">Upload a tutor CV (PDF or Word) and get an instant verdict powered by Llama AI.</p>
+
+          <div id="cv-drop-zone"
+            style="border:2px dashed var(--border);border-radius:12px;padding:44px 24px;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;background:var(--bg);"
+            onclick="document.getElementById('cv-file-input').click()"
+            ondragover="cvDragOver(event)" ondragleave="cvDragLeave(event)" ondrop="cvDrop(event)">
+            <div style="font-size:2.5rem;margin-bottom:12px;">&#128196;</div>
+            <p style="font-weight:700;color:var(--navy);margin-bottom:4px;" id="cv-drop-label">Drop CV here or click to browse</p>
+            <p style="font-size:0.8rem;color:var(--muted);">PDF or Word · Max 10 MB</p>
+            <input type="file" id="cv-file-input" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="display:none;" onchange="cvFileSelected(this)" />
+          </div>
+
+          <button id="cv-screen-btn" class="btn btn-navy" style="width:100%;margin-top:16px;display:none;" onclick="screenCV()">Screen this CV &#8594;</button>
+
+          <div id="cv-verdict" style="margin-top:28px;display:none;"></div>
         </div>
       </div>
 
