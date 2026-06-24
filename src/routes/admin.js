@@ -1,9 +1,18 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const Groq = require('groq-sdk');
+const pdfParse = require('pdf-parse');
+const mammoth = require('mammoth');
 const Lead = require('../models/Lead');
 const TutorApplication = require('../models/TutorApplication');
 const Session = require('../models/Session');
 const EmailLog = require('../models/EmailLog');
+
+const cvUpload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 10 * 1024 * 1024 },
+}).single('cv');
 
 // Simple header-token auth — replace with proper auth before going to prod
 router.use((req, res, next) => {
@@ -127,6 +136,78 @@ router.get('/email-logs', async (req, res) => {
     res.json(logs);
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+});
+
+router.post('/screen-cv', (req, res, next) => {
+  cvUpload(req, res, (err) => {
+    if (err) return res.status(400).json({ error: 'Upload error: ' + err.message });
+    next();
+  });
+}, async (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'No CV file uploaded.' });
+  if (!process.env.GROQ_API_KEY) return res.status(500).json({ error: 'GROQ_API_KEY not configured in environment.' });
+
+  let text = '';
+  try {
+    const mime = req.file.mimetype;
+    if (mime === 'application/pdf') {
+      const parsed = await pdfParse(req.file.buffer);
+      text = parsed.text;
+    } else {
+      const result = await mammoth.extractRawText({ buffer: req.file.buffer });
+      text = result.value;
+    }
+  } catch (err) {
+    return res.status(422).json({ error: 'Could not read CV: ' + err.message });
+  }
+
+  if (!text || text.trim().length < 50) {
+    return res.status(422).json({ error: 'CV appears empty or unreadable. Try a different file.' });
+  }
+
+  const prompt = `You are an HR assistant for ThinkViva, an online tutoring platform connecting diaspora families with qualified Nigerian tutors. Tutors teach Maths, English, Science, and Local Languages (Yoruba, Igbo, Hausa) for Kindergarten to Grade 9 (JS3).
+
+Analyse this CV and return ONLY valid JSON — no markdown, no extra text.
+
+Criteria:
+- Nigeria-based is critical
+- Must have teaching qualification (B.Ed, PGDE, NCE) or relevant university degree
+- Must be able to teach: Maths, English, Science, or Local Languages
+- Experience with children is a strong plus
+- Mentions of Zoom, Google Meet, online teaching is a plus
+
+Return exactly this JSON:
+{
+  "name": "full name from CV",
+  "recommendation": "Shortlist" or "Maybe" or "Reject",
+  "summary": "2-3 sentence hiring manager summary",
+  "qualification": "highest qualification",
+  "subjects": ["subject"],
+  "experience": "e.g. 4 years classroom teaching",
+  "location": "city, state or country",
+  "nigeriaBase": true or false,
+  "techReady": true or false,
+  "strengths": ["strength 1", "strength 2", "strength 3"],
+  "concerns": ["concern 1", "concern 2"],
+  "nextStep": "e.g. Schedule interview / Decline politely"
+}
+
+CV:
+${text.slice(0, 6000)}`;
+
+  try {
+    const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+    const completion = await groq.chat.completions.create({
+      model: 'llama-3.3-70b-versatile',
+      messages: [{ role: 'user', content: prompt }],
+      temperature: 0.1,
+      response_format: { type: 'json_object' },
+    });
+    const verdict = JSON.parse(completion.choices[0].message.content);
+    res.json(verdict);
+  } catch (err) {
+    res.status(500).json({ error: 'AI screening failed: ' + err.message });
   }
 });
 

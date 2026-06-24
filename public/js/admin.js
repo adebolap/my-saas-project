@@ -246,6 +246,145 @@ function fmtDateTime(d) {
   return new Date(d).toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 }
 
+// ---- CV SCREENER ----
+let cvFile = null;
+
+function cvDragOver(e) {
+  e.preventDefault();
+  const z = document.getElementById('cv-drop-zone');
+  z.style.borderColor = 'var(--navy)';
+  z.style.background  = 'var(--white)';
+}
+function cvDragLeave() {
+  const z = document.getElementById('cv-drop-zone');
+  z.style.borderColor = 'var(--border)';
+  z.style.background  = 'var(--bg)';
+}
+function cvDrop(e) {
+  e.preventDefault();
+  cvDragLeave();
+  const file = e.dataTransfer.files[0];
+  if (file) setCVFile(file);
+}
+function cvFileSelected(input) {
+  if (input.files[0]) setCVFile(input.files[0]);
+}
+function setCVFile(file) {
+  cvFile = file;
+  document.getElementById('cv-drop-label').textContent = '✓ ' + file.name;
+  document.getElementById('cv-drop-zone').style.borderColor = 'var(--navy)';
+  document.getElementById('cv-screen-btn').style.display = 'block';
+  document.getElementById('cv-verdict').style.display = 'none';
+}
+
+async function screenCV() {
+  if (!cvFile) return;
+  const btn = document.getElementById('cv-screen-btn');
+  btn.disabled = true;
+  btn.textContent = 'Reviewing CV…';
+  document.getElementById('cv-verdict').style.display = 'none';
+
+  const fd = new FormData();
+  fd.append('cv', cvFile);
+
+  try {
+    const res  = await fetch('/api/admin/screen-cv', {
+      method: 'POST',
+      headers: { 'x-admin-token': adminToken },
+      body: fd,
+    });
+    const data = await res.json();
+    if (!res.ok) { showToast(data.error || 'Screening failed.', 'error'); return; }
+    renderVerdict(data);
+  } catch (err) {
+    showToast('Network error: ' + err.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Screen this CV →';
+  }
+}
+
+function renderVerdict(v) {
+  const el  = document.getElementById('cv-verdict');
+  const rec = v.recommendation || 'Unknown';
+  const colors = {
+    Shortlist: { fg: '#1E5A3A', bg: '#EAFAF1', icon: '✅' },
+    Maybe:     { fg: '#B45309', bg: '#FEF9E7', icon: '🔶' },
+    Reject:    { fg: '#C0392B', bg: '#FDEDEC', icon: '❌' },
+  };
+  const c = colors[rec] || { fg: '#555', bg: '#f5f5f5', icon: '❓' };
+
+  el.style.display = 'block';
+  el.innerHTML = `
+    <div style="background:${c.bg};border:1.5px solid ${c.fg}30;border-radius:12px;padding:28px;">
+
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap;">
+        <div style="font-size:2.2rem;line-height:1;">${c.icon}</div>
+        <div>
+          <div style="font-size:0.7rem;font-weight:700;color:${c.fg};text-transform:uppercase;letter-spacing:1px;">Recommendation</div>
+          <div style="font-size:1.5rem;font-weight:900;color:${c.fg};">${rec}</div>
+        </div>
+        <div style="margin-left:auto;text-align:right;">
+          <div style="font-size:1rem;font-weight:800;color:var(--navy);">${esc(v.name || '—')}</div>
+          <div style="font-size:0.8rem;color:var(--muted);">${esc(v.location || '—')}</div>
+        </div>
+      </div>
+
+      <p style="color:var(--text);font-size:0.9rem;line-height:1.65;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid ${c.fg}20;">
+        ${esc(v.summary || '—')}
+      </p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;font-size:0.85rem;">
+        <div>
+          <div style="color:var(--muted);font-size:0.7rem;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Qualification</div>
+          <strong>${esc(v.qualification || '—')}</strong>
+        </div>
+        <div>
+          <div style="color:var(--muted);font-size:0.7rem;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Experience</div>
+          <strong>${esc(v.experience || '—')}</strong>
+        </div>
+        <div>
+          <div style="color:var(--muted);font-size:0.7rem;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Subjects</div>
+          <strong>${(v.subjects || []).join(', ') || '—'}</strong>
+        </div>
+        <div>
+          <div style="color:var(--muted);font-size:0.7rem;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Nigeria-Based</div>
+          <strong style="color:${v.nigeriaBase ? '#1E5A3A' : '#C0392B'};">${v.nigeriaBase ? '✓ Yes' : '✗ No / Unclear'}</strong>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;font-size:0.85rem;margin-bottom:20px;">
+        <div>
+          <div style="font-weight:700;color:#1E5A3A;margin-bottom:8px;">Strengths</div>
+          ${(v.strengths || []).map(s => `<div style="margin-bottom:6px;color:var(--text);">✓ ${esc(s)}</div>`).join('')}
+        </div>
+        <div>
+          <div style="font-weight:700;color:#C0392B;margin-bottom:8px;">Concerns</div>
+          ${(v.concerns || []).map(c => `<div style="margin-bottom:6px;color:var(--text);">• ${esc(c)}</div>`).join('')}
+        </div>
+      </div>
+
+      ${v.nextStep ? `
+      <div style="padding-top:16px;border-top:1px solid ${c.fg}20;font-size:0.875rem;">
+        <span style="font-weight:700;color:var(--navy);">Suggested next step:</span> ${esc(v.nextStep)}
+      </div>` : ''}
+
+      <button class="btn btn-sm" style="margin-top:20px;border:1px solid var(--border);background:var(--white);color:var(--navy);cursor:pointer;" onclick="resetScreener()">
+        &#8592; Screen another CV
+      </button>
+    </div>`;
+}
+
+function resetScreener() {
+  cvFile = null;
+  document.getElementById('cv-file-input').value = '';
+  document.getElementById('cv-drop-label').textContent = 'Drop CV here or click to browse';
+  document.getElementById('cv-drop-zone').style.borderColor = 'var(--border)';
+  document.getElementById('cv-drop-zone').style.background  = 'var(--bg)';
+  document.getElementById('cv-screen-btn').style.display = 'none';
+  document.getElementById('cv-verdict').style.display = 'none';
+}
+
 // ---- TABS ----
 function switchTab(name, btn) {
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
