@@ -150,7 +150,7 @@ router.post('/screen-cv', (req, res, next) => {
   try {
     const mime = req.file.mimetype;
     if (mime === 'application/pdf') {
-      const pdfParse = require('pdf-parse');
+      const pdfParse = require('pdf-parse/lib/pdf-parse.js');
       const parsed = await pdfParse(req.file.buffer);
       text = parsed.text;
     } else {
