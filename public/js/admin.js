@@ -248,7 +248,8 @@ function fmtDateTime(d) {
 }
 
 // ---- CV SCREENER ----
-let cvFile = null;
+const MAX_CV_BATCH = 10;
+let cvFiles = [];
 
 function cvDragOver(e) {
   e.preventDefault();
@@ -264,45 +265,112 @@ function cvDragLeave() {
 function cvDrop(e) {
   e.preventDefault();
   cvDragLeave();
-  const file = e.dataTransfer.files[0];
-  if (file) setCVFile(file);
+  setCVFiles(Array.from(e.dataTransfer.files));
 }
 function cvFileSelected(input) {
-  if (input.files[0]) setCVFile(input.files[0]);
+  if (input.files.length) setCVFiles(Array.from(input.files));
 }
-function setCVFile(file) {
-  cvFile = file;
-  document.getElementById('cv-drop-label').textContent = '✓ ' + file.name;
+function setCVFiles(files) {
+  if (files.length > MAX_CV_BATCH) {
+    showToast(`Max ${MAX_CV_BATCH} CVs per batch. First ${MAX_CV_BATCH} selected.`, 'error');
+    files = files.slice(0, MAX_CV_BATCH);
+  }
+  cvFiles = files;
+  const label = files.length === 1 ? `✓ ${files[0].name}` : `✓ ${files.length} CVs selected`;
+  document.getElementById('cv-drop-label').textContent = label;
   document.getElementById('cv-drop-zone').style.borderColor = 'var(--navy)';
   document.getElementById('cv-screen-btn').style.display = 'block';
+  document.getElementById('cv-screen-btn').textContent = files.length === 1 ? 'Screen this CV →' : `Screen ${files.length} CVs →`;
   document.getElementById('cv-verdict').style.display = 'none';
+  document.getElementById('cv-progress').style.display = 'none';
+
+  const listEl = document.getElementById('cv-file-list');
+  listEl.style.display = 'block';
+  listEl.innerHTML = files.map((f, i) =>
+    `<div id="cv-file-row-${i}" style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg);border-radius:8px;margin-bottom:6px;font-size:0.85rem;">
+      <span id="cv-file-status-${i}" style="font-size:1rem;">⏳</span>
+      <span style="flex:1;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(f.name)}</span>
+      <span id="cv-file-rec-${i}" style="font-size:0.75rem;font-weight:700;"></span>
+    </div>`
+  ).join('');
 }
 
-async function screenCV() {
-  if (!cvFile) return;
+async function screenCVs() {
+  if (!cvFiles.length) return;
   const btn = document.getElementById('cv-screen-btn');
   btn.disabled = true;
-  btn.textContent = 'Reviewing CV…';
+
   document.getElementById('cv-verdict').style.display = 'none';
+  const progressEl = document.getElementById('cv-progress');
 
-  const fd = new FormData();
-  fd.append('cv', cvFile);
+  const results = [];
+  for (let i = 0; i < cvFiles.length; i++) {
+    btn.textContent = `Screening ${i + 1} of ${cvFiles.length}…`;
+    progressEl.style.display = 'block';
+    progressEl.innerHTML = `<div style="background:var(--bg);border-radius:8px;height:8px;overflow:hidden;">
+      <div style="width:${Math.round(((i) / cvFiles.length) * 100)}%;background:var(--navy);height:100%;border-radius:8px;transition:width 0.4s;"></div>
+    </div>
+    <p style="font-size:0.8rem;color:var(--muted);margin-top:6px;text-align:center;">Screening ${i + 1} of ${cvFiles.length} — please wait…</p>`;
 
-  try {
-    const res  = await fetch('/api/admin/screen-cv', {
-      method: 'POST',
-      headers: { 'x-admin-token': adminToken },
-      body: fd,
-    });
-    const data = await res.json();
-    if (!res.ok) { showToast(data.error || 'Screening failed.', 'error'); return; }
-    renderVerdict(data);
-  } catch (err) {
-    showToast('Network error: ' + err.message, 'error');
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'Screen this CV →';
+    document.getElementById(`cv-file-status-${i}`).textContent = '🔄';
+    const fd = new FormData();
+    fd.append('cv', cvFiles[i]);
+    try {
+      const res  = await fetch('/api/admin/screen-cv', { method: 'POST', headers: { 'x-admin-token': adminToken }, body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed');
+      results.push({ file: cvFiles[i].name, ...data });
+      const recIcon = data.recommendation === 'Shortlist' ? '✅' : data.recommendation === 'Maybe' ? '🔶' : '❌';
+      const recColor = data.recommendation === 'Shortlist' ? '#1E5A3A' : data.recommendation === 'Maybe' ? '#B45309' : '#C0392B';
+      document.getElementById(`cv-file-status-${i}`).textContent = recIcon;
+      document.getElementById(`cv-file-rec-${i}`).style.color = recColor;
+      document.getElementById(`cv-file-rec-${i}`).textContent = data.recommendation || '';
+    } catch (err) {
+      document.getElementById(`cv-file-status-${i}`).textContent = '⚠️';
+      document.getElementById(`cv-file-rec-${i}`).textContent = 'Error';
+      results.push({ file: cvFiles[i].name, error: err.message });
+    }
   }
+
+  progressEl.innerHTML = `<p style="font-size:0.85rem;font-weight:700;color:var(--navy);text-align:center;margin-top:4px;">
+    ✓ Done — ${results.filter(r => r.recommendation === 'Shortlist').length} Shortlist · ${results.filter(r => r.recommendation === 'Maybe').length} Maybe · ${results.filter(r => r.recommendation === 'Reject').length} Reject
+  </p>`;
+
+  if (cvFiles.length === 1) {
+    renderVerdict(results[0]);
+  } else {
+    renderBulkResults(results);
+  }
+
+  btn.disabled = false;
+  btn.textContent = cvFiles.length === 1 ? 'Screen this CV →' : `Screen ${cvFiles.length} CVs →`;
+}
+
+function renderBulkResults(results) {
+  const el = document.getElementById('cv-verdict');
+  el.style.display = 'block';
+  const recColor = r => r === 'Shortlist' ? '#1E5A3A' : r === 'Maybe' ? '#B45309' : '#C0392B';
+  const recIcon  = r => r === 'Shortlist' ? '✅' : r === 'Maybe' ? '🔶' : '❌';
+  el.innerHTML = `
+    <h4 style="color:var(--navy);font-size:0.9rem;font-weight:800;margin-bottom:12px;">Screening Results</h4>
+    ${results.map((v, i) => v.error
+      ? `<div style="padding:14px 16px;background:#FDEDEC;border-radius:8px;margin-bottom:8px;font-size:0.85rem;color:#C0392B;">⚠️ <strong>${esc(v.file)}</strong> — ${esc(v.error)}</div>`
+      : `<div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:10px;">
+          <div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;">
+            <div style="flex:1;min-width:180px;">
+              <div style="font-weight:800;color:var(--navy);font-size:0.9rem;">${esc(v.name || v.file)}</div>
+              <div style="font-size:0.78rem;color:var(--muted);margin-top:2px;">${esc(v.qualification || '—')} · ${esc(v.location || '—')}</div>
+              <div style="font-size:0.78rem;color:var(--muted);margin-top:1px;">${(v.subjects||[]).join(', ')||'—'} · ${v.nigeriaBase ? '<span style="color:#1E5A3A;">Nigeria ✓</span>' : '<span style="color:#C0392B;">Not Nigeria</span>'}</div>
+              <div style="font-size:0.78rem;color:var(--muted);margin-top:2px;font-style:italic;">${esc(v.summary||'')}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;">
+              <span style="font-size:0.8rem;font-weight:800;color:${recColor(v.recommendation)};">${recIcon(v.recommendation)} ${v.recommendation}</span>
+              ${v.recommendation !== 'Reject' ? `<button class="btn btn-sm" style="font-size:0.75rem;padding:4px 12px;background:var(--navy);color:var(--white);border:none;border-radius:6px;cursor:pointer;" onclick='addToShortlist(${JSON.stringify(v)})'>+ Shortlist</button>` : ''}
+            </div>
+          </div>
+        </div>`
+    ).join('')}
+    <button class="btn btn-sm" style="margin-top:8px;border:1px solid var(--border);background:var(--white);color:var(--navy);cursor:pointer;" onclick="resetScreener()">&#8592; Screen another batch</button>`;
 }
 
 function renderVerdict(v) {
@@ -351,6 +419,10 @@ function renderVerdict(v) {
         <div>
           <div style="color:var(--muted);font-size:0.7rem;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Nigeria-Based</div>
           <strong style="color:${v.nigeriaBase ? '#1E5A3A' : '#C0392B'};">${v.nigeriaBase ? '✓ Yes' : '✗ No / Unclear'}</strong>
+        </div>
+        <div style="grid-column:1/-1;">
+          <div style="color:var(--muted);font-size:0.7rem;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Availability Signal</div>
+          <strong>${esc(v.availabilitySignal || 'Not mentioned')}</strong>
         </div>
       </div>
 
@@ -457,12 +529,15 @@ function downloadShortlistCSV() {
 }
 
 function resetScreener() {
-  cvFile = null;
+  cvFiles = [];
   document.getElementById('cv-file-input').value = '';
-  document.getElementById('cv-drop-label').textContent = 'Drop CV here or click to browse';
+  document.getElementById('cv-drop-label').textContent = 'Drop CVs here or click to browse';
   document.getElementById('cv-drop-zone').style.borderColor = 'var(--border)';
   document.getElementById('cv-drop-zone').style.background  = 'var(--bg)';
   document.getElementById('cv-screen-btn').style.display = 'none';
+  document.getElementById('cv-file-list').style.display = 'none';
+  document.getElementById('cv-file-list').innerHTML = '';
+  document.getElementById('cv-progress').style.display = 'none';
   document.getElementById('cv-verdict').style.display = 'none';
 }
 
