@@ -166,16 +166,22 @@ router.post('/screen-cv', (req, res, next) => {
     return res.status(422).json({ error: 'CV appears empty or unreadable. Try a different file.' });
   }
 
-  const prompt = `You are an HR assistant for ThinkViva, an online tutoring platform connecting diaspora families with qualified Nigerian tutors. Tutors teach Maths, English, Science, and Local Languages (Yoruba, Igbo, Hausa) for Kindergarten to Grade 9 (JS3).
+  const prompt = `You are a strict HR screener for ThinkViva, an online tutoring platform connecting diaspora families with qualified Nigerian tutors. Tutors teach Maths, English, Science, and Local Languages (Yoruba, Igbo, Hausa) for Kindergarten to Grade 9 (JS3).
 
 Analyse this CV and return ONLY valid JSON — no markdown, no extra text.
 
-Criteria:
-- Nigeria-based is critical
-- Must have teaching qualification (B.Ed, PGDE, NCE) or relevant university degree
-- Must be able to teach: Maths, English, Science, or Local Languages
-- Experience with children is a strong plus
-- Mentions of Zoom, Google Meet, online teaching is a plus
+STRICT criteria — apply all of these:
+1. NIGERIA-BASED: Candidate must be located in Nigeria. Auto-Reject if not.
+2. QUALIFICATION: Must have a teaching qualification (B.Ed, PGDE, NCE, PGCE) or relevant university degree. Auto-Reject if absent.
+3. SUBJECTS: Must be able to teach at least one of: Maths, English, Science, Yoruba, Igbo, Hausa. Auto-Reject if none match.
+4. EXPERIENCE WITH CHILDREN: Must show evidence of teaching or tutoring children/students. No experience = Reject.
+5. AVAILABILITY: Candidate should mention availability for online work, or show they are not locked in a conflicting full-time role. Unclear availability = downgrade to Maybe.
+6. TECH READINESS: Must mention laptop/computer, Zoom, Google Meet, or online teaching experience. Missing = downgrade to Maybe.
+
+Recommendation rules (be conservative — when in doubt, go lower):
+- "Shortlist": Meets ALL 6 criteria clearly
+- "Maybe": Meets criteria 1–4 but missing availability clarity OR tech readiness
+- "Reject": Fails ANY of criteria 1–3, or has no teaching experience with children
 
 Return exactly this JSON:
 {
@@ -185,14 +191,15 @@ Return exactly this JSON:
   "email": "email address from CV or empty string",
   "phone": "phone number from CV or empty string",
   "recommendation": "Shortlist" or "Maybe" or "Reject",
-  "summary": "2-3 sentence hiring manager summary",
+  "summary": "2 sentence hiring manager summary",
   "qualification": "highest qualification",
   "subjects": ["subject"],
   "experience": "e.g. 4 years classroom teaching",
   "location": "city, state or country",
   "nigeriaBase": true or false,
   "techReady": true or false,
-  "strengths": ["strength 1", "strength 2", "strength 3"],
+  "availabilitySignal": "what the CV says about availability or 'Not mentioned'",
+  "strengths": ["strength 1", "strength 2"],
   "concerns": ["concern 1", "concern 2"],
   "nextStep": "e.g. Schedule interview / Decline politely"
 }

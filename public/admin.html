@@ -137,21 +137,25 @@
       <!-- CV SCREENER -->
       <div class="admin-panel" id="panel-screener">
         <div style="max-width:680px;margin:0 auto;padding:8px 0 32px;">
-          <h3 style="color:var(--navy);font-size:1rem;font-weight:800;margin-bottom:4px;">AI CV Screener</h3>
-          <p style="color:var(--muted);font-size:0.875rem;margin-bottom:24px;">Upload a tutor CV (PDF or Word) and get an instant verdict powered by Llama AI.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:4px;">
+            <h3 style="color:var(--navy);font-size:1rem;font-weight:800;">AI CV Screener</h3>
+            <span style="font-size:0.75rem;color:var(--muted);background:var(--bg);padding:4px 10px;border-radius:20px;border:1px solid var(--border);">Max 10 CVs per batch</span>
+          </div>
+          <p style="color:var(--muted);font-size:0.875rem;margin-bottom:24px;">Upload up to 10 CVs at once (PDF or Word). Each is screened individually — results appear as they complete.</p>
 
           <div id="cv-drop-zone"
             style="border:2px dashed var(--border);border-radius:12px;padding:44px 24px;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;background:var(--bg);"
             onclick="document.getElementById('cv-file-input').click()"
             ondragover="cvDragOver(event)" ondragleave="cvDragLeave(event)" ondrop="cvDrop(event)">
             <div style="font-size:2.5rem;margin-bottom:12px;">&#128196;</div>
-            <p style="font-weight:700;color:var(--navy);margin-bottom:4px;" id="cv-drop-label">Drop CV here or click to browse</p>
-            <p style="font-size:0.8rem;color:var(--muted);">PDF or Word · Max 10 MB</p>
-            <input type="file" id="cv-file-input" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="display:none;" onchange="cvFileSelected(this)" />
+            <p style="font-weight:700;color:var(--navy);margin-bottom:4px;" id="cv-drop-label">Drop CVs here or click to browse</p>
+            <p style="font-size:0.8rem;color:var(--muted);">PDF or Word · Max 10 MB each · Up to 10 files</p>
+            <input type="file" id="cv-file-input" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="display:none;" multiple onchange="cvFileSelected(this)" />
           </div>
 
-          <button id="cv-screen-btn" class="btn btn-navy" style="width:100%;margin-top:16px;display:none;" onclick="screenCV()">Screen this CV &#8594;</button>
-
+          <div id="cv-file-list" style="margin-top:14px;display:none;"></div>
+          <button id="cv-screen-btn" class="btn btn-navy" style="width:100%;margin-top:12px;display:none;" onclick="screenCVs()">Screen CVs &#8594;</button>
+          <div id="cv-progress" style="margin-top:16px;display:none;"></div>
           <div id="cv-verdict" style="margin-top:28px;display:none;"></div>
         </div>
 
