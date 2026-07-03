@@ -1,8 +1,9 @@
 const nodemailer = require('nodemailer');
 const EmailLog = require('../models/EmailLog');
 
-const ADMIN = process.env.ADMIN_EMAIL || 'info@thinkviva.org';
-const FROM  = process.env.FROM_EMAIL  || process.env.SMTP_USER;
+const ADMIN    = process.env.ADMIN_EMAIL    || 'info@thinkviva.org';
+const BOOKINGS = process.env.BOOKINGS_EMAIL || 'Bookings@thinkviva.org';
+const FROM     = process.env.FROM_EMAIL     || process.env.SMTP_USER;
 
 function createTransport() {
   const port = parseInt(process.env.SMTP_PORT || '465');
@@ -40,7 +41,7 @@ async function send({ to, subject, html, attachments, type }) {
 
 async function notifyAdminNewLead({ parentName, email, phone, country, childName, grade, package: pkg, subjects, message, id }) {
   await send({
-    to: ADMIN,
+    to: BOOKINGS,
     type: 'admin_booking',
     subject: `New Booking Request — ${parentName}`,
     html: `
