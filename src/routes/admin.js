@@ -137,6 +137,15 @@ router.get('/email-logs', async (req, res) => {
   }
 });
 
+router.get('/feedback', async (req, res) => {
+  try {
+    const logs = await Lead.find({ source: 'feedback_widget' }).sort({ createdAt: -1 });
+    res.json(logs);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.post('/screen-cv', (req, res, next) => {
   cvUpload(req, res, (err) => {
     if (err) return res.status(400).json({ error: 'Upload error: ' + err.message });

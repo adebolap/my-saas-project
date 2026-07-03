@@ -19,6 +19,7 @@ function adminLogin() {
   loadSessions();
   loadEmailLogs();
   renderShortlist();
+  loadFeedback();
 }
 
 function adminLogout() {
@@ -539,6 +540,86 @@ function resetScreener() {
   document.getElementById('cv-file-list').innerHTML = '';
   document.getElementById('cv-progress').style.display = 'none';
   document.getElementById('cv-verdict').style.display = 'none';
+}
+
+// ---- FEEDBACK ----
+function parseFeedback(msg) {
+  if (!msg) return { role: null, rating: null, comment: null };
+  const m = msg.match(/^\[(.+?)\] Rating: (\d+)\/5 — ([\s\S]*)$/);
+  if (!m) return { role: null, rating: null, comment: msg };
+  return { role: m[1], rating: parseInt(m[2], 10), comment: m[3].trim() };
+}
+
+function stars(n) {
+  const filled = '★'.repeat(Math.max(0, Math.min(5, n || 0)));
+  const empty  = '☆'.repeat(5 - Math.max(0, Math.min(5, n || 0)));
+  return `<span style="color:#F5A623;font-size:1.1rem;">${filled}</span><span style="color:var(--border);font-size:1.1rem;">${empty}</span>`;
+}
+
+async function loadFeedback() {
+  try {
+    const res  = await fetch('/api/admin/feedback', { headers: apiHeaders() });
+    const data = await res.json();
+
+    const statsEl = document.getElementById('feedback-stats');
+    const cardsEl = document.getElementById('feedback-cards');
+    if (!statsEl || !cardsEl) return;
+
+    if (!data.length) {
+      statsEl.innerHTML = '';
+      cardsEl.innerHTML = '<p style="text-align:center;color:var(--muted);padding:32px;">No feedback submitted yet.</p>';
+      return;
+    }
+
+    const parsed = data.map(d => ({ ...d, fb: parseFeedback(d.message) }));
+    const rated  = parsed.filter(d => d.fb.rating !== null);
+    const avg    = rated.length ? (rated.reduce((s, d) => s + d.fb.rating, 0) / rated.length).toFixed(1) : '—';
+    const breakdown = [5,4,3,2,1].map(n => ({ n, count: rated.filter(d => d.fb.rating === n).length }));
+
+    statsEl.innerHTML = `
+      <div class="metric-card" style="text-align:center;">
+        <div class="metric-val" style="font-size:2rem;">${data.length}</div>
+        <div class="metric-label">Total Responses</div>
+      </div>
+      <div class="metric-card" style="text-align:center;">
+        <div class="metric-val" style="font-size:2rem;">${avg}</div>
+        <div class="metric-label">Avg Rating</div>
+        <div style="margin-top:4px;">${avg !== '—' ? stars(Math.round(parseFloat(avg))) : ''}</div>
+      </div>
+      <div class="metric-card" style="padding:18px 20px;">
+        <div style="font-size:0.7rem;font-weight:700;color:var(--navy);text-transform:uppercase;margin-bottom:10px;">Rating Breakdown</div>
+        ${breakdown.map(b => `
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:0.8rem;">
+            <span style="color:#F5A623;min-width:14px;">${b.n}★</span>
+            <div style="flex:1;background:var(--bg);border-radius:4px;height:10px;">
+              <div style="width:${rated.length ? Math.round((b.count/rated.length)*100) : 0}%;background:#F5A623;height:100%;border-radius:4px;"></div>
+            </div>
+            <span style="min-width:16px;text-align:right;color:var(--muted);">${b.count}</span>
+          </div>`).join('')}
+      </div>`;
+
+    cardsEl.innerHTML = parsed.map(d => {
+      const { role, rating, comment } = d.fb;
+      return `
+        <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:12px;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
+            <div>
+              <span style="font-weight:700;color:var(--navy);">${esc(d.parentName)}</span>
+              ${role ? `<span style="margin-left:8px;font-size:0.75rem;background:var(--bg);border:1px solid var(--border);padding:2px 8px;border-radius:20px;color:var(--muted);">${esc(role)}</span>` : ''}
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              ${rating !== null ? stars(rating) : ''}
+              <span style="font-size:0.75rem;color:var(--muted);">${fmtDate(d.createdAt)}</span>
+            </div>
+          </div>
+          ${comment ? `<p style="margin:0;color:var(--text);font-size:0.875rem;line-height:1.6;">"${esc(comment)}"</p>` : ''}
+          ${d.email ? `<p style="margin:6px 0 0;font-size:0.75rem;color:var(--muted);">${esc(d.email)}</p>` : ''}
+        </div>`;
+    }).join('');
+  } catch (err) {
+    const cardsEl = document.getElementById('feedback-cards');
+    if (cardsEl) cardsEl.innerHTML = `<p style="text-align:center;color:#C0392B;padding:32px;">Error loading feedback: ${esc(err.message)}</p>`;
+  }
 }
 
 // ---- TABS ----
