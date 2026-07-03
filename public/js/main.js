@@ -29,6 +29,11 @@ document.querySelectorAll('.modal-overlay').forEach(el => {
   });
 });
 
+// Auto-open booking modal when landing from ?book=1 (e.g. "Get Started" on other pages)
+if (new URLSearchParams(window.location.search).get('book') === '1' && document.getElementById('booking-modal')) {
+  openBooking();
+}
+
 // ---- GRADE PILLS (hero) ----
 const gradeDescriptions = {
   K:  'Kindergarten (age 3–5): Early number sense, letter recognition, phonics, colours, and shapes. A gentle, playful start to lifelong learning.',
@@ -58,7 +63,13 @@ document.querySelectorAll('.grade-pill').forEach(btn => {
 });
 
 // ---- BOOKING MODAL ----
-function openBooking() { openModal('booking-modal'); }
+function openBooking() {
+  if (document.getElementById('booking-modal')) {
+    openModal('booking-modal');
+  } else {
+    window.location.href = '/?book=1';
+  }
+}
 function closeBooking() { closeModal('booking-modal'); }
 
 function openBookingWithGrade() {
