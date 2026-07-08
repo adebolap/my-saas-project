@@ -39,7 +39,7 @@ async function send({ to, subject, html, attachments, type }) {
   }
 }
 
-async function notifyAdminNewLead({ parentName, email, phone, country, childName, grade, package: pkg, subjects, message, id }) {
+async function notifyAdminNewLead({ parentName, email, phone, country, childName, grade, package: pkg, subjects, message, referralCode, id }) {
   await send({
     to: BOOKINGS,
     type: 'admin_booking',
@@ -56,10 +56,37 @@ async function notifyAdminNewLead({ parentName, email, phone, country, childName
           ${pkg ? `<tr><td style="padding:8px 0;color:#555;">Package</td><td style="padding:8px 0;font-weight:600;color:#1E5A3A;">${pkg}</td></tr>` : ''}
           <tr><td style="padding:8px 0;color:#555;">Subjects</td><td style="padding:8px 0;">${(subjects || []).join(', ') || '—'}</td></tr>
           <tr><td style="padding:8px 0;color:#555;">Country</td><td style="padding:8px 0;">${country}</td></tr>
+          ${referralCode ? `<tr><td style="padding:8px 0;color:#555;">Referral</td><td style="padding:8px 0;font-family:monospace;font-weight:700;color:#1E5A3A;">${referralCode}</td></tr>` : ''}
           ${message ? `<tr><td style="padding:8px 0;color:#555;vertical-align:top;">Note</td><td style="padding:8px 0;">${message}</td></tr>` : ''}
           <tr><td style="padding:8px 0;color:#555;">Lead ID</td><td style="padding:8px 0;font-family:monospace;font-size:13px;">${id}</td></tr>
         </table>
         <p style="margin-top:24px;color:#888;font-size:13px;">Review in the admin dashboard and follow up within 24 hours.</p>
+      </div>
+    `,
+  });
+}
+
+async function sendReviewRequest({ parentName, email }) {
+  const reviewUrl = process.env.GOOGLE_REVIEW_URL || 'https://thinkviva.org';
+  await send({
+    to: email,
+    type: 'review_request',
+    subject: 'How is ThinkViva working for your family?',
+    html: `
+      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#222;">
+        <h2 style="color:#1E5A3A;">Hi ${parentName} — how are sessions going?</h2>
+        <p>We hope your child is enjoying their ThinkViva sessions! Your feedback means the world to us and helps other diaspora families find the right support.</p>
+        <p>If you've had a positive experience so far, would you mind leaving us a quick Google Review? It only takes 60 seconds and makes a huge difference to families searching for reliable Nigerian tutors.</p>
+        <div style="text-align:center;margin:28px 0;">
+          <a href="${reviewUrl}" style="display:inline-block;background:#1E5A3A;color:#fff;text-decoration:none;padding:14px 32px;border-radius:8px;font-weight:700;font-size:1rem;">
+            &#11088; Leave a Google Review
+          </a>
+        </div>
+        <p style="color:#555;font-size:0.875rem;">If there is anything we can improve, simply reply to this email — we read every message and will get back to you within 24 hours.</p>
+        <p style="color:#555;">Thank you,<br/><strong>The ThinkViva Team</strong><br/>
+          <span style="font-size:0.875rem;">&#127758; <a href="https://thinkviva.org" style="color:#1E5A3A;">thinkviva.org</a></span><br/>
+          <span style="font-size:0.875rem;">&#128222; +234 707 734 0116</span>
+        </p>
       </div>
     `,
   });
@@ -223,4 +250,4 @@ async function confirmApplicant({ name, email }) {
   });
 }
 
-module.exports = { notifyAdminNewApplication, notifyAdminNewLead, confirmApplicant, confirmLead };
+module.exports = { notifyAdminNewApplication, notifyAdminNewLead, confirmApplicant, confirmLead, sendReviewRequest };

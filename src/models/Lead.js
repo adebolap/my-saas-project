@@ -13,6 +13,7 @@ const leadSchema = new mongoose.Schema({
   preferredDays: [{ type: String }],
   preferredTime: { type: String },
   message: { type: String },
+  referralCode: { type: String },
   status: {
     type: String,
     enum: ['new', 'contacted', 'booked', 'active', 'churned'],

@@ -34,6 +34,12 @@ if (new URLSearchParams(window.location.search).get('book') === '1' && document.
   openBooking();
 }
 
+// Capture inbound referral code from ?ref= URL param
+(function () {
+  const ref = new URLSearchParams(window.location.search).get('ref');
+  if (ref) localStorage.setItem('tv_incoming_ref', ref);
+})();
+
 // ---- GRADE PILLS (hero) ----
 const gradeDescriptions = {
   K:  'Kindergarten (age 3–5): Early number sense, letter recognition, phonics, colours, and shapes. A gentle, playful start to lifelong learning.',
@@ -101,6 +107,8 @@ if (bookingForm) {
     data.preferredDays = fd.getAll('preferredDays');
     data.preferredTime = fd.get('preferredTime') || undefined;
     data.message    = fd.get('message') || undefined;
+    const incomingRef = localStorage.getItem('tv_incoming_ref');
+    if (incomingRef) data.referralCode = incomingRef;
 
     try {
       const res  = await fetch('/api/leads', {
@@ -113,6 +121,7 @@ if (bookingForm) {
         closeModal('booking-modal');
         showToast('Thank you! We will contact you within 24 hours.', 'success');
         bookingForm.reset();
+        localStorage.removeItem('tv_incoming_ref');
       } else {
         showToast(json.message || 'Something went wrong. Please try again.', 'error');
       }
@@ -222,15 +231,37 @@ if (feedbackForm) {
 }
 
 // ---- REFERRAL LINK ----
+function getMyRefCode() {
+  let code = localStorage.getItem('tv_my_ref');
+  if (!code) {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    code = 'TV';
+    for (let i = 0; i < 6; i++) code += chars[Math.floor(Math.random() * chars.length)];
+    localStorage.setItem('tv_my_ref', code);
+  }
+  return code;
+}
+
+function getReferralUrl() {
+  return 'https://thinkviva.org/?ref=' + getMyRefCode();
+}
+
 function copyReferralLink(btn) {
-  navigator.clipboard.writeText('https://thinkviva.org').then(() => {
+  const url = getReferralUrl();
+  navigator.clipboard.writeText(url).then(() => {
     const orig = btn.textContent;
     btn.textContent = '✓ Link Copied!';
     showToast('Referral link copied! Share it with family and friends.', 'success');
     setTimeout(() => { btn.textContent = orig; }, 2500);
   }).catch(() => {
-    showToast('Could not copy — please copy the link manually: thinkviva.org', 'error');
+    showToast('Could not copy. Your link: ' + url, 'error');
   });
+}
+
+function shareOnWhatsApp() {
+  const url = getReferralUrl();
+  const text = encodeURIComponent('My child is getting great results with ThinkViva tutors! Book a qualified Nigerian tutor for your child: ' + url);
+  window.open('https://api.whatsapp.com/send?text=' + text, '_blank', 'noopener');
 }
 
 // ---- MOBILE HAMBURGER NAV ----

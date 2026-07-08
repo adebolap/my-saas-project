@@ -53,6 +53,21 @@ app.get('/about', (req, res) =>
 app.get('/faq', (req, res) =>
   res.sendFile(path.join(__dirname, '../public/faq.html'))
 );
+app.get('/privacy', (req, res) =>
+  res.sendFile(path.join(__dirname, '../public/privacy.html'))
+);
+app.get('/blog', (req, res) =>
+  res.sendFile(path.join(__dirname, '../public/blog.html'))
+);
+app.get('/blog/online-tutoring-nigerian-diaspora', (req, res) =>
+  res.sendFile(path.join(__dirname, '../public/blog/online-tutoring-nigerian-diaspora.html'))
+);
+app.get('/blog/bece-preparation-abroad', (req, res) =>
+  res.sendFile(path.join(__dirname, '../public/blog/bece-preparation-abroad.html'))
+);
+app.get('/blog/nigerian-curriculum-guide-diaspora', (req, res) =>
+  res.sendFile(path.join(__dirname, '../public/blog/nigerian-curriculum-guide-diaspora.html'))
+);
 
 if (!process.env.VERCEL) {
   // Local dev: connect once then start listening
