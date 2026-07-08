@@ -67,7 +67,7 @@ async function notifyAdminNewLead({ parentName, email, phone, country, childName
 }
 
 async function sendReviewRequest({ parentName, email }) {
-  const reviewUrl = process.env.GOOGLE_REVIEW_URL || 'https://thinkviva.org';
+  const reviewUrl = process.env.GOOGLE_REVIEW_URL || 'https://g.page/r/CVioiiso65WGEAI/review';
   await send({
     to: email,
     type: 'review_request',
