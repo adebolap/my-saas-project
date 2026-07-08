@@ -1282,7 +1282,7 @@ section { padding: 72px 0; }
 .footer-brand-tag { font-size: 0.58rem; font-weight: 400; color: rgba(255,255,255,0.55); letter-spacing: 0.2px; }
 .footer-brand h3 { color: var(--white); font-size: 1.2rem; font-weight: 800; margin-bottom: 10px; }
 .footer-brand p { font-size: 0.875rem; max-width: 300px; line-height: 1.7; }
-.footer-col h4 { color: var(--white); font-size: 0.9rem; font-weight: 700; margin-bottom: 14px; }
+.footer-col h3, .footer-col h4 { color: var(--white); font-size: 0.9rem; font-weight: 700; margin-bottom: 14px; }
 .footer-col ul { list-style: none; }
 .footer-col li { margin-bottom: 8px; }
 .footer-col a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
