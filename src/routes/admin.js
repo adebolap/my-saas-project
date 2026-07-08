@@ -6,6 +6,7 @@ const Lead = require('../models/Lead');
 const TutorApplication = require('../models/TutorApplication');
 const Session = require('../models/Session');
 const EmailLog = require('../models/EmailLog');
+const { sendReviewRequest } = require('../services/email');
 
 const cvUpload = multer({
   storage: multer.memoryStorage(),
@@ -87,7 +88,11 @@ router.get('/leads', async (req, res) => {
 
 router.patch('/leads/:id', async (req, res) => {
   try {
+    const prev = await Lead.findById(req.params.id).select('status');
     const lead = await Lead.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    if (prev && prev.status !== 'active' && lead.status === 'active') {
+      sendReviewRequest({ parentName: lead.parentName, email: lead.email }).catch(() => {});
+    }
     res.json(lead);
   } catch (err) {
     res.status(500).json({ error: err.message });

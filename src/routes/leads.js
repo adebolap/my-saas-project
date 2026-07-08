@@ -21,6 +21,7 @@ router.post('/', async (req, res) => {
         package: lead.package,
         subjects: lead.subjects,
         message: lead.message,
+        referralCode: lead.referralCode,
         id: lead._id,
       }),
       confirmLead({

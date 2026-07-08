@@ -78,7 +78,7 @@ async function loadLeads() {
     const tbody = document.getElementById('leads-tbody');
 
     if (!data.length) {
-      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:32px;">No leads yet. Share the landing page!</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--muted);padding:32px;">No leads yet. Share the landing page!</td></tr>';
       return;
     }
 
@@ -92,6 +92,7 @@ async function loadLeads() {
         <td><span style="font-weight:700;color:var(--navy);">${l.grade}</span></td>
         <td style="font-size:0.8rem;">${(l.subjects || []).join(', ') || '—'}</td>
         <td>${esc(l.country)}</td>
+        <td style="font-size:0.75rem;font-family:monospace;color:${l.referralCode ? 'var(--navy)' : 'var(--muted)'};">${l.referralCode ? esc(l.referralCode) : '—'}</td>
         <td><span class="status-badge status-${l.status}">${l.status}</span></td>
         <td style="font-size:0.8rem;color:var(--muted);">${fmtDate(l.createdAt)}</td>
         <td>
@@ -210,6 +211,7 @@ const EMAIL_TYPE_LABELS = {
   admin_application: { label: 'Application Alert (Admin)', color: '#3A3A8C' },
   parent_confirm:    { label: 'Booking Confirmation', color: '#B45309' },
   admin_booking:     { label: 'Booking Alert (Admin)', color: '#6B3A8C' },
+  review_request:    { label: 'Review Request', color: '#F5A623' },
   other:             { label: 'Other', color: '#666' },
 };
 
