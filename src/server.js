@@ -68,6 +68,9 @@ app.get('/blog/bece-preparation-abroad', (req, res) =>
 app.get('/blog/nigerian-curriculum-guide-diaspora', (req, res) =>
   res.sendFile(path.join(__dirname, '../public/blog/nigerian-curriculum-guide-diaspora.html'))
 );
+app.get('/blog/safeguarding-children-online-tutoring', (req, res) =>
+  res.sendFile(path.join(__dirname, '../public/blog/safeguarding-children-online-tutoring.html'))
+);
 
 if (!process.env.VERCEL) {
   // Local dev: connect once then start listening
