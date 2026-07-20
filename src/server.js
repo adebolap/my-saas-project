@@ -71,6 +71,9 @@ app.get('/blog/nigerian-curriculum-guide-diaspora', (req, res) =>
 app.get('/blog/safeguarding-children-online-tutoring', (req, res) =>
   res.sendFile(path.join(__dirname, '../public/blog/safeguarding-children-online-tutoring.html'))
 );
+app.get('/blog/google-workspace-student-blogging-guide', (req, res) =>
+  res.sendFile(path.join(__dirname, '../public/blog/google-workspace-student-blogging-guide.html'))
+);
 
 if (!process.env.VERCEL) {
   // Local dev: connect once then start listening
