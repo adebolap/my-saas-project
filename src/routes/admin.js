@@ -86,6 +86,17 @@ router.get('/leads', async (req, res) => {
   }
 });
 
+router.post('/leads/:id/review', async (req, res) => {
+  try {
+    const lead = await Lead.findById(req.params.id).select('parentName email');
+    if (!lead) return res.status(404).json({ error: 'Lead not found' });
+    await sendReviewRequest({ parentName: lead.parentName, email: lead.email });
+    res.json({ ok: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.patch('/leads/:id', async (req, res) => {
   try {
     const prev = await Lead.findById(req.params.id).select('status');
