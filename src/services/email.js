@@ -67,7 +67,7 @@ async function notifyAdminNewLead({ parentName, email, phone, country, childName
 }
 
 async function sendReviewRequest({ parentName, email }) {
-  const reviewUrl = process.env.GOOGLE_REVIEW_URL || 'https://g.page/r/CVioiiso65WGEAI/review';
+  const reviewUrl = process.env.GOOGLE_REVIEW_URL || 'https://g.page/r/CREjb5uVNmz8EBM/review';
   await send({
     to: email,
     type: 'review_request',
@@ -81,6 +81,7 @@ async function sendReviewRequest({ parentName, email }) {
             &#11088; Leave a Google Review
           </a>
         </div>
+        <p style="color:#555;font-size:0.875rem;">We also appreciate referrals! If you know another diaspora family looking for reliable Nigerian tutors, we would love for you to share ThinkViva with them. Help another child learn and thrive.</p>
         <p style="color:#555;font-size:0.875rem;">If there is anything we can improve, simply reply to this email. We read every message and will get back to you within 24 hours.</p>
         <p style="color:#555;">Thank you,<br/><strong>The ThinkViva Team</strong><br/>
           <span style="font-size:0.875rem;">&#127758; <a href="https://thinkviva.org" style="color:#1E5A3A;">thinkviva.org</a></span><br/>

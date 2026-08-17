@@ -101,6 +101,7 @@ async function loadLeads() {
               `<option value="${s}" ${s === l.status ? 'selected' : ''}>${s}</option>`
             ).join('')}
           </select>
+          <button onclick="sendReviewEmail('${l._id}')" style="margin-top:6px;display:block;width:100%;font-size:0.7rem;padding:3px 8px;background:none;border:1px solid var(--border);border-radius:4px;color:var(--navy);cursor:pointer;">&#11088; Ask for review</button>
         </td>
       </tr>
     `).join('');
@@ -119,6 +120,19 @@ async function updateLeadStatus(id, status) {
     showToast('Lead status updated.', 'success');
   } catch {
     showToast('Failed to update lead.', 'error');
+  }
+}
+
+async function sendReviewEmail(id) {
+  try {
+    const res = await fetch('/api/admin/leads/' + id + '/review', {
+      method: 'POST',
+      headers: apiHeaders(),
+    });
+    if (!res.ok) throw new Error();
+    showToast('Review request sent.', 'success');
+  } catch {
+    showToast('Failed to send review request.', 'error');
   }
 }
 
