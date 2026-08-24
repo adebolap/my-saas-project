@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Dashboard | ThinkViva</title>
   <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    .email-filter-btn {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: none;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .email-filter-btn:hover { border-color: var(--navy); color: var(--navy); }
+    .email-filter-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+  </style>
 </head>
 <body style="background:var(--bg);">
 
@@ -229,6 +244,14 @@
 
       <!-- EMAIL LOG TABLE -->
       <div class="admin-panel" id="panel-emails">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+          <span style="font-size:0.8rem;color:var(--muted);font-weight:600;">Filter:</span>
+          <button class="email-filter-btn active" onclick="filterEmailLogs('today', this)">Today</button>
+          <button class="email-filter-btn" onclick="filterEmailLogs('7d', this)">Last 7 days</button>
+          <button class="email-filter-btn" onclick="filterEmailLogs('30d', this)">Last 30 days</button>
+          <button class="email-filter-btn" onclick="filterEmailLogs('all', this)">All</button>
+          <span style="margin-left:auto;font-size:0.75rem;color:var(--muted);" id="email-log-count"></span>
+        </div>
         <div style="overflow-x:auto;">
           <table class="data-table" id="emails-table">
             <thead>

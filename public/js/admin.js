@@ -245,34 +245,65 @@ const EMAIL_TYPE_LABELS = {
   other:             { label: 'Other', color: '#666' },
 };
 
+let _allEmailLogs = [];
+let _emailFilter  = 'today';
+
 async function loadEmailLogs() {
   try {
+    // Auto-purge logs older than 90 days
+    fetch('/api/admin/email-logs/purge', { method: 'DELETE', headers: apiHeaders() }).catch(() => {});
+
     const res  = await fetch('/api/admin/email-logs', { headers: apiHeaders() });
-    const data = await res.json();
-    const tbody = document.getElementById('emails-tbody');
-
-    if (!data.length) {
-      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:32px;">No emails logged yet. Logs appear after the next submission.</td></tr>';
-      return;
-    }
-
-    tbody.innerHTML = data.map(e => {
-      const meta  = EMAIL_TYPE_LABELS[e.type] || EMAIL_TYPE_LABELS.other;
-      const badge = e.status === 'sent'
-        ? '<span style="color:#1E5A3A;font-weight:700;font-size:0.8rem;">✓ Sent</span>'
-        : `<span style="color:#C0392B;font-weight:700;font-size:0.8rem;" title="${esc(e.error || '')}">✗ Failed</span>`;
-      return `
-        <tr>
-          <td style="font-size:0.8rem;color:var(--muted);white-space:nowrap;">${fmtDateTime(e.sentAt)}</td>
-          <td style="font-size:0.85rem;">${esc(e.to)}</td>
-          <td><span style="font-size:0.75rem;font-weight:700;color:${meta.color};background:${meta.color}18;padding:3px 8px;border-radius:20px;white-space:nowrap;">${meta.label}</span></td>
-          <td style="font-size:0.8rem;color:var(--muted);">${esc(e.subject)}</td>
-          <td>${badge}</td>
-        </tr>`;
-    }).join('');
+    _allEmailLogs = await res.json();
+    renderEmailLogs();
   } catch (err) {
     showToast('Error loading email logs: ' + err.message, 'error');
   }
+}
+
+function filterEmailLogs(range, btn) {
+  _emailFilter = range;
+  document.querySelectorAll('.email-filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderEmailLogs();
+}
+
+function renderEmailLogs() {
+  const tbody = document.getElementById('emails-tbody');
+  const countEl = document.getElementById('email-log-count');
+  const now = new Date();
+
+  const filtered = _allEmailLogs.filter(e => {
+    if (_emailFilter === 'all') return true;
+    const sent = new Date(e.sentAt);
+    const diffDays = (now - sent) / 86400000;
+    if (_emailFilter === 'today') return diffDays < 1;
+    if (_emailFilter === '7d')   return diffDays < 7;
+    if (_emailFilter === '30d')  return diffDays < 30;
+    return true;
+  });
+
+  if (countEl) countEl.textContent = filtered.length + ' record' + (filtered.length !== 1 ? 's' : '');
+
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:32px;">No emails in this period.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(e => {
+    const meta  = EMAIL_TYPE_LABELS[e.type] || EMAIL_TYPE_LABELS.other;
+    const badge = e.status === 'sent'
+      ? '<span style="color:#1E5A3A;font-weight:700;font-size:0.8rem;">✓ Sent</span>'
+      : `<span style="color:#C0392B;font-weight:700;font-size:0.8rem;" title="${esc(e.error || '')}">✗ Failed</span>`;
+    return `
+      <tr>
+        <td style="font-size:0.8rem;color:var(--muted);white-space:nowrap;">${fmtDateTime(e.sentAt)}</td>
+        <td style="font-size:0.85rem;">${esc(e.to)}</td>
+        <td><span style="font-size:0.75rem;font-weight:700;color:${meta.color};background:${meta.color}18;padding:3px 8px;border-radius:20px;white-space:nowrap;">${meta.label}</span></td>
+        <td style="font-size:0.8rem;color:var(--muted);">${esc(e.subject)}</td>
+        <td>${badge}</td>
+      </tr>`;
+  }).join('');
 }
 
 function fmtDateTime(d) {
