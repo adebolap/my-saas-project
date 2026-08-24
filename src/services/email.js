@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 const EmailLog = require('../models/EmailLog');
 
 const ADMIN    = process.env.ADMIN_EMAIL    || 'info@thinkviva.org';
-const BOOKINGS = process.env.BOOKINGS_EMAIL || 'Bookings@thinkviva.org';
+const BOOKINGS = process.env.BOOKINGS_EMAIL || process.env.ADMIN_EMAIL || 'info@thinkviva.org';
 const FROM     = process.env.FROM_EMAIL     || process.env.SMTP_USER;
 
 function createTransport() {
