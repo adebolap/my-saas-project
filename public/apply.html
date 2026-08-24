@@ -130,6 +130,21 @@
         </div>
       </div>
       <div class="form-group">
+        <label class="form-label">Are you registered with the Teachers Registration Council of Nigeria (TRCN)? <span>*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="trcn" value="yes" onchange="onTrcnChange(this.value)" /> Yes, I am TRCN registered
+          </label>
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="trcn" value="no" onchange="onTrcnChange(this.value)" /> No, I am not registered
+          </label>
+        </div>
+        <div id="trcn-reject" style="display:none;margin-top:12px;background:#FEF2F2;border-left:4px solid #C0392B;border-radius:6px;padding:14px 18px;">
+          <p style="margin:0;color:#C0392B;font-weight:700;font-size:0.9rem;">TRCN Registration Required</p>
+          <p style="margin:8px 0 0;color:#7B241C;font-size:0.85rem;line-height:1.6;">ThinkViva requires all tutors to be registered with the Teachers Registration Council of Nigeria. Unfortunately, we cannot proceed with your application at this time. You can register at <a href="https://trcn.gov.ng" target="_blank" rel="noopener" style="color:#C0392B;">trcn.gov.ng</a> and reapply once registered.</p>
+        </div>
+      </div>
+      <div class="form-group">
         <label class="form-label">Subjects You Can Teach <span>*</span></label>
         <div class="checkbox-group">
           <label class="checkbox-label"><input type="checkbox" class="t-subjects" value="Math" /> Math</label>

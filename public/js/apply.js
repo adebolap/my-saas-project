@@ -19,6 +19,11 @@ function toggleReferralOther(val) {
   if (el) el.style.display = val === 'Other (please specify)' ? 'block' : 'none';
 }
 
+function onTrcnChange(val) {
+  const rejectEl = document.getElementById('trcn-reject');
+  if (rejectEl) rejectEl.style.display = val === 'no' ? 'block' : 'none';
+}
+
 function updateStepUI(step) {
   for (let i = 1; i <= STEPS; i++) {
     const el = document.getElementById('step-' + i);
@@ -53,9 +58,13 @@ function validateStep1() {
   const subjects = document.querySelectorAll('.t-subjects:checked').length;
   const grades = document.querySelectorAll('.t-grades:checked').length;
 
+  const trcn = document.querySelector('input[name="trcn"]:checked')?.value;
+
   if (!name) { showToast('Please enter your full name.', 'error'); return false; }
   if (!email || !email.includes('@')) { showToast('Please enter a valid email address.', 'error'); return false; }
   if (!phone) { showToast('Please enter your phone number.', 'error'); return false; }
+  if (!trcn) { showToast('Please confirm your TRCN registration status.', 'error'); return false; }
+  if (trcn === 'no') { showToast('TRCN registration is required to apply. Please register at trcn.gov.ng and reapply.', 'error'); return false; }
   if (!qual) { showToast('Please select your qualification.', 'error'); return false; }
   if (!subjects) { showToast('Please select at least one subject.', 'error'); return false; }
   if (!grades) { showToast('Please select at least one grade.', 'error'); return false; }
@@ -186,6 +195,7 @@ async function submitApplication() {
   const referralVal   = document.getElementById('t-referral').value;
   const referralOther = document.getElementById('t-referral-other').value.trim();
   fd.append('referralSource', referralVal === 'Other (please specify)' && referralOther ? `Other: ${referralOther}` : referralVal);
+  fd.append('trcnRegistered', document.querySelector('input[name="trcn"]:checked')?.value || '');
   fd.append('linkedinUrl',    document.getElementById('t-linkedin').value.trim());
   fd.append('equipmentNotes', equipmentNotes);
   fd.append('subjects',       JSON.stringify(subjects));

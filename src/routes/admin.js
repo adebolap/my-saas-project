@@ -216,16 +216,17 @@ Analyse this CV and return ONLY valid JSON — no markdown, no extra text.
 
 STRICT criteria — apply all of these:
 1. NIGERIA-BASED: Candidate must be located in Nigeria. Auto-Reject if not.
-2. QUALIFICATION: Must have a teaching qualification (B.Ed, PGDE, NCE, PGCE) or relevant university degree. Auto-Reject if absent.
-3. SUBJECTS: Must be able to teach at least one of: Maths, English, Science, Yoruba, Igbo, Hausa. Auto-Reject if none match.
-4. EXPERIENCE WITH CHILDREN: Must show evidence of teaching or tutoring children/students. No experience = Reject.
-5. AVAILABILITY: Candidate should mention availability for online work, or show they are not locked in a conflicting full-time role. Unclear availability = downgrade to Maybe.
-6. TECH READINESS: Must mention laptop/computer, Zoom, Google Meet, or online teaching experience. Missing = downgrade to Maybe.
+2. TRCN: Must be registered with the Teachers Registration Council of Nigeria (TRCN). Auto-Reject if not mentioned or absent.
+3. QUALIFICATION: Must have a teaching qualification (B.Ed, PGDE, NCE, PGCE) or relevant university degree. Auto-Reject if absent.
+4. SUBJECTS: Must be able to teach at least one of: Maths, English, Science, Yoruba, Igbo, Hausa. Auto-Reject if none match.
+5. EXPERIENCE WITH CHILDREN: Must show evidence of teaching or tutoring children/students. No experience = Reject.
+6. AVAILABILITY: Candidate should mention availability for online work, or show they are not locked in a conflicting full-time role. Unclear availability = downgrade to Maybe.
+7. TECH READINESS: Must mention laptop/computer, Zoom, Google Meet, or online teaching experience. Missing = downgrade to Maybe.
 
 Recommendation rules (be conservative — when in doubt, go lower):
-- "Shortlist": Meets ALL 6 criteria clearly
-- "Maybe": Meets criteria 1–4 but missing availability clarity OR tech readiness
-- "Reject": Fails ANY of criteria 1–3, or has no teaching experience with children
+- "Shortlist": Meets ALL 7 criteria clearly
+- "Maybe": Meets criteria 1–5 but missing availability clarity OR tech readiness
+- "Reject": Fails ANY of criteria 1–4, or has no teaching experience with children
 
 Return exactly this JSON:
 {
