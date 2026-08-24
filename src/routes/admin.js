@@ -155,8 +155,18 @@ router.get('/sessions', async (req, res) => {
 
 router.get('/email-logs', async (req, res) => {
   try {
-    const logs = await EmailLog.find().sort({ sentAt: -1 }).limit(300);
+    const logs = await EmailLog.find().sort({ sentAt: -1 }).limit(500);
     res.json(logs);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.delete('/email-logs/purge', async (req, res) => {
+  try {
+    const cutoff = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000);
+    const result = await EmailLog.deleteMany({ sentAt: { $lt: cutoff } });
+    res.json({ deleted: result.deletedCount });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
