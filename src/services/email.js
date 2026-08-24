@@ -141,7 +141,7 @@ function row(label, value) {
 }
 
 async function notifyAdminNewApplication({
-  name, email, phone, location, qualification, experience,
+  name, email, phone, location, qualification, experience, trcnRegistered,
   subjects, grades, availability, linkedinUrl, referralSource, equipmentNotes,
   itTestAnswers, score, passed, id, cvData, cvFilename, cvMimeType,
 }) {
@@ -198,6 +198,7 @@ async function notifyAdminNewApplication({
           ${row('Location', location)}
           ${row('Qualification', qualification)}
           ${row('Experience', experience)}
+          ${row('TRCN Registered', trcnRegistered === 'yes' ? '<span style="color:#1E5A3A;font-weight:700;">Yes</span>' : '<span style="color:#C0392B;font-weight:700;">No</span>')}
           ${row('Subjects', (subjects || []).join(', ') || '—')}
           ${row('Grades', (grades || []).join(', ') || '—')}
           ${row('Availability', availDays)}
