@@ -299,10 +299,10 @@ if (newsletterForm) {
     btn.disabled = true;
     btn.textContent = '…';
     try {
-      await fetch('/api/leads', {
+      await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, type: 'newsletter' }),
+        body: JSON.stringify({ email }),
       });
       showToast("You’re on the list! We’ll be in touch soon.", 'success');
       newsletterForm.reset();
