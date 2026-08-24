@@ -19,7 +19,8 @@
 
 <!-- TUTOR BAR -->
 <div class="tutor-bar">
-  Tutor applications are currently paused. Check back soon or follow <strong>@thinkviva_ng</strong> for updates.
+  Are you a tutor? Join our growing team of expert educators.
+  <a href="/apply">Apply here &rarr;</a>
 </div>
 
 <!-- NAV -->
@@ -53,25 +54,252 @@
 <div class="apply-hero">
   <div class="container">
     <div class="hero-badge" style="margin:0 auto 16px;">
-      <span>📋</span> Applications Temporarily Paused
+      <span>&#127979;</span> Tutor Applications Open
     </div>
     <h1>Apply to Teach with ThinkViva</h1>
     <p class="apply-tagline">Teach from Nigeria. Reach the world.</p>
+    <p>Complete your profile, pass our IT readiness check, and join our growing team of expert tutors.</p>
   </div>
 </div>
 
-<!-- HOLDING MESSAGE -->
+<!-- FORM -->
 <div class="apply-form-wrap">
-  <div class="apply-card" style="text-align:center;padding:56px 40px;">
-    <div style="font-size:3rem;margin-bottom:20px;">🔍</div>
-    <h2 style="color:var(--navy);font-size:1.4rem;font-weight:800;margin-bottom:12px;">We're Reviewing Applications</h2>
-    <p style="color:var(--muted);max-width:420px;margin:0 auto 24px;font-size:0.95rem;line-height:1.6;">
-      Thank you for your interest in joining ThinkViva as a tutor. We are currently reviewing applications and will reopen submissions shortly.
-    </p>
-    <p style="color:var(--muted);max-width:420px;margin:0 auto 32px;font-size:0.95rem;line-height:1.6;">
-      In the meantime, feel free to follow us on Instagram and X at <strong>@thinkviva_ng</strong> for updates.
-    </p>
-    <a href="/" class="btn btn-navy" style="display:inline-flex;">&#8592; Back to Home</a>
+  <div class="apply-card">
+
+    <!-- Step progress indicator -->
+    <div style="padding:24px 36px 0;">
+      <div class="step-indicator" id="step-indicator">
+        <div class="step-dot current" id="dot-1"></div>
+        <div class="step-dot" id="dot-2"></div>
+        <div class="step-dot" id="dot-3"></div>
+        <div class="step-dot" id="dot-4"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:8px;">
+        <span style="font-size:0.75rem;color:var(--muted);font-weight:600;" id="step-label">Step 1 of 4: Your Profile</span>
+        <span style="font-size:0.75rem;color:var(--gold);font-weight:700;" id="step-sublabel">Personal Info</span>
+      </div>
+    </div>
+
+    <!-- STEP 1: Personal Info -->
+    <div class="apply-step active" id="step-1">
+      <h2 style="font-size:1.3rem;font-weight:800;color:var(--navy);margin-bottom:20px;">Tell us about yourself</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Full Name <span>*</span></label>
+          <input type="text" class="form-input" id="t-name" placeholder="e.g. Ngozi Adeyemi" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email <span>*</span></label>
+          <input type="email" class="form-input" id="t-email" placeholder="you@email.com" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Phone / WhatsApp <span>*</span></label>
+          <input type="tel" class="form-input" id="t-phone" placeholder="+234 80 0000 0000" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">City / Location</label>
+          <input type="text" class="form-input" id="t-location" placeholder="e.g. Lagos, Abuja" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Highest Qualification <span>*</span></label>
+          <select class="form-select" id="t-qualification" required>
+            <option value="">Select qualification</option>
+            <option>B.Ed / B.A Education</option>
+            <option>B.Sc / B.A (any field)</option>
+            <option>PGDE / PGCE</option>
+            <option>NCE (National Certificate of Education)</option>
+            <option>HND</option>
+            <option>OND</option>
+            <option>WAEC / NECO only</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Years of Teaching Experience</label>
+          <select class="form-select" id="t-experience">
+            <option value="">Select range</option>
+            <option>Less than 1 year</option>
+            <option>1–2 years</option>
+            <option>3–5 years</option>
+            <option>5–10 years</option>
+            <option>10+ years</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Subjects You Can Teach <span>*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label"><input type="checkbox" class="t-subjects" value="Math" /> Math</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-subjects" value="English" /> English</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-subjects" value="Science" /> Science</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-subjects" value="Local Languages" /> Local Languages</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Grades You're Comfortable Teaching <span>*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label"><input type="checkbox" class="t-grades" value="K" /> Kindergarten</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-grades" value="P1" /> Primary 1</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-grades" value="P2" /> Primary 2</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-grades" value="P3" /> Primary 3</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-grades" value="P4" /> Primary 4</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-grades" value="P5" /> Primary 5</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-grades" value="P6" /> Primary 6</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">How did you hear about us?</label>
+        <select class="form-select" id="t-referral" onchange="toggleReferralOther(this.value)">
+          <option value="">Select an option</option>
+          <option>Google Search</option>
+          <option>LinkedIn</option>
+          <option>Social Media Ad (X or Instagram)</option>
+          <option>Indeed</option>
+          <option>Newspaper Ad</option>
+          <option>Word of Mouth / Friend Referral</option>
+          <option>WhatsApp</option>
+          <option>Other (please specify)</option>
+        </select>
+        <input type="text" class="form-input" id="t-referral-other" placeholder="Please tell us more..." style="display:none;margin-top:10px;" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">LinkedIn Profile URL</label>
+        <input type="url" class="form-input" id="t-linkedin" placeholder="https://linkedin.com/in/your-name" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Upload Your CV / Résumé <span style="color:var(--muted);font-weight:400;">(PDF or Word, max 5 MB)</span></label>
+        <input type="file" class="form-input" id="t-cv" accept=".pdf,.doc,.docx" style="padding:10px;" />
+        <p style="font-size:0.8rem;color:var(--muted);margin-top:6px;">Your CV will be attached to your application email so our team can review your background.</p>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Weekly Availability</label>
+        <div class="checkbox-group">
+          <label class="checkbox-label"><input type="checkbox" class="t-days" value="Monday" /> Mon</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-days" value="Tuesday" /> Tue</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-days" value="Wednesday" /> Wed</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-days" value="Thursday" /> Thu</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-days" value="Friday" /> Fri</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-days" value="Saturday" /> Sat</label>
+          <label class="checkbox-label"><input type="checkbox" class="t-days" value="Sunday" /> Sun</label>
+        </div>
+      </div>
+      <button class="btn btn-navy btn-block" onclick="goToStep(2)">Continue to Equipment Check &#8594;</button>
+    </div>
+
+    <!-- STEP 2: Equipment Check -->
+    <div class="apply-step" id="step-2">
+      <h2 style="font-size:1.3rem;font-weight:800;color:var(--navy);margin-bottom:8px;">Equipment &amp; Setup Check</h2>
+      <p style="color:var(--muted);font-size:0.875rem;margin-bottom:24px;">
+        Our students are in the UK, US, Canada, and Australia. A reliable setup is non-negotiable for a great experience.
+      </p>
+
+      <div class="form-group">
+        <label class="form-label">Do you have a working laptop or desktop computer? <span>*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-computer" value="yes" required /> Yes, I do
+          </label>
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-computer" value="no" /> No, I use mobile only
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">What is your typical internet speed? <span>*</span></label>
+        <select class="form-select" id="t-internet" required>
+          <option value="">Select speed</option>
+          <option value="below5">Below 5 Mbps</option>
+          <option value="5-10">5–10 Mbps</option>
+          <option value="10-20">10–20 Mbps</option>
+          <option value="above20">Above 20 Mbps</option>
+          <option value="unsure">Not sure</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Do you have a working webcam and microphone? <span>*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-cam" value="yes" required /> Yes, both
+          </label>
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-cam" value="mic-only" /> Microphone only
+          </label>
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-cam" value="no" /> Neither
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Have you used Zoom before? <span>*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-zoom" value="yes" required /> Yes, regularly
+          </label>
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-zoom" value="few" /> A few times
+          </label>
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-zoom" value="no" /> Never
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Do you have a quiet, distraction-free space to teach? <span>*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-space" value="yes" required /> Yes
+          </label>
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-space" value="working-on-it" /> Working on it
+          </label>
+          <label class="checkbox-label" style="flex:1;justify-content:center;">
+            <input type="radio" name="eq-space" value="no" /> Not currently
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Any additional notes about your equipment setup?</label>
+        <textarea class="form-textarea" id="t-equipment-notes" placeholder="e.g. I have a ring light, a second monitor, backup mobile data..."></textarea>
+      </div>
+
+      <div style="display:flex;gap:12px;">
+        <button class="btn btn-outline" style="border-color:var(--border);color:var(--text);" onclick="goToStep(1)">&#8592; Back</button>
+        <button class="btn btn-navy btn-block" onclick="goToStep(3)">Continue to IT Test &#8594;</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: IT Test -->
+    <div class="apply-step" id="step-3">
+      <h2 style="font-size:1.3rem;font-weight:800;color:var(--navy);margin-bottom:8px;">IT Readiness Test</h2>
+      <p style="color:var(--muted);font-size:0.875rem;margin-bottom:24px;">
+        5 quick questions. You need 60% (3/5) to pass. Take your time, there's no timer.
+      </p>
+
+      <div id="it-questions">
+        <!-- Questions injected by JS -->
+      </div>
+
+      <div style="display:flex;gap:12px;margin-top:8px;">
+        <button class="btn btn-outline" style="border-color:var(--border);color:var(--text);" onclick="goToStep(2)">&#8592; Back</button>
+        <button class="btn btn-navy btn-block" onclick="submitApplication()">Submit Application &#8594;</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: Result -->
+    <div class="apply-step" id="step-4">
+      <div class="score-display" id="score-display">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -87,31 +315,30 @@
             <span class="footer-brand-tag">Smart Learning for Growing Minds</span>
           </div>
         </a>
-        <p>Fostering exceptional education and bridging learning gaps for under-served and all children. Connecting diaspora families to Nigerian tutors.</p>
+        <p>Fostering exceptional education and bridging learning gaps for underserved children and families worldwide. Connecting diaspora families to qualified Nigerian tutors.</p>
       </div>
       <div class="footer-col">
-        <h3>Platform</h3>
+        <h4>Platform</h4>
         <ul>
           <li><a href="/#subjects">Explore all Subjects</a></li>
           <li><a href="/#how-it-works">How It Works</a></li>
           <li><a href="/about">About Us</a></li>
           <li><a href="/pricing">Pricing</a></li>
-          <li><a href="/blog">Blog</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h3>Get Started</h3>
+        <h4>Get Started</h4>
         <ul>
           <li><a href="#" onclick="openBooking();return false;">Book a Session</a></li>
         </ul>
-        <h3 style="margin-top:20px;">Contact Us</h3>
+        <h4 style="margin-top:20px;">Contact Us</h4>
         <ul>
           <li><a href="mailto:info@thinkviva.org" class="footer-contact-link">&#128231; info@thinkviva.org</a></li>
           <li><a href="https://wa.me/2347077340116" class="footer-whatsapp-link" target="_blank" rel="noopener"><svg class="wa-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> +234 707 734 0116</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h3>Stay Connected</h3>
+        <h4>Stay Connected</h4>
         <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;margin-bottom:12px;">Get learning tips and schedule updates.</p>
         <form class="newsletter-form" onsubmit="return false;">
           <input type="email" class="newsletter-input" placeholder="Enter your email" aria-label="Email address" />
@@ -130,7 +357,6 @@
     <div class="footer-bottom">
       <span>&copy; 2026 ThinkViva. All rights reserved. &nbsp;&middot;&nbsp; RC: 9552865</span>
       <a href="/terms" class="footer-terms-link">Terms &amp; Conditions</a>
-      <a href="/privacy" class="footer-terms-link">Privacy Policy</a>
     </div>
   </div>
 </footer>
@@ -145,6 +371,5 @@
     <button class="btn btn-primary btn-block btn-lg" onclick="openBooking()">&#128197; Book a Session</button>
   </div>
 </div>
-<script src="/js/main.js"></script>
 </body>
 </html>
