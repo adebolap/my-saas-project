@@ -102,6 +102,7 @@ async function loadLeads() {
             ).join('')}
           </select>
           <button onclick="sendReviewEmail('${l._id}')" style="margin-top:6px;display:block;width:100%;font-size:0.7rem;padding:3px 8px;background:none;border:1px solid var(--border);border-radius:4px;color:var(--navy);cursor:pointer;">&#11088; Ask for review</button>
+          <button onclick="deleteLead('${l._id}', this)" style="margin-top:4px;display:block;width:100%;font-size:0.7rem;padding:3px 8px;background:none;border:1px solid #e57373;border-radius:4px;color:#c0392b;cursor:pointer;">&#128465; Delete</button>
         </td>
       </tr>
     `).join('');
@@ -120,6 +121,21 @@ async function updateLeadStatus(id, status) {
     showToast('Lead status updated.', 'success');
   } catch {
     showToast('Failed to update lead.', 'error');
+  }
+}
+
+async function deleteLead(id, btn) {
+  if (!confirm('Delete this booking record? This cannot be undone.')) return;
+  try {
+    const res = await fetch('/api/admin/leads/' + id, {
+      method: 'DELETE',
+      headers: apiHeaders(),
+    });
+    if (!res.ok) throw new Error();
+    btn.closest('tr').remove();
+    showToast('Record deleted.', 'success');
+  } catch {
+    showToast('Failed to delete record.', 'error');
   }
 }
 

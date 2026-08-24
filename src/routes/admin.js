@@ -110,6 +110,15 @@ router.patch('/leads/:id', async (req, res) => {
   }
 });
 
+router.delete('/leads/:id', async (req, res) => {
+  try {
+    await Lead.findByIdAndDelete(req.params.id);
+    res.json({ ok: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.get('/tutors', async (req, res) => {
   try {
     const tutors = await TutorApplication.find().sort({ createdAt: -1 }).limit(200);
