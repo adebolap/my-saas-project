@@ -107,7 +107,10 @@ router.post('/', uploadCV, async (req, res) => {
     Object.keys(applicationData).forEach(k => applicationData[k] === undefined && delete applicationData[k]);
 
     // Check for existing application by email
-    const existing = await TutorApplication.findOne({
+    const TEST_EMAILS = ['kutegypsy@yahoo.ca'];
+    const isTestEmail = TEST_EMAILS.includes(applicationData.email?.toLowerCase().trim());
+
+    const existing = !isTestEmail && await TutorApplication.findOne({
       email: applicationData.email?.toLowerCase().trim(),
     }).sort({ createdAt: -1 });
 
