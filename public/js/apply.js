@@ -89,51 +89,6 @@ function validateStep2() {
 // ---- IT TEST ----
 const itQuestions = [
   {
-    id: 1,
-    text: 'Which tool would you use for a live video call with your student?',
-    options: ['WhatsApp Chat only', 'Zoom or Google Meet', 'SMS', 'Email'],
-    correct: 1,
-  },
-  {
-    id: 2,
-    text: 'What is the minimum internet speed recommended for online teaching?',
-    options: ['1 Mbps', '5 Mbps', '10 Mbps', '50 Mbps'],
-    correct: 1,
-  },
-  {
-    id: 3,
-    text: 'A student cannot hear you during a Zoom call. What do you check first?',
-    options: [
-      'Restart your entire computer',
-      'Check that your microphone is not muted in Zoom',
-      'Ask the student to leave and rejoin',
-      'End the call immediately',
-    ],
-    correct: 1,
-  },
-  {
-    id: 4,
-    text: 'What is Google Drive primarily used for?',
-    options: [
-      'Video calls only',
-      'Storing and sharing files in the cloud',
-      'Internet browsing',
-      'Sending money transfers',
-    ],
-    correct: 1,
-  },
-  {
-    id: 5,
-    text: 'How would you share a worksheet with a student during class?',
-    options: [
-      'Print it and post it to them',
-      'Share your screen or send a Google Drive link in the Zoom chat',
-      'Read the whole worksheet aloud only',
-      'Take a photo and send it on WhatsApp after the class',
-    ],
-    correct: 1,
-  },
-  {
     id: 6,
     text: 'You are screen-sharing in Google Meet and a student says they can only see your desktop wallpaper, not the document you have open. What do you do?',
     options: [
@@ -142,29 +97,11 @@ const itQuestions = [
       'Restart Google Meet',
       'Switch to a different browser',
     ],
-    correct: 0,
   },
   {
-    id: 7,
-    text: 'You want each student to have their own editable copy of a worksheet in Google Classroom. Which attachment setting do you choose?',
-    options: [
-      'View only',
-      'Edit — so everyone works on the same document together',
-      'Make a copy for each student',
-      'Download and email to each student individually',
-    ],
-    correct: 2,
-  },
-  {
-    id: 8,
-    text: 'A student submits a Google Classroom assignment but it shows as "Missing" instead of "Turned in." What most likely happened?',
-    options: [
-      "The student's account was suspended",
-      'They submitted after the due date, so Classroom marked it Missing before the late submission registered',
-      'The file was too large to upload',
-      'The assignment had already been graded',
-    ],
-    correct: 1,
+    id: 1,
+    text: 'Which tool would you use for a live video call with your student?',
+    options: ['WhatsApp Chat only', 'Zoom or Google Meet', 'SMS', 'Email'],
   },
   {
     id: 9,
@@ -175,18 +112,31 @@ const itQuestions = [
       'Recording requires a Google Workspace account — it is not available on a free Gmail account',
       'The meeting was started from a phone',
     ],
-    correct: 2,
   },
   {
-    id: 10,
-    text: 'You post a Google Form quiz on Google Classroom but students are seeing the correct answers immediately after submitting. What setting did you miss?',
+    id: 2,
+    text: 'What is the minimum internet speed recommended for online teaching?',
+    options: ['1 Mbps', '5 Mbps', '10 Mbps', '50 Mbps'],
+  },
+  {
+    id: 7,
+    text: 'You want each student to have their own editable copy of a worksheet in Google Classroom. Which attachment setting do you choose?',
     options: [
-      'You forgot to set a due date on the assignment',
-      'In Google Forms you left "Release grade immediately after each submission" on instead of "After manual review"',
-      'The quiz was posted as a question, not an assignment',
-      'Students need to be removed and re-added to the class',
+      'View only',
+      'Edit — so everyone works on the same document together',
+      'Make a copy for each student',
+      'Download and email to each student individually',
     ],
-    correct: 1,
+  },
+  {
+    id: 3,
+    text: 'A student cannot hear you during a Zoom call. What do you check first?',
+    options: [
+      'Restart your entire computer',
+      'Check that your microphone is not muted in Zoom',
+      'Ask the student to leave and rejoin',
+      'End the call immediately',
+    ],
   },
   {
     id: 11,
@@ -197,7 +147,46 @@ const itQuestions = [
       'Email them directly from Gmail instead',
       'Create a separate classroom just for that student',
     ],
-    correct: 1,
+  },
+  {
+    id: 4,
+    text: 'What is Google Drive primarily used for?',
+    options: [
+      'Video calls only',
+      'Storing and sharing files in the cloud',
+      'Internet browsing',
+      'Sending money transfers',
+    ],
+  },
+  {
+    id: 8,
+    text: 'A student submits a Google Classroom assignment but it shows as "Missing" instead of "Turned in." What most likely happened?',
+    options: [
+      "The student's account was suspended",
+      'They submitted after the due date, so Classroom marked it Missing before the late submission registered',
+      'The file was too large to upload',
+      'The assignment had already been graded',
+    ],
+  },
+  {
+    id: 5,
+    text: 'How would you share a worksheet with a student during class?',
+    options: [
+      'Print it and post it to them',
+      'Share your screen or send a Google Drive link in the Zoom chat',
+      'Read the whole worksheet aloud only',
+      'Take a photo and send it on WhatsApp after the class',
+    ],
+  },
+  {
+    id: 10,
+    text: 'You post a Google Form quiz on Google Classroom but students are seeing the correct answers immediately after submitting. What setting did you miss?',
+    options: [
+      'You forgot to set a due date on the assignment',
+      'In Google Forms you left "Release grade immediately after each submission" on instead of "After manual review"',
+      'The quiz was posted as a question, not an assignment',
+      'Students need to be removed and re-added to the class',
+    ],
   },
   {
     id: 12,
@@ -208,7 +197,6 @@ const itQuestions = [
       'Ask all other students to leave the call',
       'Mute all participants one by one to find the source',
     ],
-    correct: 0,
   },
 ];
 

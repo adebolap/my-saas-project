@@ -150,6 +150,68 @@ const IT_OPTIONS = [
 ];
 const IT_CORRECT = [1, 1, 1, 1, 1, 0, 2, 1, 2, 1, 1, 0];
 
+// Category definitions for digital readiness profiling (question IDs, 1-based)
+const IT_CATEGORIES = [
+  { label: 'Google Meet',      ids: [6, 9, 12],     threshold: 0.67 },
+  { label: 'Google Classroom', ids: [7, 8, 10, 11], threshold: 0.75 },
+  { label: 'General IT',       ids: [1, 2, 3, 4, 5], threshold: 0.80 },
+];
+
+function buildDigitalProfile(itTestAnswers) {
+  return IT_CATEGORIES.map(cat => {
+    let correct = 0;
+    cat.ids.forEach(id => {
+      const chosen = itTestAnswers?.[id] ?? itTestAnswers?.[String(id)];
+      if (chosen !== undefined && parseInt(chosen) === IT_CORRECT[id - 1]) correct++;
+    });
+    const pct = Math.round((correct / cat.ids.length) * 100);
+    const strong = pct >= cat.threshold * 100;
+    const partial = pct >= 34 && !strong;
+    const signal  = strong ? 'Strong' : partial ? 'Partial' : 'Weak';
+    const color   = strong ? '#1E5A3A' : partial ? '#9A7D0A' : '#C0392B';
+    return { label: cat.label, correct, total: cat.ids.length, pct, signal, color };
+  });
+}
+
+function buildInsights(profile, answers) {
+  const meet      = profile.find(c => c.label === 'Google Meet');
+  const classroom = profile.find(c => c.label === 'Google Classroom');
+  const general   = profile.find(c => c.label === 'General IT');
+  const insights  = [];
+
+  if (meet.pct >= 67 && classroom.pct >= 75) {
+    insights.push({ type: 'strength', text: 'Strong Google teaching suite fluency. Candidate is ready for a live teaching demonstration.' });
+  } else if (meet.pct >= 67 || classroom.pct >= 75) {
+    insights.push({ type: 'caution', text: 'Partial platform fluency — probe the weaker category during the teaching demonstration.' });
+  } else {
+    insights.push({ type: 'concern', text: 'Limited Google tools experience. Significant coaching investment likely required before independent delivery.' });
+  }
+
+  // Specific flags per question
+  const q9ans = parseInt(answers?.[9] ?? answers?.['9']);
+  if (!isNaN(q9ans) && q9ans !== 2) {
+    insights.push({ type: 'concern', text: 'Did not know recording requires Google Workspace. May have unrealistic expectations about session recording.' });
+  }
+  const q7ans = parseInt(answers?.[7] ?? answers?.['7']);
+  if (!isNaN(q7ans) && q7ans !== 2) {
+    insights.push({ type: 'concern', text: 'Unfamiliar with distributing individual copies in Classroom. Could struggle with digital worksheet delivery.' });
+  }
+  const q12ans = parseInt(answers?.[12] ?? answers?.['12']);
+  if (!isNaN(q12ans) && q12ans !== 0) {
+    insights.push({ type: 'concern', text: 'May interrupt the lesson to fix tech rather than adapt. Check classroom management approach in demo.' });
+  }
+  if (meet.pct === 100) {
+    insights.push({ type: 'strength', text: 'Perfect Google Meet score — confident live session management expected.' });
+  }
+  if (classroom.pct === 100) {
+    insights.push({ type: 'strength', text: 'Perfect Google Classroom score — deep understanding of digital classroom workflows.' });
+  }
+  if (general.pct === 100) {
+    insights.push({ type: 'strength', text: 'Solid general IT foundations across all basic questions.' });
+  }
+  return insights;
+}
+
 function row(label, value) {
   if (!value && value !== 0) return '';
   return `<tr><td style="padding:7px 12px 7px 0;color:#555;vertical-align:top;white-space:nowrap;">${label}</td><td style="padding:7px 0;font-weight:500;">${value}</td></tr>`;
@@ -228,6 +290,37 @@ async function notifyAdminNewApplication({
         </table>
 
         <h3 style="color:#1E5A3A;border-bottom:1px solid #eee;padding-bottom:6px;margin-top:24px;">IT Readiness Test — ${score}% ${statusBadge}</h3>
+
+        ${(() => {
+          const profile  = buildDigitalProfile(itTestAnswers);
+          const insights = buildInsights(profile, itTestAnswers);
+
+          const profileRows = profile.map(cat => `
+            <tr>
+              <td style="padding:7px 12px 7px 0;font-size:13px;color:#555;white-space:nowrap;">${cat.label}</td>
+              <td style="padding:7px 0;font-size:13px;">
+                <span style="font-weight:700;color:${cat.color};">${cat.correct}/${cat.total} (${cat.pct}%)</span>
+                <span style="margin-left:8px;font-size:12px;color:${cat.color};font-style:italic;">${cat.signal}</span>
+              </td>
+            </tr>`).join('');
+
+          const insightItems = insights.map(ins => {
+            const bg    = ins.type === 'strength' ? '#EAFAF1' : ins.type === 'caution' ? '#FEF9E7' : '#FDEDEC';
+            const color = ins.type === 'strength' ? '#1E5A3A' : ins.type === 'caution' ? '#9A7D0A' : '#C0392B';
+            const icon  = ins.type === 'strength' ? '✓' : ins.type === 'caution' ? '⚠' : '✗';
+            return `<li style="margin-bottom:8px;padding:8px 12px;background:${bg};border-radius:6px;font-size:13px;color:${color};list-style:none;">
+              <strong>${icon}</strong> ${ins.text}
+            </li>`;
+          }).join('');
+
+          return `
+          <div style="background:#F8F9FA;border-radius:8px;padding:16px 20px;margin:12px 0 20px;">
+            <p style="margin:0 0 10px;font-weight:700;font-size:13px;color:#333;">Digital Readiness Profile</p>
+            <table style="width:100%;border-collapse:collapse;">${profileRows}</table>
+          </div>
+          <ul style="margin:0 0 20px;padding:0;">${insightItems}</ul>`;
+        })()}
+
         <table style="width:100%;border-collapse:collapse;font-size:14px;">
           ${itAnswerRows}
         </table>

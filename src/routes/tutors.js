@@ -23,52 +23,8 @@ const uploadCV = (req, res, next) => {
   });
 };
 
+// weight: 1 = general IT, 3 = Google Meet / Classroom (higher weight = more impact on score)
 const IT_TEST = [
-  {
-    id: 1,
-    question: 'Which tool would you use for a video call with your student?',
-    options: ['WhatsApp Chat only', 'Zoom or Google Meet', 'SMS', 'Email'],
-    correct: 1,
-  },
-  {
-    id: 2,
-    question: 'What is the minimum internet speed recommended for online teaching?',
-    options: ['1 Mbps', '5 Mbps', '10 Mbps', '50 Mbps'],
-    correct: 1,
-  },
-  {
-    id: 3,
-    question: 'A student cannot hear you during a Zoom call. What do you check first?',
-    options: [
-      'Restart your computer',
-      'Check your microphone is not muted in Zoom',
-      'Ask the student to leave and rejoin',
-      'End the call',
-    ],
-    correct: 1,
-  },
-  {
-    id: 4,
-    question: 'What is Google Drive used for?',
-    options: [
-      'Video calls only',
-      'Storing and sharing files in the cloud',
-      'Internet browsing',
-      'Sending money',
-    ],
-    correct: 1,
-  },
-  {
-    id: 5,
-    question: 'How would you share a worksheet with a student during class?',
-    options: [
-      'Print and post it',
-      'Share screen or send a Google Drive link',
-      'Read it aloud only',
-      'Take a photo and send on WhatsApp',
-    ],
-    correct: 1,
-  },
   {
     id: 6,
     question: 'You are screen-sharing in Google Meet and a student says they can only see your desktop wallpaper, not the document you have open. What do you do?',
@@ -79,28 +35,14 @@ const IT_TEST = [
       'Switch to a different browser',
     ],
     correct: 0,
+    weight: 3,
   },
   {
-    id: 7,
-    question: 'You want each student to have their own editable copy of a worksheet in Google Classroom. Which attachment setting do you choose?',
-    options: [
-      'View only',
-      'Edit — so everyone works on the same document together',
-      'Make a copy for each student',
-      'Download and email to each student individually',
-    ],
-    correct: 2,
-  },
-  {
-    id: 8,
-    question: 'A student submits a Google Classroom assignment but it shows as "Missing" instead of "Turned in." What most likely happened?',
-    options: [
-      "The student's account was suspended",
-      'They submitted after the due date, so Classroom marked it Missing before the late submission registered',
-      'The file was too large to upload',
-      'The assignment had already been graded',
-    ],
+    id: 1,
+    question: 'Which tool would you use for a video call with your student?',
+    options: ['WhatsApp Chat only', 'Zoom or Google Meet', 'SMS', 'Email'],
     correct: 1,
+    weight: 1,
   },
   {
     id: 9,
@@ -112,6 +54,86 @@ const IT_TEST = [
       'The meeting was started from a phone',
     ],
     correct: 2,
+    weight: 3,
+  },
+  {
+    id: 2,
+    question: 'What is the minimum internet speed recommended for online teaching?',
+    options: ['1 Mbps', '5 Mbps', '10 Mbps', '50 Mbps'],
+    correct: 1,
+    weight: 1,
+  },
+  {
+    id: 7,
+    question: 'You want each student to have their own editable copy of a worksheet in Google Classroom. Which attachment setting do you choose?',
+    options: [
+      'View only',
+      'Edit — so everyone works on the same document together',
+      'Make a copy for each student',
+      'Download and email to each student individually',
+    ],
+    correct: 2,
+    weight: 3,
+  },
+  {
+    id: 3,
+    question: 'A student cannot hear you during a Zoom call. What do you check first?',
+    options: [
+      'Restart your computer',
+      'Check your microphone is not muted in Zoom',
+      'Ask the student to leave and rejoin',
+      'End the call',
+    ],
+    correct: 1,
+    weight: 1,
+  },
+  {
+    id: 11,
+    question: 'You want to leave a private feedback message for one student on their work without the rest of the class seeing it. How do you do this in Google Classroom?',
+    options: [
+      "Post a class announcement and include the student's name",
+      "Use the private comment box on that student's submission inside the assignment",
+      'Email them directly from Gmail instead',
+      'Create a separate classroom just for that student',
+    ],
+    correct: 1,
+    weight: 3,
+  },
+  {
+    id: 4,
+    question: 'What is Google Drive used for?',
+    options: [
+      'Video calls only',
+      'Storing and sharing files in the cloud',
+      'Internet browsing',
+      'Sending money',
+    ],
+    correct: 1,
+    weight: 1,
+  },
+  {
+    id: 8,
+    question: 'A student submits a Google Classroom assignment but it shows as "Missing" instead of "Turned in." What most likely happened?',
+    options: [
+      "The student's account was suspended",
+      'They submitted after the due date, so Classroom marked it Missing before the late submission registered',
+      'The file was too large to upload',
+      'The assignment had already been graded',
+    ],
+    correct: 1,
+    weight: 3,
+  },
+  {
+    id: 5,
+    question: 'How would you share a worksheet with a student during class?',
+    options: [
+      'Print and post it',
+      'Share screen or send a Google Drive link',
+      'Read it aloud only',
+      'Take a photo and send on WhatsApp',
+    ],
+    correct: 1,
+    weight: 1,
   },
   {
     id: 10,
@@ -123,17 +145,7 @@ const IT_TEST = [
       'Students need to be removed and re-added to the class',
     ],
     correct: 1,
-  },
-  {
-    id: 11,
-    question: 'You want to leave a private feedback message for one student on their work without the rest of the class seeing it. How do you do this in Google Classroom?',
-    options: [
-      'Post a class announcement and include the student\'s name',
-      'Use the private comment box on that student\'s submission inside the assignment',
-      'Email them directly from Gmail instead',
-      'Create a separate classroom just for that student',
-    ],
-    correct: 1,
+    weight: 3,
   },
   {
     id: 12,
@@ -145,6 +157,7 @@ const IT_TEST = [
       'Mute all participants one by one to find the source',
     ],
     correct: 0,
+    weight: 3,
   },
 ];
 
@@ -216,13 +229,14 @@ router.post('/', uploadCV, async (req, res) => {
       }
     }
 
-    let correctCount = 0;
+    let earnedWeight = 0;
+    const totalWeight = IT_TEST.reduce((sum, q) => sum + q.weight, 0);
     if (itTestAnswers && typeof itTestAnswers === 'object') {
       IT_TEST.forEach((q) => {
-        if (parseInt(itTestAnswers[q.id]) === q.correct) correctCount++;
+        if (parseInt(itTestAnswers[q.id]) === q.correct) earnedWeight += q.weight;
       });
     }
-    const itTestScore = Math.round((correctCount / IT_TEST.length) * 100);
+    const itTestScore = Math.round((earnedWeight / totalWeight) * 100);
 
     const passed = itTestScore >= 60;
 
