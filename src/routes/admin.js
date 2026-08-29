@@ -15,8 +15,13 @@ const cvUpload = multer({
 
 // Simple header-token auth — replace with proper auth before going to prod
 router.use((req, res, next) => {
+  const adminToken = process.env.ADMIN_TOKEN;
+  if (!adminToken) {
+    console.error('[admin] ADMIN_TOKEN is not configured — refusing admin requests');
+    return res.status(500).json({ error: 'Server misconfiguration: ADMIN_TOKEN not set' });
+  }
   const token = req.headers['x-admin-token'] || req.query.token;
-  if (!token || token !== (process.env.ADMIN_TOKEN || 'admin123')) {
+  if (!token || token !== adminToken) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
   next();
