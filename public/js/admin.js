@@ -152,6 +152,116 @@ async function sendReviewEmail(id) {
   }
 }
 
+// ---- TUTOR DIGITAL READINESS PROFILE ----
+const IT_META = {
+  correct: { 1:1, 2:1, 3:1, 4:1, 5:1, 6:0, 7:2, 8:1, 9:2, 10:1, 11:1, 12:0 },
+  options: {
+    1:  ['WhatsApp Chat only','Zoom or Google Meet','SMS','Email'],
+    2:  ['1 Mbps','5 Mbps','10 Mbps','50 Mbps'],
+    3:  ['Restart your entire computer','Check microphone is not muted in Zoom','Ask student to leave and rejoin','End the call'],
+    4:  ['Video calls only','Storing and sharing files in the cloud','Internet browsing','Sending money'],
+    5:  ['Print and post it','Share screen or send a Google Drive link','Read it aloud only','Take a photo and send on WhatsApp'],
+    6:  ['End share & re-share selecting the specific window/tab','Ask student to refresh','Restart Google Meet','Switch browser'],
+    7:  ['View only','Edit — everyone on the same doc','Make a copy for each student','Download & email individually'],
+    8:  ["Student's account suspended",'Submitted after due date — marked Missing before late submission registered','File too large','Already graded'],
+    9:  ['Update browser','Recording only in Chrome','Requires Google Workspace — not on free Gmail','Started from phone'],
+    10: ['Forgot due date','Left "Release grade immediately" on instead of "After manual review"','Posted as question not assignment','Remove & re-add students'],
+    11: ["Post announcement with student's name","Use private comment on student's submission",'Email via Gmail','Create separate classroom'],
+    12: ['Ask them to type in chat and continue lesson','End call and reschedule','Ask other students to leave','Mute all one by one'],
+  },
+  categories: [
+    { label: 'Google Meet',      ids: [6, 9, 12],     threshold: 67 },
+    { label: 'Google Classroom', ids: [7, 8, 10, 11], threshold: 75 },
+    { label: 'General IT',       ids: [1, 2, 3, 4, 5], threshold: 80 },
+  ],
+};
+
+function computeTutorProfile(answers) {
+  if (!answers) return null;
+  return IT_META.categories.map(cat => {
+    let correct = 0;
+    cat.ids.forEach(id => {
+      const chosen = answers[id] ?? answers[String(id)];
+      if (chosen !== undefined && parseInt(chosen) === IT_META.correct[id]) correct++;
+    });
+    const pct    = Math.round((correct / cat.ids.length) * 100);
+    const signal = pct >= cat.threshold ? 'Strong' : pct >= 34 ? 'Partial' : 'Weak';
+    const color  = pct >= cat.threshold ? 'var(--green)' : pct >= 34 ? '#9A7D0A' : '#C0392B';
+    return { label: cat.label, correct, total: cat.ids.length, pct, signal, color };
+  });
+}
+
+function buildTutorInsights(profile, answers) {
+  if (!profile) return [];
+  const meet      = profile.find(c => c.label === 'Google Meet');
+  const classroom = profile.find(c => c.label === 'Google Classroom');
+  const general   = profile.find(c => c.label === 'General IT');
+  const out = [];
+
+  if (meet.pct >= 67 && classroom.pct >= 75) {
+    out.push({ type: 'strength', text: 'Strong Google teaching suite fluency — ready for teaching demonstration.' });
+  } else if (meet.pct >= 67 || classroom.pct >= 75) {
+    out.push({ type: 'caution', text: 'Partial platform fluency — probe the weaker area during the teaching demonstration.' });
+  } else {
+    out.push({ type: 'concern', text: 'Limited Google tools experience. High coaching investment likely required.' });
+  }
+
+  const q9  = parseInt(answers?.[9]  ?? answers?.['9']);
+  const q7  = parseInt(answers?.[7]  ?? answers?.['7']);
+  const q12 = parseInt(answers?.[12] ?? answers?.['12']);
+
+  if (!isNaN(q9)  && q9  !== 2) out.push({ type: 'concern', text: 'Unaware that recording requires Google Workspace — may have unrealistic expectations.' });
+  if (!isNaN(q7)  && q7  !== 2) out.push({ type: 'concern', text: 'Unfamiliar with "Make a copy for each student" — digital worksheet delivery may be a friction point.' });
+  if (!isNaN(q12) && q12 !== 0) out.push({ type: 'concern', text: 'May interrupt the lesson to fix tech rather than adapt — check classroom management in demo.' });
+  if (meet.pct      === 100) out.push({ type: 'strength', text: 'Perfect Google Meet score — confident live session management expected.' });
+  if (classroom.pct === 100) out.push({ type: 'strength', text: 'Perfect Google Classroom score — deep digital classroom workflow knowledge.' });
+  if (general.pct   === 100) out.push({ type: 'strength', text: 'Solid general IT foundations.' });
+  return out;
+}
+
+function renderTutorProfile(t) {
+  const profile  = computeTutorProfile(t.itTestAnswers);
+  const insights = profile ? buildTutorInsights(profile, t.itTestAnswers) : [];
+
+  const catRows = (profile || []).map(cat => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:0.82rem;">
+      <span style="color:var(--muted);">${cat.label}</span>
+      <span style="font-weight:700;color:${cat.color};">${cat.correct}/${cat.total} (${cat.pct}%) — ${cat.signal}</span>
+    </div>`).join('');
+
+  const insightItems = insights.map(ins => {
+    const bg    = ins.type === 'strength' ? '#EAFAF1' : ins.type === 'caution' ? '#FEF9E7' : '#FDEDEC';
+    const color = ins.type === 'strength' ? 'var(--green)' : ins.type === 'caution' ? '#9A7D0A' : '#C0392B';
+    const icon  = ins.type === 'strength' ? '✓' : ins.type === 'caution' ? '⚠' : '✗';
+    return `<div style="padding:7px 10px;background:${bg};border-radius:5px;font-size:0.8rem;color:${color};margin-bottom:5px;">
+      <strong>${icon}</strong> ${esc(ins.text)}
+    </div>`;
+  }).join('');
+
+  const qRows = Object.entries(IT_META.correct).map(([id, correctIdx]) => {
+    const qid    = parseInt(id);
+    const chosen = t.itTestAnswers?.[qid] ?? t.itTestAnswers?.[String(qid)];
+    const opts   = IT_META.options[qid] || [];
+    const answer = (chosen !== undefined && chosen !== null) ? (opts[parseInt(chosen)] || `Option ${chosen}`) : '<em style="color:var(--muted);">Not answered</em>';
+    const isOk   = chosen !== undefined && parseInt(chosen) === correctIdx;
+    const mark   = chosen !== undefined ? (isOk ? '<span style="color:var(--green);font-weight:700;">✓</span>' : '<span style="color:#C0392B;font-weight:700;">✗</span>') : '';
+    const cat    = IT_META.categories.find(c => c.ids.includes(qid));
+    const tag    = cat ? `<span style="font-size:0.7rem;background:#eee;border-radius:3px;padding:1px 5px;margin-left:6px;color:#666;">${cat.label}</span>` : '';
+    return `<div style="padding:5px 0;border-bottom:1px solid var(--border);font-size:0.8rem;">
+      <span style="color:var(--muted);">Q${qid}${tag}</span>
+      <span style="margin-left:8px;color:var(--text);">${answer}</span> ${mark}
+    </div>`;
+  }).join('');
+
+  return `
+    <div style="background:var(--bg);border-radius:8px;padding:14px;margin-top:4px;">
+      <p style="margin:0 0 8px;font-weight:700;font-size:0.82rem;color:var(--text);">Digital Readiness Profile</p>
+      ${catRows || '<p style="font-size:0.8rem;color:var(--muted);">No IT test data.</p>'}
+      ${insightItems ? `<div style="margin-top:10px;">${insightItems}</div>` : ''}
+      ${qRows ? `<details style="margin-top:10px;"><summary style="cursor:pointer;font-size:0.8rem;color:var(--muted);">View all answers</summary><div style="margin-top:6px;">${qRows}</div></details>` : ''}
+    </div>`;
+}
+
 // ---- TUTORS ----
 async function loadTutors() {
   try {
@@ -160,7 +270,7 @@ async function loadTutors() {
     const tbody = document.getElementById('tutors-tbody');
 
     if (!data.length) {
-      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:32px;">No tutor applications yet.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--muted);padding:32px;">No tutor applications yet.</td></tr>';
       return;
     }
 
@@ -187,11 +297,24 @@ async function loadTutors() {
             ).join('')}
           </select>
         </td>
+        <td>
+          <button onclick="toggleTutorProfile('profile-${t._id}')" style="font-size:0.72rem;padding:3px 10px;border:1px solid var(--border);border-radius:4px;cursor:pointer;background:transparent;color:var(--text);">Profile</button>
+        </td>
+      </tr>
+      <tr id="profile-${t._id}" style="display:none;">
+        <td colspan="9" style="padding:0 8px 12px;background:var(--surface);">
+          ${renderTutorProfile(t)}
+        </td>
       </tr>
     `).join('');
   } catch (err) {
     showToast('Error loading tutors: ' + err.message, 'error');
   }
+}
+
+function toggleTutorProfile(id) {
+  const el = document.getElementById(id);
+  if (el) el.style.display = el.style.display === 'none' ? 'table-row' : 'none';
 }
 
 async function updateTutorStatus(id, status) {

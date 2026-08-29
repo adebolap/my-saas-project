@@ -89,16 +89,44 @@ function validateStep2() {
 // ---- IT TEST ----
 const itQuestions = [
   {
+    id: 6,
+    text: 'You are screen-sharing in Google Meet and a student says they can only see your desktop wallpaper, not the document you have open. What do you do?',
+    options: [
+      'End the screen share and share again, this time selecting the specific window or tab',
+      'Ask the student to refresh their browser',
+      'Restart Google Meet',
+      'Switch to a different browser',
+    ],
+  },
+  {
     id: 1,
     text: 'Which tool would you use for a live video call with your student?',
     options: ['WhatsApp Chat only', 'Zoom or Google Meet', 'SMS', 'Email'],
-    correct: 1,
+  },
+  {
+    id: 9,
+    text: 'The record button is missing from your Google Meet session. What is the most likely reason?',
+    options: [
+      'You need to update your browser',
+      'Recording only works in Google Chrome',
+      'Recording requires a Google Workspace account — it is not available on a free Gmail account',
+      'The meeting was started from a phone',
+    ],
   },
   {
     id: 2,
     text: 'What is the minimum internet speed recommended for online teaching?',
     options: ['1 Mbps', '5 Mbps', '10 Mbps', '50 Mbps'],
-    correct: 1,
+  },
+  {
+    id: 7,
+    text: 'You want each student to have their own editable copy of a worksheet in Google Classroom. Which attachment setting do you choose?',
+    options: [
+      'View only',
+      'Edit — so everyone works on the same document together',
+      'Make a copy for each student',
+      'Download and email to each student individually',
+    ],
   },
   {
     id: 3,
@@ -109,7 +137,16 @@ const itQuestions = [
       'Ask the student to leave and rejoin',
       'End the call immediately',
     ],
-    correct: 1,
+  },
+  {
+    id: 11,
+    text: 'You want to leave a private feedback message for one student on their work without the rest of the class seeing it. How do you do this in Google Classroom?',
+    options: [
+      "Post a class announcement and include the student's name",
+      "Use the private comment box on that student's submission inside the assignment",
+      'Email them directly from Gmail instead',
+      'Create a separate classroom just for that student',
+    ],
   },
   {
     id: 4,
@@ -120,7 +157,16 @@ const itQuestions = [
       'Internet browsing',
       'Sending money transfers',
     ],
-    correct: 1,
+  },
+  {
+    id: 8,
+    text: 'A student submits a Google Classroom assignment but it shows as "Missing" instead of "Turned in." What most likely happened?',
+    options: [
+      "The student's account was suspended",
+      'They submitted after the due date, so Classroom marked it Missing before the late submission registered',
+      'The file was too large to upload',
+      'The assignment had already been graded',
+    ],
   },
   {
     id: 5,
@@ -131,7 +177,26 @@ const itQuestions = [
       'Read the whole worksheet aloud only',
       'Take a photo and send it on WhatsApp after the class',
     ],
-    correct: 1,
+  },
+  {
+    id: 10,
+    text: 'You post a Google Form quiz on Google Classroom but students are seeing the correct answers immediately after submitting. What setting did you miss?',
+    options: [
+      'You forgot to set a due date on the assignment',
+      'In Google Forms you left "Release grade immediately after each submission" on instead of "After manual review"',
+      'The quiz was posted as a question, not an assignment',
+      'Students need to be removed and re-added to the class',
+    ],
+  },
+  {
+    id: 12,
+    text: "During a Google Meet class a student's audio keeps cutting out. You have asked them to check their microphone but the problem continues. What do you do next to keep the lesson going?",
+    options: [
+      'Ask them to type responses in the chat and continue the lesson without interrupting the class',
+      'End the call and reschedule the lesson',
+      'Ask all other students to leave the call',
+      'Mute all participants one by one to find the source',
+    ],
   },
 ];
 
