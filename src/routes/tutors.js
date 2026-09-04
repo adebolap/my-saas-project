@@ -289,7 +289,7 @@ router.post('/', uploadCV, async (req, res) => {
       passed,
       score: itTestScore,
       message: passed
-        ? `Great work! You scored ${itTestScore}%. Your application is moving to equipment verification. Expect a follow-up within 48 hours.`
+        ? `You scored ${itTestScore}%. Your application has been received and is under review. If your profile is a match for our current needs, our team will be in touch.`
         : `You scored ${itTestScore}%. We require 60% or above. Please review your tech setup and re-apply after 7 days.`,
       id: tutor._id,
     });

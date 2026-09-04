@@ -311,11 +311,11 @@ function renderResult(json) {
     </p>
     ${passed ? `
       <div style="background:#EAFAF1;border-radius:10px;padding:20px;max-width:380px;margin:0 auto;text-align:left;">
-        <p style="font-size:0.875rem;font-weight:700;color:var(--green);margin-bottom:8px;">Next Steps:</p>
+        <p style="font-size:0.875rem;font-weight:700;color:var(--green);margin-bottom:8px;">What happens next:</p>
         <ul style="list-style:none;font-size:0.875rem;color:var(--text);">
-          <li style="margin-bottom:8px;">✓ We will review your application within 48 hours</li>
-          <li style="margin-bottom:8px;">✓ You'll receive an email with further instructions</li>
-          <li>✓ Equipment verification call will be scheduled</li>
+          <li style="margin-bottom:8px;">✓ Your application is under review</li>
+          <li style="margin-bottom:8px;">✓ Only shortlisted candidates will be contacted</li>
+          <li>✓ If your profile is a match, our team will reach out</li>
         </ul>
       </div>
     ` : `
