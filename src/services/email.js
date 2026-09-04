@@ -20,7 +20,7 @@ function createTransport() {
 
 async function send({ to, subject, html, attachments, type }) {
   if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-    console.warn('[email] SMTP credentials not set — skipping:', subject);
+    console.warn('[email] SMTP credentials not set, skipping:', subject);
     return;
   }
   const mailOptions = { from: FROM, to, subject, html };
@@ -43,7 +43,7 @@ async function notifyAdminNewLead({ parentName, email, phone, country, childName
   await send({
     to: BOOKINGS,
     type: 'admin_booking',
-    subject: `New Booking Request — ${parentName}`,
+    subject: `New Booking Request: ${parentName}`,
     html: `
       <div style="font-family:sans-serif;max-width:560px;margin:0 auto;">
         <h2 style="color:#1E5A3A;">New Session Booking Request</h2>
@@ -54,7 +54,7 @@ async function notifyAdminNewLead({ parentName, email, phone, country, childName
           ${childName ? `<tr><td style="padding:8px 0;color:#555;">Child</td><td style="padding:8px 0;">${childName}</td></tr>` : ''}
           <tr><td style="padding:8px 0;color:#555;">Grade</td><td style="padding:8px 0;">${grade}</td></tr>
           ${pkg ? `<tr><td style="padding:8px 0;color:#555;">Package</td><td style="padding:8px 0;font-weight:600;color:#1E5A3A;">${pkg}</td></tr>` : ''}
-          <tr><td style="padding:8px 0;color:#555;">Subjects</td><td style="padding:8px 0;">${(subjects || []).join(', ') || '—'}</td></tr>
+          <tr><td style="padding:8px 0;color:#555;">Subjects</td><td style="padding:8px 0;">${(subjects || []).join(', ') || '-'}</td></tr>
           <tr><td style="padding:8px 0;color:#555;">Country</td><td style="padding:8px 0;">${country}</td></tr>
           ${referralCode ? `<tr><td style="padding:8px 0;color:#555;">Referral</td><td style="padding:8px 0;font-family:monospace;font-weight:700;color:#1E5A3A;">${referralCode}</td></tr>` : ''}
           ${message ? `<tr><td style="padding:8px 0;color:#555;vertical-align:top;">Note</td><td style="padding:8px 0;">${message}</td></tr>` : ''}
@@ -114,7 +114,7 @@ async function confirmLead({ parentName, email, childName, grade, subjects }) {
           </ul>
         </div>
         <p style="color:#555;">If you have any questions in the meantime, reply to this email or WhatsApp us at <strong>+234 707 734 0116</strong>.</p>
-        <p style="color:#555;">— The ThinkViva Team</p>
+        <p style="color:#555;">The ThinkViva Team</p>
       </div>
     `,
   });
@@ -141,9 +141,9 @@ const IT_OPTIONS = [
   ['Video calls only', 'Storing and sharing files in the cloud', 'Internet browsing', 'Sending money transfers'],
   ['Print it and post it to them', 'Share your screen or send a Google Drive link in the Zoom chat', 'Read the whole worksheet aloud only', 'Take a photo and send it on WhatsApp after the class'],
   ['End the screen share and share again, this time selecting the specific window or tab', 'Ask the student to refresh their browser', 'Restart Google Meet', 'Switch to a different browser'],
-  ['View only', 'Edit — so everyone works on the same document together', 'Make a copy for each student', 'Download and email to each student individually'],
+  ['View only', 'Edit, so everyone works on the same document together', 'Make a copy for each student', 'Download and email to each student individually'],
   ["The student's account was suspended", 'They submitted after the due date, so Classroom marked it Missing before the late submission registered', 'The file was too large to upload', 'The assignment had already been graded'],
-  ['You need to update your browser', 'Recording only works in Google Chrome', 'Recording requires a Google Workspace account — it is not available on a free Gmail account', 'The meeting was started from a phone'],
+  ['You need to update your browser', 'Recording only works in Google Chrome', 'Recording requires a Google Workspace account (it is not available on a free Gmail account)', 'The meeting was started from a phone'],
   ['You forgot to set a due date on the assignment', 'In Google Forms you left "Release grade immediately after each submission" on instead of "After manual review"', 'The quiz was posted as a question, not an assignment', 'Students need to be removed and re-added to the class'],
   ["Post a class announcement and include the student's name", "Use the private comment box on that student's submission inside the assignment", 'Email them directly from Gmail instead', 'Create a separate classroom just for that student'],
   ['Ask them to type responses in the chat and continue the lesson without interrupting the class', 'End the call and reschedule the lesson', 'Ask all other students to leave the call', 'Mute all participants one by one to find the source'],
@@ -182,7 +182,7 @@ function buildInsights(profile, answers) {
   if (meet.pct >= 67 && classroom.pct >= 75) {
     insights.push({ type: 'strength', text: 'Strong Google teaching suite fluency. Candidate is ready for a live teaching demonstration.' });
   } else if (meet.pct >= 67 || classroom.pct >= 75) {
-    insights.push({ type: 'caution', text: 'Partial platform fluency — probe the weaker category during the teaching demonstration.' });
+    insights.push({ type: 'caution', text: 'Partial platform fluency. Probe the weaker category during the teaching demonstration.' });
   } else {
     insights.push({ type: 'concern', text: 'Limited Google tools experience. Significant coaching investment likely required before independent delivery.' });
   }
@@ -201,10 +201,10 @@ function buildInsights(profile, answers) {
     insights.push({ type: 'concern', text: 'May interrupt the lesson to fix tech rather than adapt. Check classroom management approach in demo.' });
   }
   if (meet.pct === 100) {
-    insights.push({ type: 'strength', text: 'Perfect Google Meet score — confident live session management expected.' });
+    insights.push({ type: 'strength', text: 'Perfect Google Meet score. Confident live session management expected.' });
   }
   if (classroom.pct === 100) {
-    insights.push({ type: 'strength', text: 'Perfect Google Classroom score — deep understanding of digital classroom workflows.' });
+    insights.push({ type: 'strength', text: 'Perfect Google Classroom score. Deep understanding of digital classroom workflows.' });
   }
   if (general.pct === 100) {
     insights.push({ type: 'strength', text: 'Solid general IT foundations across all basic questions.' });
@@ -227,8 +227,8 @@ async function notifyAdminNewApplication({
     : '<span style="color:#C0392B;font-weight:700;">FAILED ✗</span>';
 
   const availDays = Array.isArray(availability)
-    ? availability.map(a => a.day).filter(Boolean).join(', ') || '—'
-    : '—';
+    ? availability.map(a => a.day).filter(Boolean).join(', ') || '-'
+    : '-';
 
   const itAnswerRows = IT_QUESTIONS.map((q, i) => {
     const qid = i + 1;
@@ -260,7 +260,7 @@ async function notifyAdminNewApplication({
   await send({
     to: ADMIN,
     type: 'admin_application',
-    subject: `New Tutor Application — ${name}`,
+    subject: `New Tutor Application: ${name}`,
     attachments,
     html: `
       <div style="font-family:sans-serif;max-width:620px;margin:0 auto;color:#222;">
@@ -276,20 +276,20 @@ async function notifyAdminNewApplication({
           ${row('Qualification', qualification)}
           ${row('Experience', experience)}
           ${row('TRCN Registered', trcnRegistered === 'yes' ? '<span style="color:#1E5A3A;font-weight:700;">Yes</span>' : '<span style="color:#C0392B;font-weight:700;">No</span>')}
-          ${row('Subjects', (subjects || []).join(', ') || '—')}
-          ${row('Grades', (grades || []).join(', ') || '—')}
+          ${row('Subjects', (subjects || []).join(', ') || '-')}
+          ${row('Grades', (grades || []).join(', ') || '-')}
           ${row('Availability', availDays)}
           ${linkedinUrl ? row('LinkedIn', `<a href="${linkedinUrl}">${linkedinUrl}</a>`) : ''}
-          ${row('Heard about us', referralSource || '—')}
+          ${row('Heard about us', referralSource || '-')}
           ${row('CV', cvFilename ? `Attached (${cvFilename})` : '<em style="color:#999;">Not provided</em>')}
         </table>
 
         <h3 style="color:#1E5A3A;border-bottom:1px solid #eee;padding-bottom:6px;margin-top:24px;">Equipment &amp; Setup</h3>
         <table style="width:100%;border-collapse:collapse;font-size:14px;">
-          ${row('Notes', equipmentNotes || '—')}
+          ${row('Notes', equipmentNotes || '-')}
         </table>
 
-        <h3 style="color:#1E5A3A;border-bottom:1px solid #eee;padding-bottom:6px;margin-top:24px;">IT Readiness Test — ${score}% ${statusBadge}</h3>
+        <h3 style="color:#1E5A3A;border-bottom:1px solid #eee;padding-bottom:6px;margin-top:24px;">IT Readiness Test: ${score}% ${statusBadge}</h3>
 
         ${(() => {
           const profile  = buildDigitalProfile(itTestAnswers);
@@ -349,7 +349,7 @@ async function confirmApplicant({ name, email }) {
         <p style="margin-top:32px;color:#555;">
           Warm regards,<br/>
           <strong>The ThinkViva Team</strong><br/>
-          <span style="color:#888;font-size:0.875rem;">ThinkViva — Smart Learning for Growing Minds</span><br/><br/>
+          <span style="color:#888;font-size:0.875rem;">ThinkViva, Smart Learning for Growing Minds</span><br/><br/>
           <span style="font-size:0.875rem;color:#555;">🌐 <a href="https://thinkviva.org" style="color:#1E5A3A;">thinkviva.org</a></span><br/>
           <span style="font-size:0.875rem;color:#555;">📞 +234 707 734 0116</span><br/>
           <span style="font-size:0.875rem;color:#555;">📸 <a href="https://instagram.com/thinkviva_ng" style="color:#1E5A3A;">@thinkviva_ng</a></span>

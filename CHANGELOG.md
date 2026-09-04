@@ -1,11 +1,11 @@
-# ThinkViva — Changelog
+# ThinkViva - Changelog
 
-## [2026-05-10] Comprehensive Redesign — Brand, Layout & Content
+## [2026-05-10] Comprehensive Redesign - Brand, Layout & Content
 
 ### New Pages
-- `public/about.html` — About Us page: mission, values, team placeholder, CTA
-- `public/pricing.html` — Pricing placeholder: 3-tier package cards (Starter/Standard/Premium), coming soon copy
-- `public/terms.html` — Terms & Conditions: 10-section boilerplate with Agree/Decline buttons
+- `public/about.html` - About Us page: mission, values, team placeholder, CTA
+- `public/pricing.html` - Pricing placeholder: 3-tier package cards (Starter/Standard/Premium), coming soon copy
+- `public/terms.html` - Terms & Conditions: 10-section boilerplate with Agree/Decline buttons
 
 ### Routes Added (`src/server.js`)
 - `GET /about` → serves `public/about.html`
@@ -14,7 +14,7 @@
 
 ---
 
-### `public/index.html` — Full Page Restructure
+### `public/index.html` - Full Page Restructure
 
 **Navigation**
 - Nav order updated: Subjects | How It Works | Apply to Teach | About Us | Contact Us | Pricing
@@ -24,12 +24,12 @@
 - Logo now shows "Smart Learning for Growing Minds" tagline beneath brand name
 
 **Hero Section**
-- Removed: "Pilot — First 10 Families" badge
+- Removed: "Pilot - First 10 Families" badge
 - Removed: "Where Every Child Shines." tagline pill
-- Added: Country flags row at top — 🇳🇬 🇨🇦 🇺🇸 🇦🇺 🇦🇪 (Nigeria, Canada, USA, Australia, UAE)
+- Added: Country flags row at top - 🇳🇬 🇨🇦 🇺🇸 🇦🇺 🇦🇪 (Nigeria, Canada, USA, Australia, UAE)
 - New headline: "Fostering exceptional education and bridging learning gaps for every child."
 - New body copy: 3-sentence expert tutor description with 24hr matching, homework support, diaspora families messaging
-- Trust items moved inline below CTAs (3 items: Expert-led 1-1 / Live on GoogleMeet/Zoom / Flexible schedule + homework support) — replaced full-width dark teal trust row
+- Trust items moved inline below CTAs (3 items: Expert-led 1-1 / Live on GoogleMeet/Zoom / Flexible schedule + homework support) - replaced full-width dark teal trust row
 - Hero right panel: replaced grade-picker card with `.hero-visual` containing 4-stat infographic (24hrs / 45min / P1–P6 / 1-on-1) + grade pills + footnote
 - Grade pills extended to include Primary 6
 - Added italic footnote: "Grade level coverage will expand as demand for tutors and database of teachers increase."
@@ -48,7 +48,7 @@
 - Subtitle updated: now explicitly mentions Nigeria, UK, US, Canada, Australia
 - Subject range updated: "from P1 to P6"
 
-**How It Works Section** — Restyle
+**How It Works Section** - Restyle
 - Layout changed from centered 2×2 grid to horizontal: intro/CTA column (left) + 2×2 step cards (right)
 - Step descriptions tightened (more concise)
 - "Google Meet" added to session platform description
@@ -59,7 +59,7 @@
 - Left: heading, subtitle, Book a Session CTA
 - Right: book/pencil decorative icons
 
-**FAQ Section** — replaces "Your Voice" feedback widget
+**FAQ Section** - replaces "Your Voice" feedback widget
 - 8 FAQ accordion items (verbatim from client brief):
   1. How do you match tutors with students?
   2. How long are the tutoring sessions?
@@ -95,17 +95,17 @@
 - `.nav-tagline` class added (small brand tagline under logo text)
 - `.nav-links` gap reduced 24px → 18px (6 links fit on one line)
 - `.hero-flags-label` color fixed: `rgba(255,255,255,0.55)` → `var(--muted)` (was invisible on light bg)
-- `.hero-trust` and `.hero-trust-item` — new inline trust row styles
+- `.hero-trust` and `.hero-trust-item` - new inline trust row styles
 - `.hero-card` styles replaced with `.hero-visual`, `.hero-stats`, `.hero-stat`, `.grade-picker`, `.grade-footnote`
-- `.benefits-section`, `.benefits-grid`, `.benefits-card`, `.benefits-list` — new dark teal benefits section
+- `.benefits-section`, `.benefits-grid`, `.benefits-card`, `.benefits-list` - new dark teal benefits section
 - `.subject-card` padding reduced: `28px 20px` → `18px 16px`
 - `.how-layout` added: `1fr 2fr` grid for horizontal How It Works layout
 - `.how-grid` margin-top removed (managed by layout)
 - `.how-step` desktop style: added white background + border (was text-only on desktop)
-- `.ready-section`, `.ready-inner`, `.ready-text`, `.ready-visual` — new CTA banner section (tea green)
-- `.faq-section`, `.faq-list`, `.faq-item`, `.faq-q`, `.faq-chevron`, `.faq-a` — new accordion FAQ styles
-- `.contact-section`, `.contact-inner`, `.contact-text`, `.contact-links`, `.contact-link` — new sea-green contact section
-- `.footer-tagline-text`, `.footer-socials`, `.footer-social-btn`, `.footer-contact-link`, `.footer-terms-link` — new footer element styles
+- `.ready-section`, `.ready-inner`, `.ready-text`, `.ready-visual` - new CTA banner section (tea green)
+- `.faq-section`, `.faq-list`, `.faq-item`, `.faq-q`, `.faq-chevron`, `.faq-a` - new accordion FAQ styles
+- `.contact-section`, `.contact-inner`, `.contact-text`, `.contact-links`, `.contact-link` - new sea-green contact section
+- `.footer-tagline-text`, `.footer-socials`, `.footer-social-btn`, `.footer-contact-link`, `.footer-terms-link` - new footer element styles
 - Responsive: `.hero-card { display:none }` → `.hero-visual { display:none }` at 768px
 - Responsive: `.benefits-grid` 1-col at 768px
 - Responsive: `.how-layout` stacks at 768px
@@ -129,7 +129,7 @@
 
 ---
 
-### Previous Changes (earlier sessions — for reference)
+### Previous Changes (earlier sessions - for reference)
 
 | Date | Change |
 |---|---|

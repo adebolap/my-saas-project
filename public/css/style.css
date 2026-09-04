@@ -1,20 +1,20 @@
 /* =====================
-   ThinkViva — CSS
+   ThinkViva: CSS
    Mobile-first, low-bandwidth friendly (no external fonts/images)
    ===================== */
 
 :root {
   --navy:       #1E5A3A;   /* Dark Forest Green */
   --navy-dark:  #163025;   /* Deeper Forest Green */
-  --gold:       #2E7D4A;   /* Medium Forest Green — CTAs & accents */
+  --gold:       #2E7D4A;   /* Medium Forest Green: CTAs & accents */
   --gold-light: #37965A;   /* Medium Forest Green hover */
-  --green:      #2E7D4A;   /* Forest Green — success states */
-  --celadon:    #88D498;   /* Celadon — decorative */
-  --tea:        #C6DABF;   /* Tea Green — soft accents */
+  --green:      #2E7D4A;   /* Forest Green: success states */
+  --celadon:    #88D498;   /* Celadon: decorative */
+  --tea:        #C6DABF;   /* Tea Green: soft accents */
   --text:       #1B2E24;
   --muted:      #5A6B5E;
   --bg:         #F3E9D2;   /* Vanilla Cream */
-  --warm-white: #FAF7F2;   /* Warm Off-White — page base */
+  --warm-white: #FAF7F2;   /* Warm Off-White: page base */
   --white:      #FFFFFF;
   --border:     #CBDAC3;   /* Muted Tea Green */
   --radius: 10px;
@@ -274,7 +274,7 @@ body {
 }
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
 
-/* Hero trust items — inline, under CTAs */
+/* Hero trust items: inline, under CTAs */
 .hero-trust {
   display: flex;
   flex-wrap: wrap;
@@ -294,7 +294,7 @@ body {
 .trust-icon-img { width: 26px; height: 26px; object-fit: contain; flex-shrink: 0; }
 .benefits-icon-img { width: 52px; height: 52px; object-fit: contain; margin-bottom: 12px; display: block; }
 
-/* Hero visual — real photo with floating badges */
+/* Hero visual: real photo with floating badges */
 .hero-visual {
   flex-shrink: 0;
   width: 100%;
@@ -311,7 +311,7 @@ body {
   height: auto;
   display: block;
 }
-/* Badge positions — overlaid on photo corners */
+/* Badge positions: overlaid on photo corners */
 .float-badge--tl {
   position: absolute;
   top: 18px;

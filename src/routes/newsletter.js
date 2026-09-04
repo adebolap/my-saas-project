@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
     );
 
     if (response.status === 422) {
-      // Already subscribed — treat as success so the user isn't confused
+      // Already subscribed: treat as success so the user isn't confused
       return res.json({ ok: true });
     }
 

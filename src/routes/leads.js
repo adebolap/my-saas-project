@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
     const lead = new Lead(req.body);
     await lead.save();
 
-    // Await emails before responding — Vercel freezes the function on res.json()
+    // Await emails before responding: Vercel freezes the function on res.json()
     await Promise.allSettled([
       notifyAdminNewLead({
         parentName: lead.parentName,
@@ -73,7 +73,7 @@ router.post('/general-feedback', async (req, res) => {
       email: email || 'feedback@edubridge.com',
       country: 'Feedback',
       grade: 'G1',
-      message: `[${role || 'visitor'}] Rating: ${rating}/5 — ${comment}`,
+      message: `[${role || 'visitor'}] Rating: ${rating}/5: ${comment}`,
       source: 'feedback_widget',
       status: 'new',
     });

@@ -50,7 +50,7 @@ const IT_TEST = [
     options: [
       'You need to update your browser',
       'Recording only works in Google Chrome',
-      'Recording requires a Google Workspace account — it is not available on a free Gmail account',
+      'Recording requires a Google Workspace account (it is not available on a free Gmail account)',
       'The meeting was started from a phone',
     ],
     correct: 2,
@@ -68,7 +68,7 @@ const IT_TEST = [
     question: 'You want each student to have their own editable copy of a worksheet in Google Classroom. Which attachment setting do you choose?',
     options: [
       'View only',
-      'Edit — so everyone works on the same document together',
+      'Edit, so everyone works on the same document together',
       'Make a copy for each student',
       'Download and email to each student individually',
     ],
@@ -213,7 +213,7 @@ router.post('/', uploadCV, async (req, res) => {
           message: `You have already submitted an application and it is currently under review. Please wait for our team to contact you.`,
         });
       }
-      // Failed applicant — enforce 7-day cooldown
+      // Failed applicant: enforce 7-day cooldown
       if (existing.status === 'it_test_pending') {
         const daysSince = (Date.now() - new Date(existing.createdAt)) / (1000 * 60 * 60 * 24);
         if (daysSince < 7) {
@@ -256,7 +256,7 @@ router.post('/', uploadCV, async (req, res) => {
     const tutor = new TutorApplication(tutorDoc);
     await tutor.save();
 
-    // Await emails before responding — Vercel freezes the function on res.json()
+    // Await emails before responding: Vercel freezes the function on res.json()
     // which kills any in-flight HTTP connections (TLS disconnect)
     await Promise.allSettled([
       notifyAdminNewApplication({
@@ -301,7 +301,7 @@ router.post('/', uploadCV, async (req, res) => {
   }
 });
 
-// Zoom webhook — fires after a recorded session ends
+// Zoom webhook: fires after a recorded session ends
 router.post('/sessions/webhook', async (req, res) => {
   try {
     const { event, payload } = req.body;

@@ -1,5 +1,5 @@
 /* =====================
-   EduBridge Africa — Tutor Application Page JS
+   EduBridge Africa: Tutor Application Page JS
    ===================== */
 
 const STEPS = 4;
@@ -109,7 +109,7 @@ const itQuestions = [
     options: [
       'You need to update your browser',
       'Recording only works in Google Chrome',
-      'Recording requires a Google Workspace account — it is not available on a free Gmail account',
+      'Recording requires a Google Workspace account (it is not available on a free Gmail account)',
       'The meeting was started from a phone',
     ],
   },
@@ -123,7 +123,7 @@ const itQuestions = [
     text: 'You want each student to have their own editable copy of a worksheet in Google Classroom. Which attachment setting do you choose?',
     options: [
       'View only',
-      'Edit — so everyone works on the same document together',
+      'Edit, so everyone works on the same document together',
       'Make a copy for each student',
       'Download and email to each student individually',
     ],
@@ -227,7 +227,7 @@ function selectOption(qid, optIdx, btn) {
 
 // ---- SUBMIT ----
 async function submitApplication() {
-  // Validate IT test — warn but allow submission
+  // Validate IT test: warn but allow submission
   const answered = Object.keys(itAnswers).length;
   if (answered < itQuestions.length) {
     const proceed = confirm(`You have answered ${answered} of ${itQuestions.length} IT test questions. Unanswered questions will be marked as incorrect. Submit anyway?`);
