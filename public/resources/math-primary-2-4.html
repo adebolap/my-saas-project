@@ -1,0 +1,894 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Transition Bridge Diagnostic</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap"/>
+
+<style>
+:root {
+  --ink:              #18201C;
+  --ink-muted:        #5C6860;
+  --paper:            #F5F7F4;
+  --forest:           #1A4D32;
+  --forest-mid:       #2B6845;
+  --sage:             #E3ECE6;
+  --harvest:          #A85E18;
+  --harvest-light:    #F5EDE3;
+  --border:           #C6D4C9;
+  --ok-bg:            #E3ECE6;
+  --ok-fg:            #1A4D32;
+  --flag-bg:          #F5EDE3;
+  --flag-fg:          #864916;
+  --gap-accent:       #A83020;
+  --gap-bg:           #FAECE9;
+  --hdr-bg:           #1A4D32;
+  --hdr-fg:           #F0F5F1;
+  --cta-bg:           #0E2419;
+  --cta-fg:           #E5EFE8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink:              #E0EBE3;
+    --ink-muted:        #869E8C;
+    --paper:            #0F1A12;
+    --forest:           #5AAD78;
+    --forest-mid:       #72C490;
+    --sage:             #162018;
+    --harvest:          #CF7A2E;
+    --harvest-light:    #281C0C;
+    --border:           #243028;
+    --ok-bg:            #162018;
+    --ok-fg:            #72C490;
+    --flag-bg:          #281C0C;
+    --flag-fg:          #CF7A2E;
+    --gap-accent:       #C04030;
+    --gap-bg:           #250E0C;
+    --hdr-bg:           #081410;
+    --hdr-fg:           #E0EBE3;
+    --cta-bg:           #060E08;
+    --cta-fg:           #D5E6DA;
+  }
+}
+
+:root[data-theme="dark"] {
+  --ink:              #E0EBE3;
+  --ink-muted:        #869E8C;
+  --paper:            #0F1A12;
+  --forest:           #5AAD78;
+  --forest-mid:       #72C490;
+  --sage:             #162018;
+  --harvest:          #CF7A2E;
+  --harvest-light:    #281C0C;
+  --border:           #243028;
+  --ok-bg:            #162018;
+  --ok-fg:            #72C490;
+  --flag-bg:          #281C0C;
+  --flag-fg:          #CF7A2E;
+  --gap-accent:       #C04030;
+  --gap-bg:           #250E0C;
+  --hdr-bg:           #081410;
+  --hdr-fg:           #E0EBE3;
+  --cta-bg:           #060E08;
+  --cta-fg:           #D5E6DA;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  padding-inline: 16px;
+  padding-block: 0 64px;
+}
+
+/* HEADER */
+.doc-header {
+  background: var(--hdr-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px;
+  margin-inline: -16px;
+}
+.brand {
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+  color: var(--hdr-fg);
+}
+.doc-tag {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--hdr-fg);
+  opacity: 0.5;
+}
+
+/* BODY */
+.doc-body {
+  max-width: 700px;
+  margin: 0 auto;
+  padding-top: 40px;
+}
+
+/* INTRO */
+.eyebrow {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--harvest);
+  margin-bottom: 12px;
+}
+h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.8rem, 5vw, 2.7rem);
+  font-weight: 500;
+  line-height: 1.16;
+  color: var(--forest);
+  text-wrap: balance;
+  margin-bottom: 16px;
+}
+.intro-body {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--ink-muted);
+  max-width: 56ch;
+  margin-bottom: 22px;
+}
+.how-to-bar {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: var(--sage);
+  border-left: 3px solid var(--forest);
+  border-radius: 0 6px 6px 0;
+  padding: 13px 16px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--forest);
+  line-height: 1.55;
+  margin-bottom: 44px;
+}
+.how-to-bar svg { flex-shrink: 0; margin-top: 1px; }
+
+/* PART SECTIONS */
+.part { margin-bottom: 44px; }
+
+.part-label {
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 3px;
+}
+.part-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 5px;
+}
+.part-note {
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  font-style: italic;
+  margin-bottom: 18px;
+}
+
+/* QUESTION GRID */
+.q-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.q-card {
+  background: var(--paper);
+  padding: 20px;
+}
+.q-card:nth-child(1),
+.q-card:nth-child(2) { border-bottom: 1px solid var(--border); }
+.q-card:nth-child(1),
+.q-card:nth-child(3) { border-right: 1px solid var(--border); }
+
+.q-context {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--harvest);
+  margin-bottom: 8px;
+}
+.q-text {
+  font-size: 0.86rem;
+  line-height: 1.65;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.q-formula {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--forest);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 14px;
+}
+
+/* PROBLEM BLOCKS */
+.problem-block {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.problem-head {
+  background: var(--sage);
+  padding: 11px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.problem-letter {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--forest);
+  width: 20px;
+  flex-shrink: 0;
+}
+.problem-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.1px;
+}
+.problem-body { padding: 20px; }
+.problem-text {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+.step-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+.step-list li {
+  display: flex;
+  gap: 10px;
+  font-size: 0.84rem;
+  color: var(--ink-muted);
+  line-height: 1.55;
+}
+.step-n {
+  font-weight: 600;
+  color: var(--forest);
+  flex-shrink: 0;
+  width: 18px;
+  font-variant-numeric: tabular-nums;
+}
+.problem-ask {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+/* SHARED REVEAL / SCORING */
+.reveal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 15px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--forest);
+  background: none;
+  border: 1px solid var(--forest);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.reveal-btn:hover { background: var(--sage); }
+.reveal-btn:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+
+.answer-panel {
+  display: none;
+  background: var(--sage);
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin-top: 12px;
+}
+.ans-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--forest);
+  margin-bottom: 5px;
+}
+.ans-value {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.ans-steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+}
+.ans-steps li {
+  display: flex;
+  gap: 10px;
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+.score-btns {
+  display: none;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.score-btn {
+  padding: 6px 15px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: none;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: all 0.14s;
+}
+.score-btn:hover { border-color: var(--ink-muted); color: var(--ink); }
+.score-btn:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+.score-btn.ok-active  { background: var(--ok-bg);   color: var(--ok-fg);   border-color: var(--ok-fg); }
+.score-btn.bad-active { background: var(--flag-bg);  color: var(--flag-fg); border-color: var(--flag-fg); }
+
+/* RESULTS */
+.results-section {
+  padding-top: 36px;
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+}
+.results-eyebrow {
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 3px;
+}
+.results-head {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+.score-row {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin-bottom: 28px;
+}
+.score-big {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 3.6rem;
+  font-weight: 500;
+  color: var(--forest);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s;
+}
+.score-denom {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.4rem;
+  color: var(--ink-muted);
+}
+.score-note {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  align-self: center;
+  margin-left: 6px;
+}
+
+/* TIER CARDS */
+.tier-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+.tier-card {
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--border);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  opacity: 0.42;
+  transition: opacity 0.25s, background 0.25s;
+}
+.tier-card.adv { border-left-color: var(--forest); }
+.tier-card.stb { border-left-color: var(--harvest); }
+.tier-card.gap { border-left-color: var(--gap-accent); }
+.tier-card.tier-active { opacity: 1; }
+.tier-card.adv.tier-active { background: var(--sage); }
+.tier-card.stb.tier-active { background: var(--harvest-light); }
+.tier-card.gap.tier-active { background: var(--gap-bg); }
+
+.tier-range {
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 3px;
+}
+.tier-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.adv .tier-name { color: var(--forest); }
+.tier-desc {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  line-height: 1.65;
+  margin-bottom: 7px;
+}
+.tier-next {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+.tier-next strong { color: var(--forest); font-weight: 600; }
+
+/* CTA BLOCK */
+.cta-block {
+  display: none;
+  background: var(--cta-bg);
+  border-radius: 10px;
+  padding: 32px;
+  text-align: center;
+}
+.cta-headline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--cta-fg);
+  text-wrap: balance;
+  margin-bottom: 10px;
+}
+.cta-body {
+  font-size: 0.85rem;
+  color: var(--cta-fg);
+  opacity: 0.68;
+  max-width: 46ch;
+  margin: 0 auto 24px;
+  line-height: 1.7;
+}
+.cta-btn {
+  padding: 13px 28px;
+  background: var(--harvest);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.cta-btn:hover { opacity: 0.85; }
+.cta-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.cta-sub {
+  margin-top: 11px;
+  font-size: 0.71rem;
+  color: var(--cta-fg);
+  opacity: 0.35;
+}
+
+/* FOOTER */
+.doc-footer {
+  margin-top: 36px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  font-size: 0.74rem;
+  color: var(--ink-muted);
+  text-align: center;
+  line-height: 1.9;
+}
+
+/* RESPONSIVE */
+@media (max-width: 500px) {
+  .q-grid { grid-template-columns: 1fr; }
+  .q-card:nth-child(1),
+  .q-card:nth-child(2),
+  .q-card:nth-child(3) { border-right: none; border-bottom: 1px solid var(--border); }
+  .q-card:nth-child(4) { border-right: none; border-bottom: none; }
+  .cta-block { padding: 24px 16px; }
+  .doc-header { padding: 14px 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}
+
+/* WATERMARK */
+.wm-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  overflow: hidden;
+}
+.wm-corner {
+  position: fixed;
+  bottom: 14px;
+  right: 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  color: var(--forest);
+  opacity: 0.55;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  padding: 4px 9px;
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 100;
+}
+.wm-stripe {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--forest);
+  opacity: 0.35;
+  text-align: center;
+  padding: 7px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+
+@media print {
+  .reveal-btn, .score-btns, .cta-block { display: none !important; }
+  .answer-panel, .tier-card { display: block; opacity: 1; }
+}
+</style>
+
+<div class="wm-overlay" id="wm-overlay" aria-hidden="true"></div>
+<div class="wm-corner" aria-hidden="true">ThinkViva | thinkviva.org</div>
+
+<header class="doc-header">
+  <a href="/" style="color:var(--hdr-fg);text-decoration:none;font-weight:600;font-size:0.95rem;letter-spacing:0.3px;">ThinkViva</a>
+  <span class="doc-tag">Free Diagnostic</span>
+</header>
+
+<main class="doc-body"><a href="/resources" style="display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;color:var(--forest);text-decoration:none;margin-bottom:32px;opacity:0.7;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7"><main class="doc-body">#8592; Back to Resources</a>
+
+  <div class="eyebrow">Grade 2 to 4 Maths</div>
+  <h1>The International<br>Transition Bridge</h1>
+  <p class="intro-body">
+    Diaspora children often move between school systems that teach the same concepts
+    at different ages and in different ways. This short diagnostic is designed to
+    surface exactly where your child stands, using scenarios drawn from their real world.
+  </p>
+
+  <div class="wm-stripe" aria-hidden="true">ThinkViva &bull; thinkviva.org &bull; Free Parent Resource</div>
+
+  <div class="how-to-bar">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+      <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="1.4"/>
+      <path d="M7.5 6.5v4M7.5 4.5v.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+    <span>Read each question to your child. Let them answer without help. Click Show answer to check, then mark whether they got it. Your result builds below as you go.</span>
+  </div>
+
+  <!-- PART 1 -->
+  <div class="part">
+    <div class="part-label">Part 1</div>
+    <div class="part-title">Mental Maths and Fluency</div>
+    <p class="part-note">No calculator. Target: under 5 minutes for all four.</p>
+
+    <div class="q-grid">
+
+      <div class="q-card">
+        <div class="q-context">London / Lagos</div>
+        <p class="q-text">A bus leaves the station with 35 passengers. It drops off 14 at the first stop, then picks up 8 more. How many passengers are on the bus now?</p>
+        <div class="q-formula">35 - 14 + 8 = ?</div>
+        <button class="reveal-btn" onclick="reveal('q1', this)">Show answer</button>
+        <div class="answer-panel" id="ans-q1">
+          <div class="ans-label">Answer</div>
+          <div class="ans-value">29 passengers</div>
+        </div>
+        <div class="score-btns" id="btns-q1">
+          <button class="score-btn" onclick="mark('q1', true, this)">Got it</button>
+          <button class="score-btn" onclick="mark('q1', false, this)">Missed it</button>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-context">The Kitchen</div>
+        <p class="q-text">A box contains 24 cubes of seasoning. If your family uses 3 cubes each day, how many days will the box last?</p>
+        <div class="q-formula">24 / 3 = ?</div>
+        <button class="reveal-btn" onclick="reveal('q2', this)">Show answer</button>
+        <div class="answer-panel" id="ans-q2">
+          <div class="ans-label">Answer</div>
+          <div class="ans-value">8 days</div>
+        </div>
+        <div class="score-btns" id="btns-q2">
+          <button class="score-btn" onclick="mark('q2', true, this)">Got it</button>
+          <button class="score-btn" onclick="mark('q2', false, this)">Missed it</button>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-context">Ankara Fabric</div>
+        <p class="q-text">A tailor needs 4 metres of fabric for each child's outfit. How many metres are needed to make 6 identical outfits?</p>
+        <div class="q-formula">4 x 6 = ?</div>
+        <button class="reveal-btn" onclick="reveal('q3', this)">Show answer</button>
+        <div class="answer-panel" id="ans-q3">
+          <div class="ans-label">Answer</div>
+          <div class="ans-value">24 metres</div>
+        </div>
+        <div class="score-btns" id="btns-q3">
+          <button class="score-btn" onclick="mark('q3', true, this)">Got it</button>
+          <button class="score-btn" onclick="mark('q3', false, this)">Missed it</button>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-context">Chike's Savings</div>
+        <p class="q-text">Chike saves £5 every week for 7 weeks. He then spends £12 on a book. How much money does he have left?</p>
+        <div class="q-formula">(5 x 7) - 12 = ?</div>
+        <button class="reveal-btn" onclick="reveal('q4', this)">Show answer</button>
+        <div class="answer-panel" id="ans-q4">
+          <div class="ans-label">Answer</div>
+          <div class="ans-value">£23</div>
+        </div>
+        <div class="score-btns" id="btns-q4">
+          <button class="score-btn" onclick="mark('q4', true, this)">Got it</button>
+          <button class="score-btn" onclick="mark('q4', false, this)">Missed it</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PART 2 -->
+  <div class="part">
+    <div class="part-label">Part 2</div>
+    <div class="part-title">Word Problems and Multi-Step Logic</div>
+    <p class="part-note">Ask your child to show their working. These test the kind of reasoning that sets strong performers apart across international curricula.</p>
+
+    <div class="problem-block">
+      <div class="problem-head">
+        <div class="problem-letter">A</div>
+        <div class="problem-title">The Party Jollof Rice - Fractions and Division</div>
+      </div>
+      <div class="problem-body">
+        <p class="problem-text">Mummy makes a large tray of party Jollof rice, divided into 20 equal portions, for a family gathering.</p>
+        <ul class="step-list">
+          <li><span class="step-n">1.</span><span>Cousin Tunde eats 1/4 of all the portions. How many portions did he eat?</span></li>
+          <li><span class="step-n">2.</span><span>Aunty Funmi takes 5 portions home for her household.</span></li>
+          <li><span class="step-n">3.</span><span>What fraction of the original 20 portions is left on the tray?</span></li>
+        </ul>
+        <button class="reveal-btn" onclick="reveal('pa', this)">Show answer</button>
+        <div class="answer-panel" id="ans-pa">
+          <div class="ans-label">Answer</div>
+          <div class="ans-value">1/2 of the tray (10 portions remaining)</div>
+          <ul class="ans-steps">
+            <li><span class="step-n">1.</span><span>1/4 x 20 = 5 portions eaten by Tunde</span></li>
+            <li><span class="step-n">2.</span><span>Aunty Funmi takes 5. Total removed: 5 + 5 = 10</span></li>
+            <li><span class="step-n">3.</span><span>Remaining: 20 - 10 = 10 portions = 10/20 = 1/2</span></li>
+          </ul>
+        </div>
+        <div class="score-btns" id="btns-pa">
+          <button class="score-btn" onclick="mark('pa', true, this)">Got it</button>
+          <button class="score-btn" onclick="mark('pa', false, this)">Missed it</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="problem-block">
+      <div class="problem-head">
+        <div class="problem-letter">B</div>
+        <div class="problem-title">The Weekend Market - Multi-Step Budget</div>
+      </div>
+      <div class="problem-body">
+        <p class="problem-text">You visit the local African grocery store with a budget of $50.</p>
+        <ul class="step-list">
+          <li><span class="step-n">1.</span><span>You buy 2 bags of plantain chips at $4.50 each.</span></li>
+          <li><span class="step-n">2.</span><span>You buy a bag of garri for $8.25.</span></li>
+          <li><span class="step-n">3.</span><span>You spend the rest of your money on frozen fish.</span></li>
+        </ul>
+        <p class="problem-ask">How much did you spend on the frozen fish?</p>
+        <button class="reveal-btn" onclick="reveal('pb', this)">Show answer</button>
+        <div class="answer-panel" id="ans-pb">
+          <div class="ans-label">Answer</div>
+          <div class="ans-value">$32.75</div>
+          <ul class="ans-steps">
+            <li><span class="step-n">1.</span><span>Plantain chips: 2 x $4.50 = $9.00</span></li>
+            <li><span class="step-n">2.</span><span>Garri: $8.25. Total so far: $9.00 + $8.25 = $17.25</span></li>
+            <li><span class="step-n">3.</span><span>Fish: $50.00 - $17.25 = $32.75</span></li>
+          </ul>
+        </div>
+        <div class="score-btns" id="btns-pb">
+          <button class="score-btn" onclick="mark('pb', true, this)">Got it</button>
+          <button class="score-btn" onclick="mark('pb', false, this)">Missed it</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results-section">
+    <div class="results-eyebrow">Results</div>
+    <div class="results-head">How did your child do?</div>
+
+    <div class="score-row">
+      <div class="score-big" id="score-num">0</div>
+      <div class="score-denom">/6</div>
+      <div class="score-note" id="score-note">questions scored so far</div>
+    </div>
+
+    <div class="tier-cards">
+
+      <div class="tier-card adv" id="tier-advanced">
+        <div class="tier-range">5 to 6 correct</div>
+        <div class="tier-name">Advanced / On Track</div>
+        <p class="tier-desc">Strong foundational logic and calculation speed. Your child is handling multi-step reasoning well across both number work and word problems.</p>
+        <p class="tier-next"><strong>Next step:</strong> Introduce Olympiad-style logic puzzles and harder fraction word problems to maintain the competitive edge.</p>
+      </div>
+
+      <div class="tier-card stb" id="tier-stable">
+        <div class="tier-range">3 to 4 correct</div>
+        <div class="tier-name">Stable, but Watch Closely</div>
+        <p class="tier-desc">Good conceptual understanding is there, but speed and execution need tightening. Small gaps at this stage compound quickly as topics build on each other.</p>
+        <p class="tier-next"><strong>Next step:</strong> Timed mental maths practice and working through multi-step problems methodically, checking each step backward.</p>
+      </div>
+
+      <div class="tier-card gap" id="tier-gap">
+        <div class="tier-range">0 to 2 correct</div>
+        <div class="tier-name">Gap Identified</div>
+        <p class="tier-desc">This pattern is very common in children who have moved between international curricula. The gap is not about ability. It is about exposure and structured practice.</p>
+        <p class="tier-next"><strong>Next step:</strong> Targeted foundational coaching focused on breaking word problems into steps and rebuilding calculation confidence.</p>
+      </div>
+
+    </div>
+
+    <div class="cta-block" id="cta-block">
+      <div class="cta-headline" id="cta-headline">Book a free 20-minute call</div>
+      <p class="cta-body" id="cta-body">We will tell you honestly what we see in your child's results and whether we are the right fit.</p>
+      <button class="cta-btn" onclick="window.open('https://thinkviva.org/?book=1','_blank')">Book a Free Call</button>
+      <p class="cta-sub">No commitment. We serve diaspora families in the UK, Canada, USA and Australia.</p>
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    ThinkViva &bull; thinkviva.org &bull; Expert 1-on-1 tutoring for Nigerian diaspora families<br/>
+    WhatsApp: +234 707 734 0116
+  </div>
+
+</main>
+
+<script>
+// Watermark tile
+(function() {
+  function buildTile(fg, fg2) {
+    var c = document.createElement('canvas');
+    c.width = 280; c.height = 140;
+    var ctx = c.getContext('2d');
+    ctx.save();
+    ctx.translate(140, 70);
+    ctx.rotate(-26 * Math.PI / 180);
+    ctx.textAlign = 'center';
+    ctx.font = '600 17px Georgia, serif';
+    ctx.fillStyle = fg;
+    ctx.fillText('ThinkViva', 0, -5);
+    ctx.font = '10px Georgia, serif';
+    ctx.fillStyle = fg2;
+    ctx.fillText('thinkviva.org', 0, 11);
+    ctx.restore();
+    return c.toDataURL();
+  }
+  var dark = window.matchMedia('(prefers-color-scheme: dark)').matches
+          || document.documentElement.dataset.theme === 'dark';
+  var tile = dark ? buildTile('rgba(90,173,120,0.2)',  'rgba(90,173,120,0.15)')
+                  : buildTile('rgba(26,77,50,0.13)',   'rgba(26,77,50,0.10)');
+  var el = document.getElementById('wm-overlay');
+  el.style.backgroundImage = 'url(' + tile + ')';
+  el.style.backgroundRepeat = 'repeat';
+  el.style.backgroundSize = '280px 140px';
+})();
+
+const scores = {};
+
+const CTA = {
+  advanced: {
+    h: 'Strong performance. Want to stay ahead?',
+    b: 'We have advanced tracks for high-performers who want to maintain their edge and prepare for competitive exams.'
+  },
+  stable: {
+    h: 'Good foundations. Small gaps are fixable.',
+    b: 'A few focused sessions can close these gaps before they compound. Our tutors specialise in exactly this kind of targeted catch-up.'
+  },
+  gap: {
+    h: 'This is exactly what we are built for.',
+    b: 'A gap identified now is a gap that can be closed. Book a free call and we will tell you precisely where to start and what to expect.'
+  }
+};
+
+function reveal(qid, btn) {
+  btn.style.display = 'none';
+  document.getElementById('ans-' + qid).style.display = 'block';
+  document.getElementById('btns-' + qid).style.display = 'flex';
+}
+
+function mark(qid, correct, btn) {
+  scores[qid] = correct;
+
+  const row = document.getElementById('btns-' + qid);
+  row.querySelectorAll('.score-btn').forEach(function(b) {
+    b.classList.remove('ok-active', 'bad-active');
+  });
+  btn.classList.add(correct ? 'ok-active' : 'bad-active');
+
+  refresh();
+}
+
+function refresh() {
+  var keys   = Object.keys(scores);
+  var correct = keys.filter(function(k) { return scores[k]; }).length;
+  var total   = keys.length;
+
+  document.getElementById('score-num').textContent = correct;
+  document.getElementById('score-note').textContent = total < 6
+    ? 'correct so far (' + total + ' of 6 answered)'
+    : 'correct';
+
+  var tier = null;
+  if (total >= 4) {
+    if (correct >= 5)      tier = 'advanced';
+    else if (correct >= 3) tier = 'stable';
+    else                   tier = 'gap';
+  }
+
+  document.querySelectorAll('.tier-card').forEach(function(c) {
+    c.classList.remove('tier-active');
+  });
+
+  if (tier) {
+    var id = { advanced: 'tier-advanced', stable: 'tier-stable', gap: 'tier-gap' }[tier];
+    document.getElementById(id).classList.add('tier-active');
+
+    var cta = document.getElementById('cta-block');
+    cta.style.display = 'block';
+    document.getElementById('cta-headline').textContent = CTA[tier].h;
+    document.getElementById('cta-body').textContent     = CTA[tier].b;
+  }
+}
+</script>
+
+</body></html>

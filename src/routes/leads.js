@@ -6,12 +6,12 @@ const Session = require('../models/Session');
 const { notifyAdminNewLead, confirmLead, confirmResourceLead, notifyAdminResourceLead } = require('../services/email');
 
 const RESOURCE_META = {
-  'math-g2-4': { title: 'Primary 2-4 Maths Diagnostic',    url: 'https://claude.ai/artifact/6aff2e21-bc6e-46b4-a2d3-eabf58597814' },
-  'math-g5-6': { title: 'Primary 5-6 Maths Diagnostic',    url: 'https://claude.ai/artifact/VWvtNVStdnJcrhPnXZ3coC' },
-  'eng-g2-4':  { title: 'Primary 2-4 English Diagnostic',  url: 'https://claude.ai/artifact/8712LHDhPP9Duozge8b6Hk' },
-  'eng-g5-6':  { title: 'Primary 5-6 English Diagnostic',  url: 'https://claude.ai/artifact/SnF24fPPsPGxriebxZKdFL' },
+  'math-g2-4': { title: 'Primary 2-4 Maths Diagnostic',    url: 'https://thinkviva.org/resources/math-primary-2-4' },
+  'math-g5-6': { title: 'Primary 5-6 Maths Diagnostic',    url: 'https://thinkviva.org/resources/math-primary-5-6' },
+  'eng-g2-4':  { title: 'Primary 2-4 English Diagnostic',  url: 'https://thinkviva.org/resources/english-primary-2-4' },
+  'eng-g5-6':  { title: 'Primary 5-6 English Diagnostic',  url: 'https://thinkviva.org/resources/english-primary-5-6' },
 };
-const BEHAVIORAL_URL = 'https://claude.ai/artifact/a65178fe-e0e4-4ab6-9945-865ac889dd4c';
+const BEHAVIORAL_URL = 'https://thinkviva.org/resources/behavioral-checklist';
 
 router.post('/', async (req, res) => {
   try {

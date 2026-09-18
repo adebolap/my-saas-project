@@ -1,0 +1,378 @@
+<title>Grade 2–4 English Diagnostic</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600&display=swap">
+<style>
+:root {
+  --green:   #1A4D32;
+  --green-d: #132E1F;
+  --green-l: #2A6B46;
+  --amber:   #C8851A;
+  --amber-l: #F5A82A;
+  --bg:      #FDFAF5;
+  --card-bg: #FFFFFF;
+  --border:  #DDD5C5;
+  --text:    #1C1208;
+  --muted:   #6B5C44;
+  --shadow:  0 2px 12px rgba(26,77,50,.10);
+  --radius:  12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1C14; --card-bg: #162A1D; --border: #2A4035;
+    --text: #EDE8DF; --muted: #9BB8A4; --shadow: 0 2px 16px rgba(0,0,0,.35);
+    --green: #2E7D52; --amber: #D4952A; --amber-l: #F5B84A;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1C14; --card-bg: #162A1D; --border: #2A4035;
+  --text: #EDE8DF; --muted: #9BB8A4; --shadow: 0 2px 16px rgba(0,0,0,.35);
+  --green: #2E7D52; --amber: #D4952A; --amber-l: #F5B84A;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.65;
+  padding-inline: 20px; padding-block: 32px; position: relative;
+}
+#wm-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+#wm-corner {
+  position: fixed; bottom: 18px; right: 20px;
+  font-family: 'Cormorant Garamond', serif; font-size: 11px; font-weight: 600;
+  color: var(--green); opacity: .55; letter-spacing: .04em;
+  pointer-events: none; z-index: 9999; user-select: none;
+}
+.page { max-width: 740px; margin: 0 auto; position: relative; z-index: 1; }
+header { text-align: center; padding-block: 12px 40px; border-bottom: 2px solid var(--border); margin-bottom: 36px; }
+.eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); margin-bottom: 10px; }
+header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.9rem, 5vw, 2.8rem); font-weight: 700; line-height: 1.15; color: var(--green); text-wrap: balance; margin-bottom: 12px; }
+.sub { color: var(--muted); font-size: 14px; max-width: 520px; margin: 0 auto 14px; }
+.grade-badge { display: inline-block; background: var(--green); color: #fff; font-size: 12px; font-weight: 600; padding: 5px 16px; border-radius: 40px; letter-spacing: .04em; }
+.part-block { margin-bottom: 40px; }
+.part-label { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 600; color: var(--green); border-left: 4px solid var(--amber); padding-left: 14px; margin-bottom: 6px; }
+.part-inst { font-size: 13px; color: var(--muted); font-style: italic; margin-bottom: 20px; padding-left: 18px; }
+.q-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px 24px; margin-bottom: 16px; }
+.q-card.done { border-color: var(--amber); }
+.q-tag { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.q-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--green); margin-bottom: 10px; }
+.q-body { font-size: 14px; line-height: 1.7; color: var(--text); margin-bottom: 14px; }
+.opts { list-style: none; padding: 0; margin: 10px 0 14px; }
+.opts li { padding: 5px 0; font-size: 14px; }
+.reveal-btn { background: var(--green); color: #fff; border: none; border-radius: 8px; padding: 8px 18px; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 600; cursor: pointer; transition: background .15s; }
+.reveal-btn:hover { background: var(--green-l); }
+.ans-block { background: #F0F7F3; border-left: 3px solid var(--green); border-radius: 6px; padding: 12px 16px; margin: 14px 0; font-size: 14px; line-height: 1.7; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .ans-block { background: #112318; } }
+:root[data-theme="dark"] .ans-block { background: #112318; }
+.ans-block strong { color: var(--green); }
+.mark-btns { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.btn-got { background: #1A7A45; color: #fff; border: none; border-radius: 8px; padding: 7px 18px; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 600; cursor: pointer; }
+.btn-miss { background: transparent; color: var(--text); border: 1.5px solid var(--border); border-radius: 8px; padding: 7px 18px; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 600; cursor: pointer; }
+.btn-got:hover { background: #15603A; }
+.btn-miss:hover { border-color: var(--amber); }
+.btn-got.sel { outline: 3px solid var(--amber-l); }
+.btn-miss.sel { outline: 3px solid var(--border); background: var(--border); }
+
+/* Passage block */
+.passage-block {
+  background: var(--card-bg); border: 1.5px solid var(--border);
+  border-radius: var(--radius); padding: 22px 24px; margin-bottom: 20px;
+  border-top: 4px solid var(--amber);
+}
+.passage-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; font-style: italic; color: var(--green); margin-bottom: 10px; }
+.passage-text { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; line-height: 1.85; color: var(--text); font-style: italic; }
+
+/* Writing section */
+.writing-card {
+  background: var(--card-bg); border: 1.5px dashed var(--border);
+  border-radius: var(--radius); padding: 22px 24px; margin-bottom: 16px;
+}
+.writing-card .q-title { color: var(--amber); }
+.checklist { list-style: none; padding: 0; margin-top: 12px; }
+.checklist li { display: flex; align-items: baseline; gap: 10px; font-size: 13px; line-height: 1.7; padding: 4px 0; color: var(--muted); border-bottom: 1px solid var(--border); }
+.checklist li:last-child { border-bottom: none; }
+.checklist li::before { content: '☐'; font-size: 15px; flex-shrink: 0; color: var(--green); }
+
+#score-bar {
+  position: sticky; top: 12px; z-index: 50;
+  background: var(--green); color: #fff;
+  border-radius: 40px; padding: 9px 22px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.25); margin-bottom: 28px;
+  font-size: 14px; font-weight: 600;
+}
+.tier-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 32px; }
+@media (max-width: 580px) { .tier-row { grid-template-columns: 1fr; } }
+.tier-card { background: var(--card-bg); border: 2px solid var(--border); border-radius: var(--radius); padding: 18px 16px; text-align: center; transition: border-color .2s, box-shadow .2s; opacity: .55; }
+.tier-card.active { opacity: 1; border-color: var(--amber); box-shadow: 0 0 0 3px rgba(200,133,26,.18); }
+.tier-icon { font-size: 1.6rem; margin-bottom: 6px; }
+.tier-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--green); margin-bottom: 4px; }
+.tier-range { font-size: 11px; font-weight: 600; letter-spacing: .08em; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; }
+.tier-desc { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.cta-block { background: var(--green); border-radius: var(--radius); padding: 30px 28px; text-align: center; color: #fff; margin-bottom: 32px; }
+.cta-block h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 10px; }
+.cta-block p { font-size: 14px; opacity: .88; margin-bottom: 18px; line-height: 1.6; }
+.cta-btn { display: inline-block; background: var(--amber); color: #fff; text-decoration: none; padding: 11px 28px; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; border: none; font-family: 'DM Sans', sans-serif; }
+.cta-btn:hover { background: var(--amber-l); }
+.attr-stripe { text-align: center; font-size: 12px; color: var(--muted); padding-top: 16px; border-top: 1px solid var(--border); }
+.attr-stripe strong { color: var(--green); }
+</style>
+
+<div id="wm-overlay"></div>
+<div id="wm-corner">ThinkViva | thinkviva.org</div>
+
+<div class="page">
+
+<header>
+  <div class="eyebrow">Free Skill Builder</div>
+  <h1>Grade 2&ndash;4 English Diagnostic</h1>
+  <p class="sub">Vocabulary, reading comprehension &amp; creative expression for diaspora and Nigerian families</p>
+  <div class="grade-badge">Ages 7&ndash;10 &middot; Lower Primary</div>
+</header>
+
+<div id="score-bar">
+  <span id="score-label">Work through each section, then mark yourself.</span>
+  <span id="score-num">0 / 6</span>
+</div>
+
+<!-- PART 1 -->
+<div class="part-block">
+  <div class="part-label">Part 1: Vocabulary in Context</div>
+  <p class="part-inst">Read each sentence carefully. Choose the correct word or identify the right answer.</p>
+
+  <div class="q-card" id="qc-1">
+    <div class="q-tag">Question 1 &middot; Homophones</div>
+    <div class="q-title">The Market Vocabulary</div>
+    <div class="q-body">
+      &ldquo;Aunty Bisi walked through the noisy, vibrant market, carrying a heavy basket of <strong>___________</strong> mangoes.&rdquo;
+    </div>
+    <ul class="opts">
+      <li>(a) ripe</li>
+      <li>(b) write</li>
+      <li>(c) right</li>
+    </ul>
+    <button class="reveal-btn" onclick="reveal(1)">Show Answer</button>
+    <div id="ans-1" hidden>
+      <div class="ans-block">
+        <strong>(a) ripe</strong> &mdash; Tests homophones and contextual spelling. &ldquo;Ripe&rdquo; describes fruit; &ldquo;write&rdquo; and &ldquo;right&rdquo; are unrelated in this context.
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(1,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(1,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc-2">
+    <div class="q-tag">Question 2 &middot; Past Tense</div>
+    <div class="q-title">Irregular Verbs</div>
+    <div class="q-body">
+      &ldquo;Yesterday, we <strong>___________</strong> (go / went) to the community centre to celebrate Independence Day.&rdquo;<br><br>
+      Which is correct: <em>go</em> or <em>went</em>?
+    </div>
+    <button class="reveal-btn" onclick="reveal(2)">Show Answer</button>
+    <div id="ans-2" hidden>
+      <div class="ans-block">
+        <strong>went</strong> &mdash; Tests irregular past-tense verbs. &ldquo;Yesterday&rdquo; signals the past, so we need the irregular form <em>went</em>, not <em>go</em>.
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(2,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(2,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc-3">
+    <div class="q-tag">Question 3 &middot; Prefixes</div>
+    <div class="q-title">Prefixes &amp; Opposites</div>
+    <div class="q-body">
+      What is the correct opposite of the word <strong>&ldquo;obedient&rdquo;</strong> when adding a prefix (un-, dis-, mis-)?
+    </div>
+    <button class="reveal-btn" onclick="reveal(3)">Show Answer</button>
+    <div id="ans-3" hidden>
+      <div class="ans-block">
+        <strong>Disobedient</strong> &mdash; &ldquo;dis-&rdquo; is the correct prefix. Tests morphological awareness and vocabulary expansion. (Note: &ldquo;unobedient&rdquo; is not standard English.)
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(3,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(3,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 2 -->
+<div class="part-block">
+  <div class="part-label">Part 2: Reading Comprehension</div>
+  <p class="part-inst">Read the passage carefully, then answer the questions below in complete sentences.</p>
+
+  <div class="passage-block">
+    <div class="passage-title">Kofi&rsquo;s First Snow</div>
+    <div class="passage-text">
+      Eight-year-old Kofi stared out the frosted window of his new apartment in Toronto. Just three months ago, he was running barefoot under the bright, blazing sun in Accra, chasing mango skins with his cousins. Today, the world outside was completely white, silent, and freezing.<br><br>
+      &ldquo;Put on your heavy boots, your woolen scarf, and your thick jacket, Kofi!&rdquo; called Mama from the kitchen, holding a steaming mug of Milo.<br><br>
+      Kofi sighed, missing the warmth of his homeland. But as he stepped outside and his boots crunched against the fresh snow for the very first time, a wide smile spread across his face. He caught a delicate snowflake on his glove. Maybe this new winter adventure wasn&rsquo;t so bad after all.
+    </div>
+  </div>
+
+  <div class="q-card" id="qc-4">
+    <div class="q-tag">Question 4 &middot; Literal Retrieval</div>
+    <div class="q-title">Where is Kofi&rsquo;s story set?</div>
+    <div class="q-body">
+      What two cities or countries are contrasted in Kofi&rsquo;s story?
+    </div>
+    <button class="reveal-btn" onclick="reveal(4)">Show Answer</button>
+    <div id="ans-4" hidden>
+      <div class="ans-block">
+        <strong>Accra (Ghana)</strong> and <strong>Toronto (Canada)</strong>. Kofi moved from the warmth of Accra to the winter of Toronto.
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(4,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(4,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc-5">
+    <div class="q-tag">Question 5 &middot; Inference</div>
+    <div class="q-title">Reading Between the Lines</div>
+    <div class="q-body">
+      Why did Kofi sigh when his mother told him to put on his heavy winter gear?
+    </div>
+    <button class="reveal-btn" onclick="reveal(5)">Show Answer</button>
+    <div id="ans-5" hidden>
+      <div class="ans-block">
+        <strong>He was feeling homesick.</strong> He missed the warmth and familiarity of Accra. The winter clothing reminded him how different his new life was from home.
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(5,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(5,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc-6">
+    <div class="q-tag">Question 6 &middot; Vocabulary in Action</div>
+    <div class="q-title">Describing Words</div>
+    <div class="q-body">
+      Find one descriptive word (adjective) in the first paragraph that describes the <strong>sun in Accra</strong>, and one that describes the <strong>snow in Toronto</strong>.
+    </div>
+    <button class="reveal-btn" onclick="reveal(6)">Show Answer</button>
+    <div id="ans-6" hidden>
+      <div class="ans-block">
+        <strong>Sun:</strong> <em>blazing</em> (or &ldquo;bright&rdquo;)<br>
+        <strong>Snow:</strong> <em>white, silent,</em> or <em>freezing</em><br>
+        Tests identifying descriptive adjectives and understanding sensory language.
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(6,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(6,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 3 - Writing (parent eval) -->
+<div class="part-block">
+  <div class="part-label">Part 3: Creative Writing Challenge</div>
+  <p class="part-inst">This section is for your child to write. Use the parent checklist below to evaluate their response.</p>
+
+  <div class="writing-card">
+    <div class="q-tag">Writing Prompt</div>
+    <div class="q-title">The Grand Celebration</div>
+    <div class="q-body">
+      Write a short paragraph of <strong>4&ndash;5 sentences</strong> describing a family festival. It could be a naming ceremony, Eid, Christmas, or a cultural wedding.<br><br>
+      Describe the <strong>sounds</strong>, the <strong>smells</strong> of the food, and how <strong>you felt</strong>. Try to use at least two connecting words like: <em>because, although, suddenly, meanwhile.</em>
+    </div>
+    <div style="margin-top: 16px; font-size: 13px; font-weight: 600; color: var(--green);">Parent Evaluation Checklist</div>
+    <ul class="checklist">
+      <li>Every sentence starts with a capital letter and ends with correct punctuation.</li>
+      <li>At least 3 descriptive sensory words are used (e.g. aromatic, rhythmic, colourful).</li>
+      <li>Ideas are connected smoothly using conjunctions or connecting words.</li>
+      <li>The paragraph stays on topic and describes a real event or celebration.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Tiers -->
+<div class="part-label" style="margin-bottom:18px;">Your Result (Parts 1 &amp; 2)</div>
+<div class="tier-row">
+  <div class="tier-card" id="tier-advanced">
+    <div class="tier-icon">🌟</div>
+    <div class="tier-name">Advanced</div>
+    <div class="tier-range">5&ndash;6 correct</div>
+    <div class="tier-desc">Strong vocabulary and reading comprehension. Ready for figurative language and essay structuring.</div>
+  </div>
+  <div class="tier-card" id="tier-stable">
+    <div class="tier-icon">📈</div>
+    <div class="tier-name">Stable</div>
+    <div class="tier-range">3&ndash;4 correct</div>
+    <div class="tier-desc">Understands stories well, but needs work on tense consistency and precise vocabulary use.</div>
+  </div>
+  <div class="tier-card" id="tier-gap">
+    <div class="tier-icon">🔧</div>
+    <div class="tier-name">Skill Gap</div>
+    <div class="tier-range">0&ndash;2 correct</div>
+    <div class="tier-desc">Typical when shifting from rote spelling drills to critical reading and contextual grammar analysis.</div>
+  </div>
+</div>
+
+<div class="cta-block" id="cta-block" hidden>
+  <h2 id="cta-head">Strong foundations deserve the right next step.</h2>
+  <p id="cta-body">A ThinkViva literacy coach can take your child from competent reader to confident writer in just a few targeted sessions.</p>
+  <button class="cta-btn" onclick="window.open('https://thinkviva.org/?book=1','_blank')">Book a Free Consultation</button>
+</div>
+
+<div class="attr-stripe">
+  <strong>ThinkViva</strong> &middot; Free Resource &middot; thinkviva.org &middot; &copy; 2025
+</div>
+
+</div>
+
+<script>
+const scores = {};
+const TOTAL = 6;
+const CTA = {
+  advanced: { h: 'Strong foundations. Ready for the next level.', b: 'Your child shows excellent vocabulary and comprehension. A ThinkViva tutor can introduce figurative language, essay structuring, and analytical writing to keep them ahead.' },
+  stable:   { h: 'Almost there. Small gaps are very fixable.', b: 'Your child understands the big picture but needs targeted coaching on tense consistency and precise vocabulary. A few focused sessions can make a noticeable difference.' },
+  gap:      { h: 'This is exactly what ThinkViva is built for.', b: 'Shifting from rote spelling to contextual reading is a big leap. Our literacy specialists are experienced at bridging this gap for diaspora children navigating two curricula.' }
+};
+function reveal(id) {
+  document.querySelector('#qc-' + id + ' .reveal-btn').hidden = true;
+  document.getElementById('ans-' + id).hidden = false;
+}
+function mark(id, correct, btn) {
+  scores[id] = correct;
+  document.getElementById('qc-' + id).classList.add('done');
+  document.querySelectorAll('#qc-' + id + ' .btn-got, #qc-' + id + ' .btn-miss').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  refresh();
+}
+function refresh() {
+  var answered = Object.keys(scores).length;
+  var correct  = Object.values(scores).filter(Boolean).length;
+  document.getElementById('score-num').textContent = correct + ' / ' + TOTAL;
+  document.getElementById('score-label').textContent = answered < TOTAL
+    ? (TOTAL - answered) + ' question' + (TOTAL - answered > 1 ? 's' : '') + ' remaining'
+    : 'All done! See your result below.';
+  var tier = answered === TOTAL ? (correct >= 5 ? 'advanced' : correct >= 3 ? 'stable' : 'gap') : null;
+  ['advanced','stable','gap'].forEach(t => document.getElementById('tier-' + t).classList.toggle('active', t === tier));
+  var cta = document.getElementById('cta-block');
+  if (tier) {
+    cta.hidden = false;
+    document.getElementById('cta-head').textContent = CTA[tier].h;
+    document.getElementById('cta-body').textContent = CTA[tier].b;
+  } else { cta.hidden = true; }
+}
+(function() {
+  function buildTile(fg, fg2) {
+    var c = document.createElement('canvas'); c.width = 280; c.height = 140;
+    var ctx = c.getContext('2d');
+    ctx.save(); ctx.translate(140,70); ctx.rotate(-26*Math.PI/180); ctx.textAlign='center';
+    ctx.font='600 17px Georgia,serif'; ctx.fillStyle=fg; ctx.fillText('ThinkViva',0,-5);
+    ctx.font='10px Georgia,serif'; ctx.fillStyle=fg2; ctx.fillText('thinkviva.org',0,11);
+    ctx.restore(); return c.toDataURL();
+  }
+  var dark = window.matchMedia('(prefers-color-scheme: dark)').matches || document.documentElement.dataset.theme==='dark';
+  var tile = dark ? buildTile('rgba(90,173,120,0.20)','rgba(90,173,120,0.15)') : buildTile('rgba(26,77,50,0.13)','rgba(26,77,50,0.10)');
+  var el = document.getElementById('wm-overlay');
+  el.style.backgroundImage='url('+tile+')'; el.style.backgroundRepeat='repeat'; el.style.backgroundSize='280px 140px';
+})();
+</script>

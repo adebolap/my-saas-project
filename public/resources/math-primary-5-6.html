@@ -1,0 +1,651 @@
+<title>Grade 5–6 Maths Diagnostic</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600&display=swap">
+<style>
+:root {
+  --green:   #1A4D32;
+  --green-d: #132E1F;
+  --green-l: #2A6B46;
+  --amber:   #C8851A;
+  --amber-l: #F5A82A;
+  --bg:      #FDFAF5;
+  --card-bg: #FFFFFF;
+  --border:  #DDD5C5;
+  --text:    #1C1208;
+  --muted:   #6B5C44;
+  --shadow:  0 2px 12px rgba(26,77,50,.10);
+  --radius:  12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:      #0E1C14;
+    --card-bg: #162A1D;
+    --border:  #2A4035;
+    --text:    #EDE8DF;
+    --muted:   #9BB8A4;
+    --shadow:  0 2px 16px rgba(0,0,0,.35);
+    --green:   #2E7D52;
+    --amber:   #D4952A;
+    --amber-l: #F5B84A;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:      #0E1C14;
+  --card-bg: #162A1D;
+  --border:  #2A4035;
+  --text:    #EDE8DF;
+  --muted:   #9BB8A4;
+  --shadow:  0 2px 16px rgba(0,0,0,.35);
+  --green:   #2E7D52;
+  --amber:   #D4952A;
+  --amber-l: #F5B84A;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  padding-inline: 20px;
+  padding-block: 32px;
+  position: relative;
+}
+
+#wm-overlay {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+#wm-corner {
+  position: fixed; bottom: 18px; right: 20px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px; font-weight: 600;
+  color: var(--green); opacity: .55;
+  letter-spacing: .04em;
+  pointer-events: none; z-index: 9999;
+  user-select: none;
+}
+
+.page { max-width: 740px; margin: 0 auto; position: relative; z-index: 1; }
+
+header {
+  text-align: center;
+  padding-block: 12px 40px;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 36px;
+}
+.eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--amber);
+  margin-bottom: 10px;
+}
+header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.9rem, 5vw, 2.8rem);
+  font-weight: 700; line-height: 1.15;
+  color: var(--green);
+  text-wrap: balance;
+  margin-bottom: 12px;
+}
+.sub {
+  color: var(--muted); font-size: 14px;
+  max-width: 520px; margin: 0 auto 14px;
+}
+.grade-badge {
+  display: inline-block;
+  background: var(--green); color: #fff;
+  font-size: 12px; font-weight: 600;
+  padding: 5px 16px; border-radius: 40px;
+  letter-spacing: .04em;
+}
+
+.part-block { margin-bottom: 40px; }
+.part-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem; font-weight: 600;
+  color: var(--green);
+  border-left: 4px solid var(--amber);
+  padding-left: 14px;
+  margin-bottom: 6px;
+}
+.part-inst {
+  font-size: 13px; color: var(--muted);
+  font-style: italic;
+  margin-bottom: 20px;
+  padding-left: 18px;
+}
+
+.q-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px 24px;
+  margin-bottom: 16px;
+}
+.q-card.done { border-color: var(--amber); }
+
+.q-tag {
+  font-size: 11px; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 8px;
+}
+.q-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; font-weight: 600;
+  color: var(--green);
+  margin-bottom: 10px;
+}
+.q-body {
+  font-size: 14px; line-height: 1.7;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+.q-body em { font-style: italic; color: var(--muted); }
+
+.steps { padding-left: 0; list-style: none; }
+.steps li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px; line-height: 1.6;
+}
+.steps li:last-child { border-bottom: none; }
+
+.reveal-btn {
+  background: var(--green); color: #fff;
+  border: none; border-radius: 8px;
+  padding: 8px 18px; font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600; cursor: pointer;
+  transition: background .15s;
+}
+.reveal-btn:hover { background: var(--green-l); }
+
+.ans-block {
+  background: #F0F7F3;
+  border-left: 3px solid var(--green);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 14px 0;
+  font-size: 14px; line-height: 1.7;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .ans-block { background: #112318; }
+}
+:root[data-theme="dark"] .ans-block { background: #112318; }
+
+.ans-block strong { color: var(--green); }
+
+.mark-btns { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.btn-got {
+  background: #1A7A45; color: #fff;
+  border: none; border-radius: 8px;
+  padding: 7px 18px; font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600; cursor: pointer;
+}
+.btn-miss {
+  background: transparent;
+  color: var(--text);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 18px; font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600; cursor: pointer;
+}
+.btn-got:hover { background: #15603A; }
+.btn-miss:hover { border-color: var(--amber); }
+.btn-got.sel { outline: 3px solid var(--amber-l); }
+.btn-miss.sel { outline: 3px solid var(--border); background: var(--border); }
+
+/* Writing / display section */
+.display-card {
+  background: var(--card-bg);
+  border: 1.5px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  margin-bottom: 16px;
+}
+.display-card .q-title { color: var(--amber); }
+.checklist { list-style: none; padding: 0; margin-top: 10px; }
+.checklist li {
+  display: flex; align-items: baseline; gap: 8px;
+  font-size: 13px; line-height: 1.6;
+  padding: 4px 0;
+  color: var(--muted);
+}
+.checklist li::before {
+  content: '☐'; font-size: 15px; flex-shrink: 0;
+  color: var(--green);
+}
+
+/* Score bar */
+#score-bar {
+  position: sticky; top: 12px; z-index: 50;
+  background: var(--green);
+  color: #fff;
+  border-radius: 40px;
+  padding: 9px 22px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.25);
+  margin-bottom: 28px;
+  font-size: 14px; font-weight: 600;
+}
+#score-label { flex: 1; }
+#score-num { font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+
+/* Tiers */
+.tier-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 32px;
+}
+@media (max-width: 580px) { .tier-row { grid-template-columns: 1fr; } }
+
+.tier-card {
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  text-align: center;
+  transition: border-color .2s, box-shadow .2s;
+  opacity: .55;
+}
+.tier-card.active {
+  opacity: 1;
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(200,133,26,.18);
+}
+.tier-icon { font-size: 1.6rem; margin-bottom: 6px; }
+.tier-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; font-weight: 600;
+  color: var(--green);
+  margin-bottom: 4px;
+}
+.tier-range {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: .08em; color: var(--muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.tier-desc { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+
+/* CTA */
+.cta-block {
+  background: var(--green);
+  border-radius: var(--radius);
+  padding: 30px 28px;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 32px;
+}
+.cta-block h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 600;
+  margin-bottom: 10px;
+}
+.cta-block p { font-size: 14px; opacity: .88; margin-bottom: 18px; line-height: 1.6; }
+.cta-btn {
+  display: inline-block;
+  background: var(--amber);
+  color: #fff;
+  text-decoration: none;
+  padding: 11px 28px;
+  border-radius: 8px;
+  font-weight: 700; font-size: 14px;
+  cursor: pointer;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+}
+.cta-btn:hover { background: var(--amber-l); }
+
+.attr-stripe {
+  text-align: center;
+  font-size: 12px; color: var(--muted);
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.attr-stripe strong { color: var(--green); }
+</style>
+
+<!-- Watermark overlay -->
+<div id="wm-overlay"></div>
+<div id="wm-corner">ThinkViva | thinkviva.org</div>
+
+<div class="page">
+
+<header>
+  <div class="eyebrow">Free Skill Builder</div>
+  <h1>Grade 5&ndash;6 Maths Diagnostic</h1>
+  <p class="sub">Advanced arithmetic, fractions, algebra &amp; data interpretation for diaspora and Nigerian families</p>
+  <div class="grade-badge">Ages 10&ndash;12 &middot; Upper Primary</div>
+</header>
+
+<!-- Score bar -->
+<div id="score-bar">
+  <span id="score-label">Work through each question, then mark yourself.</span>
+  <span id="score-num">0 / 8</span>
+</div>
+
+<!-- PART 1 -->
+<div class="part-block">
+  <div class="part-label">Part 1: Arithmetic &amp; Order of Operations (BODMAS/PEMDAS)</div>
+  <p class="part-inst">Solve each problem without a calculator. Show your working clearly.</p>
+
+  <div class="q-card" id="qc-1">
+    <div class="q-tag">Question 1 &middot; Exchange Rate</div>
+    <div class="q-title">The Currency Calculation</div>
+    <div class="q-body">
+      If 1 British Pound equals approximately 2,100 Naira, and a family budgets <strong>£145</strong> for a holiday project, how many Naira is that in total?
+    </div>
+    <button class="reveal-btn" onclick="reveal(1)">Show Answer</button>
+    <div id="ans-1" hidden>
+      <div class="ans-block">
+        <strong>£145 &times; 2,100 = 304,500 Naira</strong><br>
+        <em>Tests multi-digit multiplication fluency and real-world currency application.</em>
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(1,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(1,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc-2">
+    <div class="q-tag">Question 2 &middot; Order of Operations</div>
+    <div class="q-title">The Bakery Order</div>
+    <div class="q-body">
+      Aunty Titi orders <strong>5 boxes</strong> of meat pies. Each box has <strong>6 pies</strong>. She already had <strong>8 extra pies</strong> at home and gives away <strong>14 pies</strong> to neighbours.<br><br>
+      Write the expression and solve it. How many pies does she end up with?
+    </div>
+    <button class="reveal-btn" onclick="reveal(2)">Show Answer</button>
+    <div id="ans-2" hidden>
+      <div class="ans-block">
+        <strong>Expression: (5 &times; 6) + 8 &minus; 14 = 30 + 8 &minus; 14 = <span style="color:var(--amber)">24 pies</span></strong><br>
+        <em>Tests strict adherence to BODMAS: multiplication first, then left-to-right addition/subtraction.</em>
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(2,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(2,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 2 -->
+<div class="part-block">
+  <div class="part-label">Part 2: Fractions, Decimals &amp; Proportions</div>
+  <p class="part-inst">Work through each step in order and show your reasoning.</p>
+
+  <div class="q-card" id="qc-3">
+    <div class="q-tag">Problem A &middot; Step 1 of 3</div>
+    <div class="q-title">The Ankara Discount Dilemma</div>
+    <div class="q-body">
+      A merchant in a London boutique is having a clearance sale. An Ankara fabric piece originally costs <strong>£80</strong>.<br><br>
+      <strong>Step 1:</strong> The merchant offers a <strong>1/4 discount</strong> off the original price. What is the discount amount in pounds?
+    </div>
+    <button class="reveal-btn" onclick="reveal(3)">Show Answer</button>
+    <div id="ans-3" hidden>
+      <div class="ans-block">
+        <strong>1/4 of £80 = 80 &divide; 4 = £20 discount</strong>
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(3,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(3,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc-4">
+    <div class="q-tag">Problem A &middot; Step 2 of 3</div>
+    <div class="q-title">The Ankara Discount Dilemma (continued)</div>
+    <div class="q-body">
+      <strong>Step 2:</strong> What is the <strong>final sale price</strong> of one fabric piece after the discount is applied?
+    </div>
+    <button class="reveal-btn" onclick="reveal(4)">Show Answer</button>
+    <div id="ans-4" hidden>
+      <div class="ans-block">
+        <strong>£80 &minus; £20 = £60 per piece</strong>
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(4,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(4,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc-5">
+    <div class="q-tag">Problem A &middot; Step 3 of 3</div>
+    <div class="q-title">The Ankara Discount Dilemma (continued)</div>
+    <div class="q-body">
+      <strong>Step 3:</strong> A customer buys <strong>two</strong> of these discounted fabric pieces and pays with a <strong>£150 note</strong>. How much change do they receive?
+    </div>
+    <button class="reveal-btn" onclick="reveal(5)">Show Answer</button>
+    <div id="ans-5" hidden>
+      <div class="ans-block">
+        <strong>2 &times; £60 = £120 &nbsp;&rarr;&nbsp; £150 &minus; £120 = <span style="color:var(--amber)">£30 change</span></strong>
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(5,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(5,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 3 -->
+<div class="part-block">
+  <div class="part-label">Part 3: Introduction to Algebra &amp; Word Logic</div>
+  <p class="part-inst">Write an algebraic equation for each problem and solve for the unknown variable.</p>
+
+  <div class="q-card" id="qc-6">
+    <div class="q-tag">Problem B &middot; Task 1 of 2</div>
+    <div class="q-title">The Flight Luggage Weight Puzzle</div>
+    <div class="q-body">
+      Kemi packs <strong>two identical suitcases</strong> for a flight to Lagos. Both suitcases together, plus a <strong>5 kg carry-on backpack</strong>, weigh a total of <strong>45 kg</strong>.<br><br>
+      Let <strong>x</strong> = the weight of one suitcase.<br>
+      <strong>Task 1:</strong> Write an equation representing this total weight.
+    </div>
+    <button class="reveal-btn" onclick="reveal(6)">Show Answer</button>
+    <div id="ans-6" hidden>
+      <div class="ans-block">
+        <strong>Equation: 2x + 5 = 45</strong><br>
+        <em>Both suitcases (2x) plus the backpack (5) equals total weight (45).</em>
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(6,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(6,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc-7">
+    <div class="q-tag">Problem B &middot; Task 2 of 2</div>
+    <div class="q-title">The Flight Luggage Weight Puzzle (continued)</div>
+    <div class="q-body">
+      Using your equation from Task 1: &nbsp;<strong>2x + 5 = 45</strong><br><br>
+      <strong>Task 2:</strong> Solve for <em>x</em> to find the weight of a single suitcase. Is she within the 30 kg per-suitcase limit?
+    </div>
+    <button class="reveal-btn" onclick="reveal(7)">Show Answer</button>
+    <div id="ans-7" hidden>
+      <div class="ans-block">
+        Subtract 5 from both sides: <strong>2x = 40</strong><br>
+        Divide by 2: <strong>x = 20 kg per suitcase</strong><br>
+        Yes &mdash; 20 kg is within the 30 kg airline limit.
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(7,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(7,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 4 -->
+<div class="part-block">
+  <div class="part-label">Part 4: Data Interpretation</div>
+  <p class="part-inst">Use the data set below to answer the question.</p>
+
+  <div class="q-card" id="qc-8">
+    <div class="q-tag">Question 8 &middot; Fractions &amp; Percentages</div>
+    <div class="q-title">The Summer Camp Survey</div>
+    <div class="q-body">
+      50 diaspora children at a cultural summer camp were asked about their favourite meal:
+      <ul style="margin: 12px 0 0 18px; font-size:14px; line-height:2;">
+        <li><strong>Jollof Rice</strong>: 25 students</li>
+        <li>Pounded Yam &amp; Egusi: 15 students</li>
+        <li>Suya &amp; Plantain: 10 students</li>
+      </ul>
+      <br>What <strong>fraction</strong> of students chose Jollof Rice? Express it as a <strong>percentage</strong>.
+    </div>
+    <button class="reveal-btn" onclick="reveal(8)">Show Answer</button>
+    <div id="ans-8" hidden>
+      <div class="ans-block">
+        <strong>Fraction: 25/50 = 1/2 &nbsp;&rarr;&nbsp; Percentage: <span style="color:var(--amber)">50%</span></strong><br>
+        <em>Tests fraction simplification and fraction-to-percentage conversion.</em>
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(8,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(8,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tiers -->
+<div class="part-label" style="margin-bottom:18px;">Your Result</div>
+<div class="tier-row">
+  <div class="tier-card" id="tier-advanced">
+    <div class="tier-icon">🌟</div>
+    <div class="tier-name">Advanced</div>
+    <div class="tier-range">7&ndash;8 correct</div>
+    <div class="tier-desc">Middle-school ready. Exceptional multi-step logic, solid algebra &amp; computational accuracy.</div>
+  </div>
+  <div class="tier-card" id="tier-stable">
+    <div class="tier-icon">📈</div>
+    <div class="tier-name">Stable</div>
+    <div class="tier-range">4&ndash;6 correct</div>
+    <div class="tier-desc">On-track. Strong word-problem instincts with occasional slips in order of operations or precision.</div>
+  </div>
+  <div class="tier-card" id="tier-gap">
+    <div class="tier-icon">🔧</div>
+    <div class="tier-name">Skill Gap</div>
+    <div class="tier-range">0&ndash;3 correct</div>
+    <div class="tier-desc">Curriculum friction point. Common when moving from rote arithmetic to abstract multi-step reasoning.</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-block" id="cta-block" hidden>
+  <h2 id="cta-head">This is what we are built for.</h2>
+  <p id="cta-body">ThinkViva tutors are specialists in bridging exactly this gap &mdash; from rote arithmetic to the analytical thinking secondary school demands.</p>
+  <button class="cta-btn" onclick="window.open('https://thinkviva.org/?book=1','_blank')">Book a Free Consultation</button>
+</div>
+
+<!-- Attribution -->
+<div class="attr-stripe">
+  <strong>ThinkViva</strong> &middot; Free Resource &middot; thinkviva.org &middot; &copy; 2025
+</div>
+
+</div><!-- /page -->
+
+<script>
+const scores = {};
+const TOTAL = 8;
+
+const CTA = {
+  advanced: {
+    h: 'Strong performance. Want to stay ahead?',
+    b: 'Your child shows upper-primary maths fluency. A ThinkViva tutor can take them to competition-level problem solving before secondary school entry.'
+  },
+  stable: {
+    h: 'Good foundations. Small gaps are fixable.',
+    b: 'Your child understands the concepts but needs targeted coaching on algebraic precision and multi-step accuracy. We can close that gap quickly.'
+  },
+  gap: {
+    h: 'This is exactly what we are built for.',
+    b: 'ThinkViva tutors specialise in bridging the gap from rote arithmetic to the analytical thinking secondary school demands. One session can show you the difference.'
+  }
+};
+
+function reveal(id) {
+  var btn = document.querySelector('#qc-' + id + ' .reveal-btn');
+  btn.hidden = true;
+  document.getElementById('ans-' + id).hidden = false;
+}
+
+function mark(id, correct, btn) {
+  scores[id] = correct;
+  var card = document.getElementById('qc-' + id);
+  card.classList.add('done');
+  var btns = card.querySelectorAll('.btn-got, .btn-miss');
+  btns.forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  refresh();
+}
+
+function refresh() {
+  var answered = Object.keys(scores).length;
+  var correct  = Object.values(scores).filter(Boolean).length;
+  document.getElementById('score-num').textContent = correct + ' / ' + TOTAL;
+  document.getElementById('score-label').textContent =
+    answered < TOTAL
+      ? (TOTAL - answered) + ' question' + (TOTAL - answered > 1 ? 's' : '') + ' remaining'
+      : 'All done! See your result below.';
+
+  var tier = null;
+  if (answered === TOTAL) {
+    if (correct >= 7)      tier = 'advanced';
+    else if (correct >= 4) tier = 'stable';
+    else                   tier = 'gap';
+  }
+
+  ['advanced','stable','gap'].forEach(t => {
+    document.getElementById('tier-' + t).classList.toggle('active', t === tier);
+  });
+
+  var cta = document.getElementById('cta-block');
+  if (tier) {
+    cta.hidden = false;
+    document.getElementById('cta-head').textContent = CTA[tier].h;
+    document.getElementById('cta-body').textContent = CTA[tier].b;
+  } else {
+    cta.hidden = true;
+  }
+}
+
+// Watermark
+(function() {
+  function buildTile(fg, fg2) {
+    var c = document.createElement('canvas');
+    c.width = 280; c.height = 140;
+    var ctx = c.getContext('2d');
+    ctx.save();
+    ctx.translate(140, 70);
+    ctx.rotate(-26 * Math.PI / 180);
+    ctx.textAlign = 'center';
+    ctx.font = '600 17px Georgia, serif';
+    ctx.fillStyle = fg;
+    ctx.fillText('ThinkViva', 0, -5);
+    ctx.font = '10px Georgia, serif';
+    ctx.fillStyle = fg2;
+    ctx.fillText('thinkviva.org', 0, 11);
+    ctx.restore();
+    return c.toDataURL();
+  }
+  var dark = window.matchMedia('(prefers-color-scheme: dark)').matches
+          || document.documentElement.dataset.theme === 'dark';
+  var tile = dark
+    ? buildTile('rgba(90,173,120,0.20)', 'rgba(90,173,120,0.15)')
+    : buildTile('rgba(26,77,50,0.13)',   'rgba(26,77,50,0.10)');
+  var el = document.getElementById('wm-overlay');
+  el.style.backgroundImage  = 'url(' + tile + ')';
+  el.style.backgroundRepeat = 'repeat';
+  el.style.backgroundSize   = '280px 140px';
+})();
+</script>

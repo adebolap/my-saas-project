@@ -39,6 +39,21 @@ app.use('/api/newsletter', require('./routes/newsletter'));
 app.get('/resources', (req, res) =>
   res.sendFile(path.join(__dirname, '../public/resources.html'))
 );
+app.get('/resources/behavioral-checklist', (req, res) =>
+  res.sendFile(path.join(__dirname, '../public/resources/behavioral-checklist.html'))
+);
+app.get('/resources/math-primary-2-4', (req, res) =>
+  res.sendFile(path.join(__dirname, '../public/resources/math-primary-2-4.html'))
+);
+app.get('/resources/math-primary-5-6', (req, res) =>
+  res.sendFile(path.join(__dirname, '../public/resources/math-primary-5-6.html'))
+);
+app.get('/resources/english-primary-2-4', (req, res) =>
+  res.sendFile(path.join(__dirname, '../public/resources/english-primary-2-4.html'))
+);
+app.get('/resources/english-primary-5-6', (req, res) =>
+  res.sendFile(path.join(__dirname, '../public/resources/english-primary-5-6.html'))
+);
 app.get('/apply', (req, res) =>
   res.sendFile(path.join(__dirname, '../public/apply.html'))
 );
