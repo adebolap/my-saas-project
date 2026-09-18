@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free diagnostic resources for Nigerian diaspora and local families. Check whether your child is on track with our free interactive maths and English assessments for Primary 2-6." />
+  <title>Free Learning Resources | ThinkViva</title>
+  <link rel="canonical" href="https://thinkviva.org/resources" />
+  <meta property="og:title" content="Free Learning Resources | ThinkViva" />
+  <meta property="og:url" content="https://thinkviva.org/resources" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://thinkviva.org/img/og-image.png" />
+  <link rel="icon" href="/img/favicon.ico" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+/* ---- Resource Hub page-specific styles ---- */
+.resources-hero {
+  background:
+    linear-gradient(135deg, rgba(30,90,58,0.90) 0%, rgba(13,58,74,0.88) 100%),
+    url('/img/Main%20page%20display%202%20thinkViva.png') center/cover no-repeat;
+  padding: 64px 0 52px;
+  text-align: center;
+  color: #fff;
+}
+.resources-hero .section-label { color: var(--celadon); margin-bottom: 12px; }
+.resources-hero h1 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; margin-bottom: 14px; line-height: 1.2; }
+.resources-hero p { color: rgba(255,255,255,0.82); font-size: 1rem; max-width: 560px; margin: 0 auto; line-height: 1.7; }
+
+.resources-section { padding: 60px 0 72px; background: var(--warm-white); }
+
+.resources-intro {
+  text-align: center;
+  margin-bottom: 44px;
+}
+.resources-intro h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); color: var(--navy); font-weight: 800; margin-bottom: 10px; }
+.resources-intro p { color: var(--muted); max-width: 580px; margin: 0 auto; font-size: 0.95rem; line-height: 1.7; }
+
+/* Resource cards grid */
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 22px;
+}
+@media (max-width: 640px) { .resource-grid { grid-template-columns: 1fr; } }
+
+.resource-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 26px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: box-shadow .2s, border-color .2s;
+  box-shadow: var(--shadow);
+}
+.resource-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.10); border-color: var(--navy); }
+.resource-card.featured { border-color: var(--green); border-width: 2px; }
+
+.rc-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; padding: 4px 10px; border-radius: 20px;
+  margin-bottom: 14px; width: fit-content;
+}
+.rc-badge.free    { background: #EAFAF1; color: #1A7A45; }
+.rc-badge.subject { background: #FEF3E2; color: #9A5C0A; }
+
+.rc-icon { font-size: 2rem; margin-bottom: 10px; }
+.rc-title { font-size: 1.1rem; font-weight: 800; color: var(--navy); margin-bottom: 6px; line-height: 1.3; }
+.rc-grade { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
+.rc-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: 18px; }
+
+.rc-skills {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 18px;
+}
+.rc-skill {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 20px; font-size: 11px; color: var(--muted);
+  padding: 3px 9px; font-weight: 600;
+}
+
+/* Registration modal */
+#resource-modal .modal-box {
+  max-width: 480px;
+}
+.modal-resource-title {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--bg); border-radius: 10px;
+  padding: 12px 16px; margin-bottom: 20px;
+  font-size: 0.875rem; font-weight: 700; color: var(--navy);
+  border: 1px solid var(--border);
+}
+.modal-resource-icon { font-size: 1.4rem; }
+
+/* Success state */
+.resource-links { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+.resource-link-btn {
+  display: flex; align-items: center; gap: 12px;
+  background: #EAFAF1; border: 1.5px solid var(--green);
+  border-radius: 10px; padding: 14px 16px;
+  text-decoration: none; color: var(--navy);
+  font-weight: 700; font-size: 0.875rem;
+  transition: background .15s;
+}
+.resource-link-btn:hover { background: #D4EFDF; }
+.resource-link-icon { font-size: 1.4rem; flex-shrink: 0; }
+.resource-link-text { flex: 1; }
+.resource-link-text small { display: block; font-size: 11px; font-weight: 400; color: var(--muted); margin-top: 2px; }
+.resource-link-arrow { color: var(--green); font-size: 1.1rem; }
+
+/* Already claimed different state */
+.claimed-diff-box {
+  background: #FEF3E2; border: 1.5px solid #E8960A;
+  border-radius: 10px; padding: 16px; margin-bottom: 16px;
+}
+.claimed-diff-box p { font-size: 0.875rem; color: #7A4A00; margin: 0; line-height: 1.6; }
+.claimed-diff-box strong { color: #5A3200; }
+
+/* Section divider */
+.resources-divider {
+  text-align: center;
+  font-size: 11px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted);
+  padding: 12px 0;
+  position: relative;
+  margin-block: 8px;
+}
+.resources-divider::before {
+  content: '';
+  position: absolute; top: 50%; left: 0; right: 0;
+  height: 1px; background: var(--border); z-index: 0;
+}
+.resources-divider span { background: var(--warm-white); padding: 0 12px; position: relative; z-index: 1; }
+
+/* Bottom CTA strip */
+.resources-cta-strip {
+  background: var(--navy);
+  padding: 52px 0;
+  text-align: center;
+  color: #fff;
+}
+.resources-cta-strip h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; margin-bottom: 12px; }
+.resources-cta-strip p { color: rgba(255,255,255,0.78); font-size: 0.95rem; max-width: 500px; margin: 0 auto 24px; line-height: 1.7; }
+
+@media (max-width: 500px) {
+  .resource-card { padding: 20px 16px; }
+}
+  </style>
+</head>
+<body>
+
+<!-- TUTOR BAR -->
+<div class="tutor-bar">
+  Are you a qualified Nigerian teacher? Join our growing team of expert educators. <a href="/apply">Apply here &rarr;</a>
+</div>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Main navigation">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="/img/logo.jpeg" alt="ThinkViva" class="nav-logo-img" />
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">ThinkViva</span>
+        <span class="nav-brand-tag">Smart Learning for Growing Minds</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/about">About Us</a></li>
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#subjects">Subjects</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/resources" style="color:var(--navy);font-weight:700;">Free Resources</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/#contact">Contact Us</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" onclick="toggleMobileMenu(this)">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-cta">
+      <button class="btn btn-primary btn-sm" onclick="openBooking()">Book a Session</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="resources-hero">
+  <div class="container">
+    <span class="section-label">Free for Every Family</span>
+    <h1>Is Your Child on Track?</h1>
+    <p>Use our free interactive diagnostics to see where your child stands, identify any gaps, and understand exactly what support they need.</p>
+  </div>
+</div>
+
+<!-- RESOURCES SECTION -->
+<section class="resources-section">
+  <div class="container">
+
+    <div class="resources-intro">
+      <h2>Your Two Free Resources</h2>
+      <p>Every registered family gets the behavioural checklist plus <strong>one subject diagnostic</strong> of their choice. Register once and we will send both to your inbox.</p>
+    </div>
+
+    <!-- STEP 1: Behavioural checklist (always free, no registration) -->
+    <div class="resources-divider"><span>Step 1 &mdash; Always Free</span></div>
+    <div class="resource-grid" style="margin-bottom:32px;">
+      <div class="resource-card featured">
+        <div class="rc-badge free">&#10003; Always Free &mdash; No Registration Needed</div>
+        <div class="rc-icon">&#129504;</div>
+        <div class="rc-title">5 Signs Your Child Needs Extra Academic Support</div>
+        <div class="rc-grade">All Ages &middot; Kindergarten to Grade 9 (Ages 4&ndash;15)</div>
+        <div class="rc-desc">A quick behavioural checklist that helps you spot the early warning signs before small struggles become big gaps. Takes under 3 minutes. Interactive and shareable.</div>
+        <div class="rc-skills">
+          <span class="rc-skill">Homework avoidance</span>
+          <span class="rc-skill">Confidence at school</span>
+          <span class="rc-skill">Memory &amp; recall</span>
+          <span class="rc-skill">Test performance</span>
+          <span class="rc-skill">Peer gap</span>
+        </div>
+        <a href="https://claude.ai/artifact/a65178fe-e0e4-4ab6-9945-865ac889dd4c" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+          Open Free Checklist &rarr;
+        </a>
+      </div>
+    </div>
+
+    <!-- STEP 2: Subject diagnostics (registration required) -->
+    <div class="resources-divider"><span>Step 2 &mdash; Choose One Subject Diagnostic (Register Free)</span></div>
+    <div class="resource-grid">
+
+      <div class="resource-card" data-key="math-g2-4" data-title="Primary 2&ndash;4 Maths Diagnostic" data-icon="&#10005;">
+        <div class="rc-badge subject">&#128274; Register to Unlock</div>
+        <div class="rc-icon">&#129518;</div>
+        <div class="rc-title">Primary 2&ndash;4 Maths Diagnostic</div>
+        <div class="rc-grade">Ages 7&ndash;10 &middot; Lower Primary</div>
+        <div class="rc-desc">Mental arithmetic, word problems, fractions, and real-world measurement. Built for children navigating Nigerian and international curricula side by side.</div>
+        <div class="rc-skills">
+          <span class="rc-skill">Mental arithmetic</span>
+          <span class="rc-skill">Word problems</span>
+          <span class="rc-skill">Fractions</span>
+          <span class="rc-skill">Measurement</span>
+        </div>
+        <button class="btn btn-secondary btn-block" onclick="openResourceModal(this.closest('.resource-card'))">
+          Unlock This Resource &rarr;
+        </button>
+      </div>
+
+      <div class="resource-card" data-key="math-g5-6" data-title="Primary 5&ndash;6 Maths Diagnostic" data-icon="&#128200;">
+        <div class="rc-badge subject">&#128274; Register to Unlock</div>
+        <div class="rc-icon">&#128200;</div>
+        <div class="rc-title">Primary 5&ndash;6 Maths Diagnostic</div>
+        <div class="rc-grade">Ages 10&ndash;12 &middot; Upper Primary</div>
+        <div class="rc-desc">BODMAS, percentages, fractions, introductory algebra, and data interpretation. Tests the upper-primary skills secondary schools will expect from day one.</div>
+        <div class="rc-skills">
+          <span class="rc-skill">BODMAS</span>
+          <span class="rc-skill">Algebra</span>
+          <span class="rc-skill">Fractions &amp; %</span>
+          <span class="rc-skill">Data</span>
+        </div>
+        <button class="btn btn-secondary btn-block" onclick="openResourceModal(this.closest('.resource-card'))">
+          Unlock This Resource &rarr;
+        </button>
+      </div>
+
+      <div class="resource-card" data-key="eng-g2-4" data-title="Primary 2&ndash;4 English Diagnostic" data-icon="&#128214;">
+        <div class="rc-badge subject">&#128274; Register to Unlock</div>
+        <div class="rc-icon">&#128214;</div>
+        <div class="rc-title">Primary 2&ndash;4 English Diagnostic</div>
+        <div class="rc-grade">Ages 7&ndash;10 &middot; Lower Primary</div>
+        <div class="rc-desc">Vocabulary in context, homophones, irregular verbs, reading comprehension using a relatable diaspora story, plus a creative writing prompt with parent evaluation guide.</div>
+        <div class="rc-skills">
+          <span class="rc-skill">Vocabulary</span>
+          <span class="rc-skill">Reading</span>
+          <span class="rc-skill">Grammar</span>
+          <span class="rc-skill">Writing</span>
+        </div>
+        <button class="btn btn-secondary btn-block" onclick="openResourceModal(this.closest('.resource-card'))">
+          Unlock This Resource &rarr;
+        </button>
+      </div>
+
+      <div class="resource-card" data-key="eng-g5-6" data-title="Primary 5&ndash;6 English Diagnostic" data-icon="&#9997;">
+        <div class="rc-badge subject">&#128274; Register to Unlock</div>
+        <div class="rc-icon">&#9997;&#65039;</div>
+        <div class="rc-title">Primary 5&ndash;6 English Diagnostic</div>
+        <div class="rc-grade">Ages 10&ndash;12 &middot; Upper Primary</div>
+        <div class="rc-desc">Advanced vocabulary, figurative language, analytical comprehension, active and passive voice, relative clauses, and a secondary-school entry essay prompt.</div>
+        <div class="rc-skills">
+          <span class="rc-skill">Figurative language</span>
+          <span class="rc-skill">Analysis</span>
+          <span class="rc-skill">Grammar</span>
+          <span class="rc-skill">Essay</span>
+        </div>
+        <button class="btn btn-secondary btn-block" onclick="openResourceModal(this.closest('.resource-card'))">
+          Unlock This Resource &rarr;
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<section class="resources-cta-strip">
+  <div class="container">
+    <h2>Seen your child&rsquo;s result?</h2>
+    <p>Book a free 20-minute consultation. Our team will talk you through what the diagnostic means and recommend the right next step for your child.</p>
+    <button class="btn btn-primary btn-lg" onclick="openBooking()">Book a Free Consultation</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo-wrap">
+          <img src="/img/logo.jpeg" alt="ThinkViva" class="footer-logo" />
+          <div class="footer-brand-text">
+            <span class="footer-brand-name">ThinkViva</span>
+            <span class="footer-brand-tag">Smart Learning for Growing Minds</span>
+          </div>
+        </a>
+        <p>Fostering exceptional education and bridging learning gaps for under-served and all children. Connecting diaspora families to Nigerian tutors.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Platform</h3>
+        <ul>
+          <li><a href="/#subjects">Explore all Subjects</a></li>
+          <li><a href="/#how-it-works">How It Works</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/resources">Free Resources</a></li>
+          <li><a href="/blog">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Get Started</h3>
+        <ul>
+          <li><a href="#" onclick="openBooking();return false;">Book a Session</a></li>
+        </ul>
+        <h3 style="margin-top:20px;">Contact Us</h3>
+        <ul>
+          <li><a href="mailto:info@thinkviva.org" class="footer-contact-link">&#128231; info@thinkviva.org</a></li>
+          <li><a href="https://wa.me/2347077340116" class="footer-whatsapp-link" target="_blank" rel="noopener"><svg class="wa-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> +234 707 734 0116</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Stay Connected</h3>
+        <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;margin-bottom:12px;">Get learning tips and schedule updates.</p>
+        <form class="newsletter-form">
+          <input type="email" class="newsletter-input" placeholder="Enter your email" aria-label="Email address" />
+          <button type="submit" class="btn btn-primary btn-sm" style="padding:10px 16px;">&#8594;</button>
+        </form>
+        <div class="footer-socials">
+          <a href="https://instagram.com/thinkviva_ng" class="footer-social-btn" aria-label="Instagram @thinkviva_ng" title="Instagram" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="https://x.com/thinkviva_ng" class="footer-social-btn" aria-label="X @thinkviva_ng" title="X" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.735-8.835L1.254 2.25H8.08l4.259 5.629L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 ThinkViva. All rights reserved. &nbsp;&middot;&nbsp; RC: 9552865</span>
+      <a href="/terms" class="footer-terms-link">Terms &amp; Conditions</a>
+      <a href="/privacy" class="footer-terms-link">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<!-- RESOURCE REGISTRATION MODAL -->
+<div class="modal-overlay" id="resource-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeResourceModal()" aria-label="Close">&times;</button>
+
+    <!-- Form state -->
+    <div id="rm-form-state">
+      <h2 class="modal-title" style="margin-bottom:6px;">Unlock Your Free Resource</h2>
+      <p style="color:var(--muted);font-size:0.875rem;margin-bottom:18px;line-height:1.5;">
+        Register once to unlock the behavioural checklist <strong>plus</strong> the subject diagnostic below. Both will be sent to your inbox too.
+      </p>
+      <div class="modal-resource-title">
+        <span class="modal-resource-icon" id="rm-icon"></span>
+        <span id="rm-resource-name"></span>
+      </div>
+      <form id="resource-reg-form" novalidate>
+        <input type="hidden" id="rm-key" name="resourceKey" />
+        <div class="form-group">
+          <label class="form-label" for="rm-name">Your Name <span>*</span></label>
+          <input class="form-input" type="text" id="rm-name" name="name" placeholder="e.g. Adaeze Obi" required autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="rm-email">Email Address <span>*</span></label>
+          <input class="form-input" type="email" id="rm-email" name="email" placeholder="e.g. adaeze@email.com" required autocomplete="email" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg" id="rm-submit">
+          Send Me My Free Resources &rarr;
+        </button>
+        <p style="text-align:center;font-size:0.75rem;color:var(--muted);margin-top:10px;">No spam. We will only contact you about your child&rsquo;s learning.</p>
+      </form>
+    </div>
+
+    <!-- Success state -->
+    <div id="rm-success-state" hidden>
+      <div style="text-align:center;margin-bottom:18px;">
+        <div style="font-size:2.2rem;margin-bottom:8px;">&#127881;</div>
+        <h2 class="modal-title" style="margin-bottom:6px;">Your Resources Are Ready!</h2>
+        <p style="color:var(--muted);font-size:0.875rem;line-height:1.6;">We have also sent both links to your inbox so you can come back any time.</p>
+      </div>
+      <div class="resource-links">
+        <a href="https://claude.ai/artifact/a65178fe-e0e4-4ab6-9945-865ac889dd4c" target="_blank" rel="noopener" class="resource-link-btn">
+          <span class="resource-link-icon">&#129504;</span>
+          <span class="resource-link-text">
+            5 Signs Your Child Needs Extra Support
+            <small>Behavioural Checklist &middot; All Ages K&ndash;G9</small>
+          </span>
+          <span class="resource-link-arrow">&#8594;</span>
+        </a>
+        <a id="rm-subject-link" href="#" target="_blank" rel="noopener" class="resource-link-btn">
+          <span class="resource-link-icon" id="rm-success-icon"></span>
+          <span class="resource-link-text">
+            <span id="rm-success-title"></span>
+            <small id="rm-success-grade"></small>
+          </span>
+          <span class="resource-link-arrow">&#8594;</span>
+        </a>
+      </div>
+      <button class="btn btn-secondary btn-block" onclick="openBooking();closeResourceModal();">
+        Book a Free Consultation
+      </button>
+    </div>
+
+    <!-- Already claimed different resource state -->
+    <div id="rm-claimed-state" hidden>
+      <div style="text-align:center;margin-bottom:16px;">
+        <div style="font-size:2rem;margin-bottom:8px;">&#128274;</div>
+        <h2 class="modal-title" style="margin-bottom:6px;">Resource Already Claimed</h2>
+      </div>
+      <div class="claimed-diff-box">
+        <p id="rm-claimed-msg"></p>
+      </div>
+      <div class="resource-links">
+        <a href="https://claude.ai/artifact/a65178fe-e0e4-4ab6-9945-865ac889dd4c" target="_blank" rel="noopener" class="resource-link-btn">
+          <span class="resource-link-icon">&#129504;</span>
+          <span class="resource-link-text">
+            5 Signs Your Child Needs Extra Support
+            <small>Still free to access any time</small>
+          </span>
+          <span class="resource-link-arrow">&#8594;</span>
+        </a>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="openBooking();closeResourceModal();">
+        Book a Free Consultation Instead
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- BOOKING MODAL (shared with main.js) -->
+<div class="modal-overlay" id="booking-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeBooking()" aria-label="Close booking modal">&times;</button>
+    <h2 class="modal-title">Book a Session</h2>
+    <p style="color:var(--muted);font-size:0.875rem;margin-bottom:20px;">Fill in the form below and we will match your child with the right tutor within 24 hours.</p>
+    <form id="booking-form" novalidate>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="booking-parent">Parent / Guardian Name <span>*</span></label>
+          <input class="form-input" type="text" id="booking-parent" name="parentName" placeholder="Your name" required autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="booking-email">Email Address <span>*</span></label>
+          <input class="form-input" type="email" id="booking-email" name="email" placeholder="your@email.com" required autocomplete="email" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="booking-phone">WhatsApp / Phone</label>
+          <input class="form-input" type="tel" id="booking-phone" name="phone" placeholder="+44 7700 900000" autocomplete="tel" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="booking-country">Country <span>*</span></label>
+          <select class="form-select" id="booking-country" name="country" required>
+            <option value="">Select country</option>
+            <option>UK</option><option>USA</option><option>Canada</option>
+            <option>Australia</option><option>Nigeria</option><option>UAE</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="booking-child">Child&rsquo;s Name</label>
+          <input class="form-input" type="text" id="booking-child" name="childName" placeholder="Child's first name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="booking-grade">Grade / Year Group <span>*</span></label>
+          <select class="form-select" id="booking-grade" name="grade" required>
+            <option value="">Select grade</option>
+            <option value="K">Kindergarten</option>
+            <option value="G1">Grade 1</option><option value="G2">Grade 2</option>
+            <option value="G3">Grade 3</option><option value="G4">Grade 4</option>
+            <option value="G5">Grade 5</option><option value="G6">Grade 6</option>
+            <option value="G7">Grade 7 (JS1)</option><option value="G8">Grade 8 (JS2)</option>
+            <option value="G9">Grade 9 (JS3)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Subjects Needed <span>*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label"><input type="checkbox" name="subjects" value="Math" /> Math</label>
+          <label class="checkbox-label"><input type="checkbox" name="subjects" value="English" /> English</label>
+          <label class="checkbox-label"><input type="checkbox" name="subjects" value="Science" /> Science</label>
+          <label class="checkbox-label checkbox-coming-soon"><input type="checkbox" name="subjects" value="Local Languages" disabled /> Local Languages <span class="cs-tag">Coming Soon</span></label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Anything else we should know?</label>
+        <textarea class="form-textarea" name="message" placeholder="e.g. areas of struggle, learning style, exam prep needed..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block btn-lg">&#128197; Submit Booking Request</button>
+      <p style="text-align:center;font-size:0.8rem;color:var(--muted);margin-top:10px;">We will contact you within 24 hours to confirm your first session.</p>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="mobile-sticky" id="mobile-sticky">
+  <div class="container">
+    <button class="btn btn-primary btn-block btn-lg" onclick="openBooking()">&#128197; Book a Session</button>
+  </div>
+</div>
+
+<script src="/js/main.js"></script>
+<script>
+const RESOURCE_LABELS = {
+  'math-g2-4': { title: 'Primary 2-4 Maths Diagnostic',   grade: 'Ages 7-10 · Lower Primary',  icon: '🔢', url: 'https://claude.ai/artifact/6aff2e21-bc6e-46b4-a2d3-eabf58597814' },
+  'math-g5-6': { title: 'Primary 5-6 Maths Diagnostic',   grade: 'Ages 10-12 · Upper Primary', icon: '📈', url: 'https://claude.ai/artifact/VWvtNVStdnJcrhPnXZ3coC' },
+  'eng-g2-4':  { title: 'Primary 2-4 English Diagnostic',  grade: 'Ages 7-10 · Lower Primary',  icon: '📖', url: 'https://claude.ai/artifact/8712LHDhPP9Duozge8b6Hk' },
+  'eng-g5-6':  { title: 'Primary 5-6 English Diagnostic',  grade: 'Ages 10-12 · Upper Primary', icon: '✍️', url: 'https://claude.ai/artifact/SnF24fPPsPGxriebxZKdFL' },
+};
+
+function openResourceModal(card) {
+  const key   = card.dataset.key;
+  const meta  = RESOURCE_LABELS[key];
+  if (!meta) return;
+  document.getElementById('rm-key').value   = key;
+  document.getElementById('rm-icon').textContent  = meta.icon;
+  document.getElementById('rm-resource-name').textContent = meta.title;
+  showRmState('form');
+  openModal('resource-modal');
+}
+
+function closeResourceModal() {
+  closeModal('resource-modal');
+}
+
+function showRmState(state) {
+  document.getElementById('rm-form-state').hidden    = state !== 'form';
+  document.getElementById('rm-success-state').hidden = state !== 'success';
+  document.getElementById('rm-claimed-state').hidden = state !== 'claimed';
+}
+
+document.getElementById('resource-reg-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('rm-submit');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  const key   = document.getElementById('rm-key').value;
+  const name  = document.getElementById('rm-name').value.trim();
+  const email = document.getElementById('rm-email').value.trim();
+
+  if (!name || !email) {
+    showToast('Please enter your name and email.', 'error');
+    btn.disabled = false;
+    btn.textContent = 'Send Me My Free Resources →';
+    return;
+  }
+
+  try {
+    const res  = await fetch('/api/leads/resource', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, resourceKey: key }),
+    });
+    const json = await res.json();
+
+    if (json.success) {
+      const meta = RESOURCE_LABELS[key];
+      document.getElementById('rm-subject-link').href          = json.resourceUrl;
+      document.getElementById('rm-success-icon').textContent   = meta ? meta.icon : '';
+      document.getElementById('rm-success-title').textContent  = json.resourceTitle || (meta ? meta.title : '');
+      document.getElementById('rm-success-grade').textContent  = meta ? meta.grade : '';
+      showRmState('success');
+    } else if (json.alreadyClaimed && json.differentResource) {
+      document.getElementById('rm-claimed-msg').textContent = json.message;
+      showRmState('claimed');
+    } else {
+      showToast(json.message || 'Something went wrong. Please try again.', 'error');
+      btn.disabled = false;
+      btn.textContent = 'Send Me My Free Resources →';
+    }
+  } catch {
+    showToast('Network error. Please check your connection and try again.', 'error');
+    btn.disabled = false;
+    btn.textContent = 'Send Me My Free Resources →';
+  }
+});
+</script>
+
+</body>
+</html>

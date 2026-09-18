@@ -359,4 +359,56 @@ async function confirmApplicant({ name, email }) {
   });
 }
 
-module.exports = { notifyAdminNewApplication, notifyAdminNewLead, confirmApplicant, confirmLead, sendReviewRequest };
+async function confirmResourceLead({ name, email, resourceTitle, resourceUrl, behavioralUrl }) {
+  await send({
+    to: email,
+    type: 'resource_confirm',
+    subject: 'Your free ThinkViva resources are ready',
+    html: `
+      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#222;">
+        <h2 style="color:#1E5A3A;">Your free resources are ready, ${name}!</h2>
+        <p>Thank you for registering. Click the links below to access your two free resources from ThinkViva.</p>
+
+        <div style="background:#EAFAF1;border-left:4px solid #1E5A3A;padding:16px 20px;border-radius:6px;margin:20px 0;">
+          <p style="margin:0 0 10px;font-weight:700;color:#1E5A3A;">Resource 1 (Always Free)</p>
+          <p style="margin:0 0 8px;">5 Signs Your Child Needs Extra Academic Support</p>
+          <a href="${behavioralUrl}" style="display:inline-block;background:#1E5A3A;color:#fff;text-decoration:none;padding:10px 22px;border-radius:6px;font-weight:600;font-size:14px;">Open Behavioural Checklist</a>
+        </div>
+
+        <div style="background:#EAFAF1;border-left:4px solid #1E5A3A;padding:16px 20px;border-radius:6px;margin:20px 0;">
+          <p style="margin:0 0 10px;font-weight:700;color:#1E5A3A;">Resource 2 (Your Choice)</p>
+          <p style="margin:0 0 8px;">${resourceTitle}</p>
+          <a href="${resourceUrl}" style="display:inline-block;background:#1E5A3A;color:#fff;text-decoration:none;padding:10px 22px;border-radius:6px;font-weight:600;font-size:14px;">Open Diagnostic</a>
+        </div>
+
+        <p style="color:#555;font-size:14px;">Once you have worked through the diagnostic with your child, reply to this email if you would like to discuss the results with our team. A free 20-minute consultation is available to all registered families.</p>
+        <p style="color:#555;font-size:14px;">The ThinkViva Team<br/>
+          <a href="https://thinkviva.org" style="color:#1E5A3A;">thinkviva.org</a> &middot; +234 707 734 0116
+        </p>
+      </div>
+    `,
+  });
+}
+
+async function notifyAdminResourceLead({ name, email, resourceKey, resourceTitle, id }) {
+  await send({
+    to: BOOKINGS,
+    type: 'admin_resource_lead',
+    subject: `New Resource Lead: ${name} (${resourceTitle})`,
+    html: `
+      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;">
+        <h2 style="color:#1E5A3A;">New Resource Lead</h2>
+        <table style="width:100%;border-collapse:collapse;font-size:15px;">
+          <tr><td style="padding:8px 0;color:#555;">Name</td><td style="padding:8px 0;font-weight:600;">${name}</td></tr>
+          <tr><td style="padding:8px 0;color:#555;">Email</td><td style="padding:8px 0;"><a href="mailto:${email}">${email}</a></td></tr>
+          <tr><td style="padding:8px 0;color:#555;">Resource Claimed</td><td style="padding:8px 0;font-weight:600;color:#1E5A3A;">${resourceTitle}</td></tr>
+          <tr><td style="padding:8px 0;color:#555;">Resource Key</td><td style="padding:8px 0;font-family:monospace;">${resourceKey}</td></tr>
+          <tr><td style="padding:8px 0;color:#555;">Lead ID</td><td style="padding:8px 0;font-family:monospace;font-size:13px;">${id}</td></tr>
+        </table>
+        <p style="margin-top:20px;color:#888;font-size:13px;">Follow up within 3 days with a booking invitation.</p>
+      </div>
+    `,
+  });
+}
+
+module.exports = { notifyAdminNewApplication, notifyAdminNewLead, confirmApplicant, confirmLead, sendReviewRequest, confirmResourceLead, notifyAdminResourceLead };

@@ -36,6 +36,9 @@ app.use('/api/admin', require('./routes/admin'));
 app.use('/api/curriculum', require('./routes/curriculum'));
 app.use('/api/newsletter', require('./routes/newsletter'));
 
+app.get('/resources', (req, res) =>
+  res.sendFile(path.join(__dirname, '../public/resources.html'))
+);
 app.get('/apply', (req, res) =>
   res.sendFile(path.join(__dirname, '../public/apply.html'))
 );
