@@ -20,6 +20,7 @@ function adminLogin() {
   loadEmailLogs();
   renderShortlist();
   loadFeedback();
+  loadResourceLeads();
 }
 
 function adminLogout() {
@@ -37,12 +38,13 @@ async function loadDashboard() {
     if (!res.ok) { showToast('Auth failed. Check your token.', 'error'); return; }
     const data = await res.json();
 
-    document.getElementById('m-leads').textContent     = data.metrics.totalLeads;
-    document.getElementById('m-new-leads').textContent = data.metrics.newLeads + ' new';
-    document.getElementById('m-tutors').textContent    = data.metrics.totalTutors;
-    document.getElementById('m-approved').textContent  = data.metrics.approvedTutors + ' approved';
-    document.getElementById('m-sessions').textContent  = data.metrics.totalSessions;
-    document.getElementById('m-completed').textContent = data.metrics.completedSessions + ' completed';
+    document.getElementById('m-leads').textContent          = data.metrics.totalLeads;
+    document.getElementById('m-new-leads').textContent       = data.metrics.newLeads + ' new';
+    document.getElementById('m-tutors').textContent          = data.metrics.totalTutors;
+    document.getElementById('m-approved').textContent        = data.metrics.approvedTutors + ' approved';
+    document.getElementById('m-sessions').textContent        = data.metrics.totalSessions;
+    document.getElementById('m-completed').textContent       = data.metrics.completedSessions + ' completed';
+    document.getElementById('m-resource-leads').textContent  = data.metrics.totalResourceLeads ?? '-';
 
     renderBarChart('grade-chart', data.gradeBreakdown);
     renderBarChart('subject-chart', data.subjectDemand);
@@ -809,6 +811,63 @@ async function loadFeedback() {
 }
 
 // ---- TABS ----
+// ---- RESOURCE LEADS ----
+let resourceLeadsData = [];
+
+async function loadResourceLeads() {
+  try {
+    const res = await fetch('/api/admin/resource-leads', { headers: apiHeaders() });
+    resourceLeadsData = await res.json();
+    const tbody = document.getElementById('resource-leads-tbody');
+    const countEl = document.getElementById('resource-leads-count');
+
+    if (!resourceLeadsData.length) {
+      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:32px;">No resource registrations yet.</td></tr>';
+      if (countEl) countEl.textContent = '0 registrations';
+      return;
+    }
+
+    if (countEl) countEl.textContent = resourceLeadsData.length + ' registration' + (resourceLeadsData.length !== 1 ? 's' : '');
+
+    const LABELS = {
+      'math-g2-4': 'Primary 2-4 Maths',
+      'math-g5-6': 'Primary 5-6 Maths',
+      'eng-g2-4':  'Primary 2-4 English',
+      'eng-g5-6':  'Primary 5-6 English',
+    };
+
+    tbody.innerHTML = resourceLeadsData.map(r => `
+      <tr>
+        <td>${esc(r.name)}</td>
+        <td><a href="mailto:${esc(r.email)}" style="color:var(--navy);">${esc(r.email)}</a></td>
+        <td>${LABELS[r.resourceKey] || esc(r.resourceKey)}</td>
+        <td>${fmtDate(r.createdAt)}</td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    showToast('Error loading resource leads: ' + err.message, 'error');
+  }
+}
+
+function downloadResourceLeadsCSV() {
+  if (!resourceLeadsData.length) { showToast('No data to export.', 'error'); return; }
+  const LABELS = {
+    'math-g2-4': 'Primary 2-4 Maths',
+    'math-g5-6': 'Primary 5-6 Maths',
+    'eng-g2-4':  'Primary 2-4 English',
+    'eng-g5-6':  'Primary 5-6 English',
+  };
+  const rows = [['Name', 'Email', 'Resource', 'Date']];
+  resourceLeadsData.forEach(r => {
+    rows.push([r.name, r.email, LABELS[r.resourceKey] || r.resourceKey, fmtDate(r.createdAt)]);
+  });
+  const csv = rows.map(r => r.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'resource-leads.csv';
+  a.click();
+}
+
 function switchTab(name, btn) {
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));

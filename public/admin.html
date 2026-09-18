@@ -76,6 +76,11 @@
           <div class="metric-label">Total Sessions</div>
           <div class="metric-sub" id="m-completed">- completed</div>
         </div>
+        <div class="metric-card" style="cursor:pointer;" onclick="switchTab('resources', document.querySelector('[onclick*=resources]'))">
+          <div class="metric-val" id="m-resource-leads">-</div>
+          <div class="metric-label">Resource Downloads</div>
+          <div class="metric-sub">free hub registrations</div>
+        </div>
       </div>
 
       <!-- CHARTS ROW -->
@@ -102,6 +107,7 @@
         <button class="admin-tab" onclick="switchTab('sessions', this)">Sessions</button>
         <button class="admin-tab" onclick="switchTab('emails', this)">Email Log</button>
         <button class="admin-tab" onclick="switchTab('feedback', this); loadFeedback();">&#11088; Feedback</button>
+        <button class="admin-tab" onclick="switchTab('resources', this); loadResourceLeads();">&#127891; Resource Leads</button>
       </div>
 
       <!-- LEADS TABLE -->
@@ -266,6 +272,32 @@
             </thead>
             <tbody id="emails-tbody">
               <tr><td colspan="5" style="text-align:center;color:var(--muted);padding:32px;">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- RESOURCE LEADS TABLE -->
+      <div class="admin-panel" id="panel-resources">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+          <div>
+            <h3 style="color:var(--navy);font-size:1rem;font-weight:800;margin-bottom:2px;">Resource Hub Registrations</h3>
+            <p style="font-size:0.8rem;color:var(--muted);" id="resource-leads-count">Loading...</p>
+          </div>
+          <button class="btn btn-sm btn-navy" style="font-size:0.8rem;" onclick="downloadResourceLeadsCSV()">&#11123; Export CSV</button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="data-table" id="resource-leads-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Resource Claimed</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="resource-leads-tbody">
+              <tr><td colspan="4" style="text-align:center;color:var(--muted);padding:32px;">Loading...</td></tr>
             </tbody>
           </table>
         </div>

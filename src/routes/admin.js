@@ -6,6 +6,7 @@ const Lead = require('../models/Lead');
 const TutorApplication = require('../models/TutorApplication');
 const Session = require('../models/Session');
 const EmailLog = require('../models/EmailLog');
+const ResourceLead = require('../models/ResourceLead');
 const { sendReviewRequest } = require('../services/email');
 
 const cvUpload = multer({
@@ -31,6 +32,7 @@ router.get('/dashboard', async (req, res) => {
       approvedTutors,
       totalSessions,
       completedSessions,
+      totalResourceLeads,
     ] = await Promise.all([
       Lead.countDocuments(),
       Lead.countDocuments({ status: 'new' }),
@@ -38,6 +40,7 @@ router.get('/dashboard', async (req, res) => {
       TutorApplication.countDocuments({ status: 'approved' }),
       Session.countDocuments(),
       Session.countDocuments({ status: 'completed' }),
+      ResourceLead.countDocuments(),
     ]);
 
     const [gradeBreakdown, countryBreakdown, subjectDemand, tutorStatusBreakdown] =
@@ -65,7 +68,7 @@ router.get('/dashboard', async (req, res) => {
     ]);
 
     res.json({
-      metrics: { totalLeads, newLeads, totalTutors, approvedTutors, totalSessions, completedSessions },
+      metrics: { totalLeads, newLeads, totalTutors, approvedTutors, totalSessions, completedSessions, totalResourceLeads },
       gradeBreakdown,
       countryBreakdown,
       subjectDemand,
@@ -167,6 +170,15 @@ router.delete('/email-logs/purge', async (req, res) => {
     const cutoff = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000);
     const result = await EmailLog.deleteMany({ sentAt: { $lt: cutoff } });
     res.json({ deleted: result.deletedCount });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get('/resource-leads', async (req, res) => {
+  try {
+    const leads = await ResourceLead.find().sort({ createdAt: -1 }).limit(500);
+    res.json(leads);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

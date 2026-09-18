@@ -112,10 +112,26 @@ router.post('/resource', async (req, res) => {
     const lead = new ResourceLead({ name, email, resourceKey });
     await lead.save();
 
-    await Promise.allSettled([
+    const mailerTasks = [
       confirmResourceLead({ name, email, resourceTitle: meta.title, resourceUrl: meta.url, behavioralUrl: BEHAVIORAL_URL }),
       notifyAdminResourceLead({ name, email, resourceKey, resourceTitle: meta.title, id: lead._id }),
-    ]);
+    ];
+
+    if (process.env.MAILERLITE_API_KEY) {
+      const groupId = process.env.MAILERLITE_RESOURCE_GROUP_ID || process.env.MAILERLITE_GROUP_ID || '196687939781002436';
+      mailerTasks.push(
+        fetch(`https://connect.mailerlite.com/api/groups/${groupId}/subscribers`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.MAILERLITE_API_KEY}`,
+          },
+          body: JSON.stringify({ email, fields: { name } }),
+        }).catch(() => {})
+      );
+    }
+
+    await Promise.allSettled(mailerTasks);
 
     res.status(201).json({
       success: true,
