@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -95,7 +95,6 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(1.9rem,
 </style>
 </head>
 <body>
-<div class="wm-overlay" id="wm-overlay" aria-hidden="true"></div>
 <div class="wm-corner" aria-hidden="true">ThinkViva | thinkviva.org</div>
 
 <header class="doc-header">
@@ -186,6 +185,8 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(1.9rem,
 </main>
 
 <script>
+// force light mode (set on <html> above; this guards dynamic re-reads)
+document.documentElement.dataset.theme = 'light';
 const MESSAGES = [
   'Tick the signs above that apply to your child.',
   'One sign is worth noting. Two or more usually means something needs attention.',
@@ -194,24 +195,6 @@ const MESSAGES = [
   'At four signs, this is unlikely to resolve on its own. Targeted support makes a measurable difference.',
   'All five together is a clear signal. Your child is working against a hidden barrier. We can help find it.'
 ];
-(function() {
-  function buildTile(fg, fg2) {
-    var c = document.createElement('canvas');
-    c.width = 280; c.height = 140;
-    var ctx = c.getContext('2d');
-    ctx.save(); ctx.translate(140, 70); ctx.rotate(-26 * Math.PI / 180);
-    ctx.textAlign = 'center';
-    ctx.font = '600 17px Georgia, serif'; ctx.fillStyle = fg; ctx.fillText('ThinkViva', 0, -5);
-    ctx.font = '10px Georgia, serif'; ctx.fillStyle = fg2; ctx.fillText('thinkviva.org', 0, 11);
-    ctx.restore(); return c.toDataURL();
-  }
-  var dark = window.matchMedia('(prefers-color-scheme: dark)').matches || document.documentElement.dataset.theme === 'dark';
-  var tile = dark ? buildTile('rgba(90,173,120,0.2)', 'rgba(90,173,120,0.15)') : buildTile('rgba(26,77,50,0.13)', 'rgba(26,77,50,0.1)');
-  var el = document.getElementById('wm-overlay');
-  el.style.backgroundImage = 'url(' + tile + ')';
-  el.style.backgroundRepeat = 'repeat';
-  el.style.backgroundSize = '280px 140px';
-})();
 function toggleSign(el) {
   el.classList.toggle('checked');
   const count = document.querySelectorAll('.sign-item.checked').length;
