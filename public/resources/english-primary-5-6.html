@@ -1,0 +1,373 @@
+<title>Grade 5–6 English Diagnostic</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600&display=swap">
+<style>
+:root {
+  --green:   #1A4D32; --green-d: #132E1F; --green-l: #2A6B46;
+  --amber:   #C8851A; --amber-l: #F5A82A;
+  --bg:      #FDFAF5; --card-bg: #FFFFFF; --border: #DDD5C5;
+  --text:    #1C1208; --muted: #6B5C44;
+  --shadow:  0 2px 12px rgba(26,77,50,.10); --radius: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:#0E1C14;--card-bg:#162A1D;--border:#2A4035;--text:#EDE8DF;--muted:#9BB8A4;
+    --shadow:0 2px 16px rgba(0,0,0,.35);--green:#2E7D52;--amber:#D4952A;--amber-l:#F5B84A;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:#0E1C14;--card-bg:#162A1D;--border:#2A4035;--text:#EDE8DF;--muted:#9BB8A4;
+  --shadow:0 2px 16px rgba(0,0,0,.35);--green:#2E7D52;--amber:#D4952A;--amber-l:#F5B84A;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.65;padding-inline:20px;padding-block:32px;position:relative;}
+#wm-overlay{position:fixed;inset:0;pointer-events:none;z-index:0;}
+#wm-corner{position:fixed;bottom:18px;right:20px;font-family:'Cormorant Garamond',serif;font-size:11px;font-weight:600;color:var(--green);opacity:.55;letter-spacing:.04em;pointer-events:none;z-index:9999;user-select:none;}
+.page{max-width:740px;margin:0 auto;position:relative;z-index:1;}
+header{text-align:center;padding-block:12px 40px;border-bottom:2px solid var(--border);margin-bottom:36px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,5vw,2.8rem);font-weight:700;line-height:1.15;color:var(--green);text-wrap:balance;margin-bottom:12px;}
+.sub{color:var(--muted);font-size:14px;max-width:520px;margin:0 auto 14px;}
+.grade-badge{display:inline-block;background:var(--green);color:#fff;font-size:12px;font-weight:600;padding:5px 16px;border-radius:40px;letter-spacing:.04em;}
+.part-block{margin-bottom:40px;}
+.part-label{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:var(--green);border-left:4px solid var(--amber);padding-left:14px;margin-bottom:6px;}
+.part-inst{font-size:13px;color:var(--muted);font-style:italic;margin-bottom:20px;padding-left:18px;}
+.q-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 24px;margin-bottom:16px;}
+.q-card.done{border-color:var(--amber);}
+.q-tag{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.q-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--green);margin-bottom:10px;}
+.q-body{font-size:14px;line-height:1.7;color:var(--text);margin-bottom:14px;}
+.opts{list-style:none;padding:0;margin:10px 0 14px;}
+.opts li{padding:5px 0;font-size:14px;}
+.reveal-btn{background:var(--green);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;transition:background .15s;}
+.reveal-btn:hover{background:var(--green-l);}
+.ans-block{background:#F0F7F3;border-left:3px solid var(--green);border-radius:6px;padding:12px 16px;margin:14px 0;font-size:14px;line-height:1.7;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ans-block{background:#112318;}}
+:root[data-theme="dark"] .ans-block{background:#112318;}
+.ans-block strong{color:var(--green);}
+.mark-btns{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;}
+.btn-got{background:#1A7A45;color:#fff;border:none;border-radius:8px;padding:7px 18px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;}
+.btn-miss{background:transparent;color:var(--text);border:1.5px solid var(--border);border-radius:8px;padding:7px 18px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;}
+.btn-got:hover{background:#15603A;} .btn-miss:hover{border-color:var(--amber);}
+.btn-got.sel{outline:3px solid var(--amber-l);} .btn-miss.sel{outline:3px solid var(--border);background:var(--border);}
+.passage-block{background:var(--card-bg);border:1.5px solid var(--border);border-radius:var(--radius);padding:22px 24px;margin-bottom:20px;border-top:4px solid var(--amber);}
+.passage-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;font-style:italic;color:var(--green);margin-bottom:10px;}
+.passage-text{font-family:'Cormorant Garamond',serif;font-size:1.05rem;line-height:1.85;color:var(--text);font-style:italic;}
+.writing-card{background:var(--card-bg);border:1.5px dashed var(--border);border-radius:var(--radius);padding:22px 24px;margin-bottom:16px;}
+.writing-card .q-title{color:var(--amber);}
+.checklist{list-style:none;padding:0;margin-top:12px;}
+.checklist li{display:flex;align-items:baseline;gap:10px;font-size:13px;line-height:1.7;padding:4px 0;color:var(--muted);border-bottom:1px solid var(--border);}
+.checklist li:last-child{border-bottom:none;}
+.checklist li::before{content:'☐';font-size:15px;flex-shrink:0;color:var(--green);}
+#score-bar{position:sticky;top:12px;z-index:50;background:var(--green);color:#fff;border-radius:40px;padding:9px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 4px 16px rgba(0,0,0,.25);margin-bottom:28px;font-size:14px;font-weight:600;}
+.tier-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px;}
+@media (max-width:580px){.tier-row{grid-template-columns:1fr;}}
+.tier-card{background:var(--card-bg);border:2px solid var(--border);border-radius:var(--radius);padding:18px 16px;text-align:center;transition:border-color .2s,box-shadow .2s;opacity:.55;}
+.tier-card.active{opacity:1;border-color:var(--amber);box-shadow:0 0 0 3px rgba(200,133,26,.18);}
+.tier-icon{font-size:1.6rem;margin-bottom:6px;}
+.tier-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--green);margin-bottom:4px;}
+.tier-range{font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--muted);margin-bottom:8px;text-transform:uppercase;}
+.tier-desc{font-size:12.5px;color:var(--muted);line-height:1.5;}
+.cta-block{background:var(--green);border-radius:var(--radius);padding:30px 28px;text-align:center;color:#fff;margin-bottom:32px;}
+.cta-block h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;margin-bottom:10px;}
+.cta-block p{font-size:14px;opacity:.88;margin-bottom:18px;line-height:1.6;}
+.cta-btn{display:inline-block;background:var(--amber);color:#fff;text-decoration:none;padding:11px 28px;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;}
+.cta-btn:hover{background:var(--amber-l);}
+.attr-stripe{text-align:center;font-size:12px;color:var(--muted);padding-top:16px;border-top:1px solid var(--border);}
+.attr-stripe strong{color:var(--green);}
+</style>
+
+<div id="wm-overlay"></div>
+<div id="wm-corner">ThinkViva | thinkviva.org</div>
+
+<div class="page">
+<header>
+  <div class="eyebrow">Free Skill Builder</div>
+  <h1>Grade 5&ndash;6 English Diagnostic</h1>
+  <p class="sub">Advanced vocabulary, analytical reading &amp; grammar for secondary school readiness</p>
+  <div class="grade-badge">Ages 10&ndash;12 &middot; Upper Primary</div>
+</header>
+
+<div id="score-bar">
+  <span id="score-label">Work through each section, then mark yourself.</span>
+  <span id="score-num">0 / 8</span>
+</div>
+
+<!-- PART 1 -->
+<div class="part-block">
+  <div class="part-label">Part 1: Advanced Vocabulary &amp; Figurative Language</div>
+  <p class="part-inst">Select the option that best demonstrates an advanced grasp of vocabulary and literary techniques.</p>
+
+  <div class="q-card" id="qc-1">
+    <div class="q-tag">Question 1 &middot; Precision Verbs</div>
+    <div class="q-title">Contextual Vocabulary</div>
+    <div class="q-body">
+      &ldquo;Femi attempted to <strong>___________</strong> the heavy workload of his new international curriculum by organising a detailed daily study schedule.&rdquo;
+    </div>
+    <ul class="opts">
+      <li>(a) mitigate</li>
+      <li>(b) exacerbate</li>
+      <li>(c) fabricate</li>
+      <li>(d) replicate</li>
+    </ul>
+    <button class="reveal-btn" onclick="reveal(1)">Show Answer</button>
+    <div id="ans-1" hidden>
+      <div class="ans-block">
+        <strong>(a) mitigate</strong> &mdash; Means to make something less severe. Organising a study schedule <em>reduces</em> the difficulty of the workload, not increases it (exacerbate) or copies it (replicate).
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(1,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(1,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc-2">
+    <div class="q-tag">Question 2 &middot; Figurative Language</div>
+    <div class="q-title">Metaphor &amp; Literary Technique</div>
+    <div class="q-body">
+      When the teacher described the historical archives as <em>&ldquo;a goldmine of forgotten voices,&rdquo;</em> what literary technique was used, and what does it imply?
+    </div>
+    <ul class="opts">
+      <li>(a) Personification &mdash; the library is made of gold.</li>
+      <li>(b) Simile &mdash; the library looks like a mine.</li>
+      <li>(c) Metaphor &mdash; the archives contain extremely valuable historical records of people whose stories were lost.</li>
+      <li>(d) Hyperbole &mdash; nobody has ever visited the library.</li>
+    </ul>
+    <button class="reveal-btn" onclick="reveal(2)">Show Answer</button>
+    <div id="ans-2" hidden>
+      <div class="ans-block">
+        <strong>(c) Metaphor</strong> &mdash; The archives are directly compared to a &ldquo;goldmine&rdquo; (valuable resource). It implies the records contain precious, undervalued history. No &ldquo;like&rdquo; or &ldquo;as&rdquo; = not a simile.
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(2,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(2,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc-3">
+    <div class="q-tag">Question 3 &middot; Root Words</div>
+    <div class="q-title">Etymology: The Root &ldquo;chron&rdquo;</div>
+    <div class="q-body">
+      The Latin root <strong>&ldquo;chron&rdquo;</strong> means <em>time</em> (as in <em>chronological</em>). Based on this, what does the word <strong>anachronism</strong> most likely mean?
+    </div>
+    <ul class="opts">
+      <li>(a) Something happening at exactly the right time</li>
+      <li>(b) Something belonging to a time period other than where it exists</li>
+      <li>(c) Running out of time</li>
+      <li>(d) Predicting the future</li>
+    </ul>
+    <button class="reveal-btn" onclick="reveal(3)">Show Answer</button>
+    <div id="ans-3" hidden>
+      <div class="ans-block">
+        <strong>(b) Something belonging to a time period other than where it exists</strong> &mdash; &ldquo;Ana-&rdquo; means against or back. An anachronism is something out of its correct time (e.g. a Viking using a smartphone).
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(3,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(3,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 2 -->
+<div class="part-block">
+  <div class="part-label">Part 2: Reading Comprehension &amp; Subtext Analysis</div>
+  <p class="part-inst">Read the passage carefully and answer in detailed sentences, using evidence from the text.</p>
+
+  <div class="passage-block">
+    <div class="passage-title">The Archive of Footsteps</div>
+    <div class="passage-text">
+      Eleven-year-old Zara traced her finger along the spine of her grandfather&rsquo;s worn leather journal, resting on her desk in London. Inside were handwritten notes documenting his migration journey from Lagos in the 1970s &mdash; recounting details of currency changes, shifting accents, and the quiet resilience required to build a life across two distinct hemispheres.<br><br>
+      To Zara&rsquo;s history teacher, the journal was a primary source document. To Zara, it was a living map. While her classmates struggled to understand historical migration through abstract textbook maps, Zara understood it through the ink stains and margin notes of her own lineage. She realised that history wasn&rsquo;t just a collection of dates stored in a classroom; it was a continuous conversation between where you came from and where you were standing.
+    </div>
+  </div>
+
+  <div class="q-card" id="qc-4">
+    <div class="q-tag">Question 4 &middot; Literal Retrieval</div>
+    <div class="q-title">Two Different Views</div>
+    <div class="q-body">
+      According to the text, how does Zara&rsquo;s history teacher view the journal, and how does Zara view it differently?
+    </div>
+    <button class="reveal-btn" onclick="reveal(4)">Show Answer</button>
+    <div id="ans-4" hidden>
+      <div class="ans-block">
+        The teacher views it as <strong>a primary source document</strong> (historical evidence). Zara views it as <strong>&ldquo;a living map&rdquo;</strong> &mdash; a personal connection to her family&rsquo;s history and identity, not just an academic resource.
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(4,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(4,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc-5">
+    <div class="q-tag">Question 5 &middot; Inference &amp; Analysis</div>
+    <div class="q-title">Reading the Deeper Meaning</div>
+    <div class="q-body">
+      Explain what the author means by the phrase: <em>&ldquo;history wasn&rsquo;t just a collection of dates stored in a classroom; it was a continuous conversation between where you came from and where you were standing.&rdquo;</em>
+    </div>
+    <button class="reveal-btn" onclick="reveal(5)">Show Answer</button>
+    <div id="ans-5" hidden>
+      <div class="ans-block">
+        The author means that <strong>history is personal and active</strong>. Our past experiences and heritage directly shape our identity and how we see the world today. History lives in people, not just textbooks. Award marks for identifying the idea that heritage influences present identity.
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(5,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(5,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc-6">
+    <div class="q-tag">Question 6 &middot; Metaphor</div>
+    <div class="q-title">Bridging Two Worlds</div>
+    <div class="q-body">
+      Identify one descriptive <strong>metaphor</strong> used in the passage that bridges Zara&rsquo;s dual reality as a diaspora child.
+    </div>
+    <button class="reveal-btn" onclick="reveal(6)">Show Answer</button>
+    <div id="ans-6" hidden>
+      <div class="ans-block">
+        <strong>&ldquo;A living map&rdquo;</strong> &mdash; The journal is called a &ldquo;living map&rdquo; because it navigates both her grandfather&rsquo;s past and her present identity. It connects Lagos (origin) to London (present), like a map connecting two places.
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(6,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(6,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 3 -->
+<div class="part-block">
+  <div class="part-label">Part 3: Grammar &amp; Sentence Transformation</div>
+  <p class="part-inst">Refine the sentences below to meet Grade 5&ndash;6 academic writing standards.</p>
+
+  <div class="q-card" id="qc-7">
+    <div class="q-tag">Question 7 &middot; Active Voice</div>
+    <div class="q-title">Active vs. Passive Voice</div>
+    <div class="q-body">
+      <strong>Original (passive):</strong> &ldquo;The historical archive was carefully examined by Zara.&rdquo;<br><br>
+      Rewrite this sentence in the <strong>active voice</strong> to make it more direct.
+    </div>
+    <button class="reveal-btn" onclick="reveal(7)">Show Answer</button>
+    <div id="ans-7" hidden>
+      <div class="ans-block">
+        <strong>&ldquo;Zara carefully examined the historical archive.&rdquo;</strong><br>
+        The subject (Zara) now performs the action, making the sentence direct and punchy. Passive voice buries the actor; active voice leads with them.
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(7,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(7,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc-8">
+    <div class="q-tag">Question 8 &middot; Relative Clauses</div>
+    <div class="q-title">Combining Sentences</div>
+    <div class="q-body">
+      Combine these two sentences into one sophisticated sentence using a relative clause starting with <strong>&ldquo;which&rdquo;</strong> or <strong>&ldquo;whose&rdquo;</strong>:<br><br>
+      <em>Sentence A:</em> Zara read her grandfather&rsquo;s journal.<br>
+      <em>Sentence B:</em> The journal contained detailed notes about his migration.
+    </div>
+    <button class="reveal-btn" onclick="reveal(8)">Show Answer</button>
+    <div id="ans-8" hidden>
+      <div class="ans-block">
+        <strong>&ldquo;Zara read her grandfather&rsquo;s journal, which contained detailed notes about his migration.&rdquo;</strong><br>
+        The relative clause (&ldquo;which contained...&rdquo;) is embedded mid-sentence, adding detail without starting a new sentence. Accept variations using &ldquo;whose pages contained...&rdquo; also.
+      </div>
+      <div class="mark-btns">
+        <button class="btn-got" onclick="mark(8,true,this)">Got it</button>
+        <button class="btn-miss" onclick="mark(8,false,this)">Missed it</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 4 - Writing (parent eval) -->
+<div class="part-block">
+  <div class="part-label">Part 4: Analytical Essay Challenge</div>
+  <p class="part-inst">This is an open-ended writing task. Use the parent checklist to evaluate your child&rsquo;s response.</p>
+  <div class="writing-card">
+    <div class="q-tag">Essay Prompt (90&ndash;120 words)</div>
+    <div class="q-title">The Value of Heritage in Learning</div>
+    <div class="q-body">
+      Write a well-structured paragraph arguing whether a student&rsquo;s personal cultural background helps them better understand school subjects like history or literature.<br><br>
+      Your paragraph must include at least one academic transition word (e.g. <em>furthermore, consequently, conversely</em>) and back up your argument with a logical reason.
+    </div>
+    <div style="margin-top:16px;font-size:13px;font-weight:600;color:var(--green);">Parent &amp; Tutor Evaluation Checklist</div>
+    <ul class="checklist">
+      <li>Features a clear, arguable thesis statement in the opening sentence.</li>
+      <li>Uses complex punctuation correctly (semicolons, introductory clause commas).</li>
+      <li>Employs precise upper-primary vocabulary (e.g. perspective, primary source, lineage, analysis).</li>
+      <li>Includes at least one academic transition word and a logical supporting reason.</li>
+      <li>Paragraph is coherent, stays on topic, and reaches a conclusion.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Tiers -->
+<div class="part-label" style="margin-bottom:18px;">Your Result (Parts 1&ndash;3)</div>
+<div class="tier-row">
+  <div class="tier-card" id="tier-advanced">
+    <div class="tier-icon">🌟</div>
+    <div class="tier-name">Secondary Ready</div>
+    <div class="tier-range">7&ndash;8 correct</div>
+    <div class="tier-desc">Exceptional analytical reading, advanced vocabulary, and mature sentence structure. Ready for secondary-level work.</div>
+  </div>
+  <div class="tier-card" id="tier-stable">
+    <div class="tier-icon">📈</div>
+    <div class="tier-name">On-Track</div>
+    <div class="tier-range">4&ndash;6 correct</div>
+    <div class="tier-desc">Strong comprehension and ideas, but occasional gaps in subtext analysis or complex grammar like relative clauses.</div>
+  </div>
+  <div class="tier-card" id="tier-gap">
+    <div class="tier-icon">🔧</div>
+    <div class="tier-name">Skill Gap</div>
+    <div class="tier-range">0&ndash;3 correct</div>
+    <div class="tier-desc">Common friction point when moving from surface-level reading to the deep analytical expectations of secondary school.</div>
+  </div>
+</div>
+
+<div class="cta-block" id="cta-block" hidden>
+  <h2 id="cta-head">Ready for the next level.</h2>
+  <p id="cta-body">A ThinkViva specialist can build the critical thinking and writing skills your child needs before secondary school entry.</p>
+  <button class="cta-btn" onclick="window.open('https://thinkviva.org/?book=1','_blank')">Book a Free Consultation</button>
+</div>
+
+<div class="attr-stripe">
+  <strong>ThinkViva</strong> &middot; Free Resource &middot; thinkviva.org &middot; &copy; 2025
+</div>
+</div>
+
+<script>
+const scores={};const TOTAL=8;
+const CTA={
+  advanced:{h:'Exceptional result. Secondary school is within reach.',b:'Your child demonstrates upper-primary English mastery. A ThinkViva tutor can refine their essay technique, literary critique, and rhetoric to keep them ahead at secondary level.'},
+  stable:{h:'Strong foundation. Let\'s sharpen those edges.',b:'Your child gets the big picture but occasionally misses subtext or complex grammar. Targeted coaching on sentence expansion, textual evidence, and active-passive voice can make a real difference.'},
+  gap:{h:'This is exactly what we are built for.',b:'Moving from surface-level comprehension to analytical thinking is the hardest English transition. ThinkViva tutors specialise in exactly this curriculum friction point.'}
+};
+function reveal(id){document.querySelector('#qc-'+id+' .reveal-btn').hidden=true;document.getElementById('ans-'+id).hidden=false;}
+function mark(id,correct,btn){
+  scores[id]=correct;
+  document.getElementById('qc-'+id).classList.add('done');
+  document.querySelectorAll('#qc-'+id+' .btn-got,#qc-'+id+' .btn-miss').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');refresh();
+}
+function refresh(){
+  var answered=Object.keys(scores).length,correct=Object.values(scores).filter(Boolean).length;
+  document.getElementById('score-num').textContent=correct+' / '+TOTAL;
+  document.getElementById('score-label').textContent=answered<TOTAL?(TOTAL-answered)+' question'+(TOTAL-answered>1?'s':'')+' remaining':'All done! See your result below.';
+  var tier=answered===TOTAL?(correct>=7?'advanced':correct>=4?'stable':'gap'):null;
+  ['advanced','stable','gap'].forEach(t=>document.getElementById('tier-'+t).classList.toggle('active',t===tier));
+  var cta=document.getElementById('cta-block');
+  if(tier){cta.hidden=false;document.getElementById('cta-head').textContent=CTA[tier].h;document.getElementById('cta-body').textContent=CTA[tier].b;}else{cta.hidden=true;}
+}
+(function(){
+  function buildTile(fg,fg2){var c=document.createElement('canvas');c.width=280;c.height=140;var ctx=c.getContext('2d');ctx.save();ctx.translate(140,70);ctx.rotate(-26*Math.PI/180);ctx.textAlign='center';ctx.font='600 17px Georgia,serif';ctx.fillStyle=fg;ctx.fillText('ThinkViva',0,-5);ctx.font='10px Georgia,serif';ctx.fillStyle=fg2;ctx.fillText('thinkviva.org',0,11);ctx.restore();return c.toDataURL();}
+  var dark=window.matchMedia('(prefers-color-scheme: dark)').matches||document.documentElement.dataset.theme==='dark';
+  var tile=dark?buildTile('rgba(90,173,120,0.20)','rgba(90,173,120,0.15)'):buildTile('rgba(26,77,50,0.13)','rgba(26,77,50,0.10)');
+  var el=document.getElementById('wm-overlay');el.style.backgroundImage='url('+tile+')';el.style.backgroundRepeat='repeat';el.style.backgroundSize='280px 140px';
+})();
+</script>
