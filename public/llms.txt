@@ -1,6 +1,6 @@
 # ThinkViva
 
-> Expert 1-on-1 online tutoring for Nigerian diaspora families in the UK, Canada, USA and Australia. Qualified Nigerian tutors for Maths, English, Science and Languages — Kindergarten to Grade 9 (JS3). Matched in 24 hours.
+> Expert 1-on-1 online tutoring for Nigerian diaspora families in the UK, Canada, USA and Australia. Qualified Nigerian tutors for Maths, English, Science and Languages (Kindergarten to Grade 9 (JS3). Matched in 24 hours.)
 
 ## About
 
@@ -8,10 +8,10 @@ ThinkViva connects diaspora families worldwide with vetted Nigerian tutors for p
 
 ## Services
 
-- **Bright Start** — 1 session/week, one subject (Maths, English or Science), for early learners
-- **Rising Stars** — 2 sessions/week, English and Maths, with monthly progress reports
-- **Academic Achievers** — 3 sessions/week, English, Maths and Science, with exam preparation
-- **Success Squad** — 1 session/week, any subject, flexible scheduling
+- **Bright Start**: 1 session/week, one subject (Maths, English or Science), for early learners
+- **Rising Stars**: 2 sessions/week, English and Maths, with monthly progress reports
+- **Academic Achievers**: 3 sessions/week, English, Maths and Science, with exam preparation
+- **Success Squad**: 1 session/week, any subject, flexible scheduling
 
 ## Subjects
 
@@ -30,9 +30,9 @@ ThinkViva connects diaspora families worldwide with vetted Nigerian tutors for p
 
 ## Pages
 
-- https://thinkviva.org/ — Home
-- https://thinkviva.org/about — About Us
-- https://thinkviva.org/pricing — Pricing
-- https://thinkviva.org/faq — FAQs
-- https://thinkviva.org/terms — Terms & Conditions
-- https://thinkviva.org/privacy — Privacy Policy
+- https://thinkviva.org/ (Home)
+- https://thinkviva.org/about (About Us)
+- https://thinkviva.org/pricing (Pricing)
+- https://thinkviva.org/faq (FAQs)
+- https://thinkviva.org/terms (Terms & Conditions)
+- https://thinkviva.org/privacy (Privacy Policy)

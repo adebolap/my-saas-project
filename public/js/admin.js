@@ -1,5 +1,5 @@
 /* =====================
-   EduBridge Africa — Admin Dashboard JS
+   EduBridge Africa: Admin Dashboard JS
    ===================== */
 
 let adminToken = '';
@@ -20,6 +20,7 @@ function adminLogin() {
   loadEmailLogs();
   renderShortlist();
   loadFeedback();
+  loadResourceLeads();
 }
 
 function adminLogout() {
@@ -37,12 +38,13 @@ async function loadDashboard() {
     if (!res.ok) { showToast('Auth failed. Check your token.', 'error'); return; }
     const data = await res.json();
 
-    document.getElementById('m-leads').textContent     = data.metrics.totalLeads;
-    document.getElementById('m-new-leads').textContent = data.metrics.newLeads + ' new';
-    document.getElementById('m-tutors').textContent    = data.metrics.totalTutors;
-    document.getElementById('m-approved').textContent  = data.metrics.approvedTutors + ' approved';
-    document.getElementById('m-sessions').textContent  = data.metrics.totalSessions;
-    document.getElementById('m-completed').textContent = data.metrics.completedSessions + ' completed';
+    document.getElementById('m-leads').textContent          = data.metrics.totalLeads;
+    document.getElementById('m-new-leads').textContent       = data.metrics.newLeads + ' new';
+    document.getElementById('m-tutors').textContent          = data.metrics.totalTutors;
+    document.getElementById('m-approved').textContent        = data.metrics.approvedTutors + ' approved';
+    document.getElementById('m-sessions').textContent        = data.metrics.totalSessions;
+    document.getElementById('m-completed').textContent       = data.metrics.completedSessions + ' completed';
+    document.getElementById('m-resource-leads').textContent  = data.metrics.totalResourceLeads ?? '-';
 
     renderBarChart('grade-chart', data.gradeBreakdown);
     renderBarChart('subject-chart', data.subjectDemand);
@@ -88,11 +90,11 @@ async function loadLeads() {
           <strong>${esc(l.parentName)}</strong><br>
           <small style="color:var(--muted);">${esc(l.email)}</small>
         </td>
-        <td>${esc(l.childName || '—')}</td>
+        <td>${esc(l.childName || '-')}</td>
         <td><span style="font-weight:700;color:var(--navy);">${l.grade}</span></td>
-        <td style="font-size:0.8rem;">${(l.subjects || []).join(', ') || '—'}</td>
+        <td style="font-size:0.8rem;">${(l.subjects || []).join(', ') || '-'}</td>
         <td>${esc(l.country)}</td>
-        <td style="font-size:0.75rem;font-family:monospace;color:${l.referralCode ? 'var(--navy)' : 'var(--muted)'};">${l.referralCode ? esc(l.referralCode) : '—'}</td>
+        <td style="font-size:0.75rem;font-family:monospace;color:${l.referralCode ? 'var(--navy)' : 'var(--muted)'};">${l.referralCode ? esc(l.referralCode) : '-'}</td>
         <td><span class="status-badge status-${l.status}">${l.status}</span></td>
         <td style="font-size:0.8rem;color:var(--muted);">${fmtDate(l.createdAt)}</td>
         <td>
@@ -162,9 +164,9 @@ const IT_META = {
     4:  ['Video calls only','Storing and sharing files in the cloud','Internet browsing','Sending money'],
     5:  ['Print and post it','Share screen or send a Google Drive link','Read it aloud only','Take a photo and send on WhatsApp'],
     6:  ['End share & re-share selecting the specific window/tab','Ask student to refresh','Restart Google Meet','Switch browser'],
-    7:  ['View only','Edit — everyone on the same doc','Make a copy for each student','Download & email individually'],
-    8:  ["Student's account suspended",'Submitted after due date — marked Missing before late submission registered','File too large','Already graded'],
-    9:  ['Update browser','Recording only in Chrome','Requires Google Workspace — not on free Gmail','Started from phone'],
+    7:  ['View only','Edit, everyone on the same doc','Make a copy for each student','Download & email individually'],
+    8:  ["Student's account suspended",'Submitted after due date, marked Missing before late submission registered','File too large','Already graded'],
+    9:  ['Update browser','Recording only in Chrome','Requires Google Workspace (not on free Gmail)','Started from phone'],
     10: ['Forgot due date','Left "Release grade immediately" on instead of "After manual review"','Posted as question not assignment','Remove & re-add students'],
     11: ["Post announcement with student's name","Use private comment on student's submission",'Email via Gmail','Create separate classroom'],
     12: ['Ask them to type in chat and continue lesson','End call and reschedule','Ask other students to leave','Mute all one by one'],
@@ -199,9 +201,9 @@ function buildTutorInsights(profile, answers) {
   const out = [];
 
   if (meet.pct >= 67 && classroom.pct >= 75) {
-    out.push({ type: 'strength', text: 'Strong Google teaching suite fluency — ready for teaching demonstration.' });
+    out.push({ type: 'strength', text: 'Strong Google teaching suite fluency. Ready for teaching demonstration.' });
   } else if (meet.pct >= 67 || classroom.pct >= 75) {
-    out.push({ type: 'caution', text: 'Partial platform fluency — probe the weaker area during the teaching demonstration.' });
+    out.push({ type: 'caution', text: 'Partial platform fluency. Probe the weaker area during the teaching demonstration.' });
   } else {
     out.push({ type: 'concern', text: 'Limited Google tools experience. High coaching investment likely required.' });
   }
@@ -210,11 +212,11 @@ function buildTutorInsights(profile, answers) {
   const q7  = parseInt(answers?.[7]  ?? answers?.['7']);
   const q12 = parseInt(answers?.[12] ?? answers?.['12']);
 
-  if (!isNaN(q9)  && q9  !== 2) out.push({ type: 'concern', text: 'Unaware that recording requires Google Workspace — may have unrealistic expectations.' });
-  if (!isNaN(q7)  && q7  !== 2) out.push({ type: 'concern', text: 'Unfamiliar with "Make a copy for each student" — digital worksheet delivery may be a friction point.' });
-  if (!isNaN(q12) && q12 !== 0) out.push({ type: 'concern', text: 'May interrupt the lesson to fix tech rather than adapt — check classroom management in demo.' });
-  if (meet.pct      === 100) out.push({ type: 'strength', text: 'Perfect Google Meet score — confident live session management expected.' });
-  if (classroom.pct === 100) out.push({ type: 'strength', text: 'Perfect Google Classroom score — deep digital classroom workflow knowledge.' });
+  if (!isNaN(q9)  && q9  !== 2) out.push({ type: 'concern', text: 'Unaware that recording requires Google Workspace. May have unrealistic expectations.' });
+  if (!isNaN(q7)  && q7  !== 2) out.push({ type: 'concern', text: 'Unfamiliar with "Make a copy for each student". Digital worksheet delivery may be a friction point.' });
+  if (!isNaN(q12) && q12 !== 0) out.push({ type: 'concern', text: 'May interrupt the lesson to fix tech rather than adapt. Check classroom management in demo.' });
+  if (meet.pct      === 100) out.push({ type: 'strength', text: 'Perfect Google Meet score. Confident live session management expected.' });
+  if (classroom.pct === 100) out.push({ type: 'strength', text: 'Perfect Google Classroom score. Deep digital classroom workflow knowledge.' });
   if (general.pct   === 100) out.push({ type: 'strength', text: 'Solid general IT foundations.' });
   return out;
 }
@@ -226,7 +228,7 @@ function renderTutorProfile(t) {
   const catRows = (profile || []).map(cat => `
     <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:0.82rem;">
       <span style="color:var(--muted);">${cat.label}</span>
-      <span style="font-weight:700;color:${cat.color};">${cat.correct}/${cat.total} (${cat.pct}%) — ${cat.signal}</span>
+      <span style="font-weight:700;color:${cat.color};">${cat.correct}/${cat.total} (${cat.pct}%): ${cat.signal}</span>
     </div>`).join('');
 
   const insightItems = insights.map(ins => {
@@ -278,14 +280,14 @@ async function loadTutors() {
       <tr>
         <td>
           <strong>${esc(t.name)}</strong><br>
-          <small style="color:var(--muted);">${esc(t.location || '—')}</small>
+          <small style="color:var(--muted);">${esc(t.location || '-')}</small>
         </td>
         <td style="font-size:0.8rem;">${esc(t.email)}</td>
-        <td style="font-size:0.8rem;">${(t.subjects || []).join(', ') || '—'}</td>
-        <td style="font-size:0.8rem;">${(t.grades || []).join(', ') || '—'}</td>
+        <td style="font-size:0.8rem;">${(t.subjects || []).join(', ') || '-'}</td>
+        <td style="font-size:0.8rem;">${(t.grades || []).join(', ') || '-'}</td>
         <td>
           <span style="font-weight:700;color:${(t.itTestScore || 0) >= 60 ? 'var(--green)' : '#C0392B'};">
-            ${t.itTestScore != null ? t.itTestScore + '%' : '—'}
+            ${t.itTestScore != null ? t.itTestScore + '%' : '-'}
           </span>
         </td>
         <td><span class="status-badge status-${statusClass(t.status)}">${t.status.replace(/_/g, ' ')}</span></td>
@@ -344,13 +346,13 @@ async function loadSessions() {
 
     tbody.innerHTML = data.map(s => `
       <tr>
-        <td>${esc(s.lead?.childName || s.lead?.parentName || '—')}</td>
-        <td>${esc(s.tutor?.name || '—')}</td>
-        <td>${esc(s.subject || '—')}</td>
-        <td>${esc(s.grade || '—')}</td>
-        <td style="font-size:0.8rem;color:var(--muted);">${s.scheduledAt ? fmtDate(s.scheduledAt) : '—'}</td>
+        <td>${esc(s.lead?.childName || s.lead?.parentName || '-')}</td>
+        <td>${esc(s.tutor?.name || '-')}</td>
+        <td>${esc(s.subject || '-')}</td>
+        <td>${esc(s.grade || '-')}</td>
+        <td style="font-size:0.8rem;color:var(--muted);">${s.scheduledAt ? fmtDate(s.scheduledAt) : '-'}</td>
         <td><span class="status-badge status-${statusClass(s.status)}">${s.status}</span></td>
-        <td>${s.feedback?.parentRating ? '⭐'.repeat(s.feedback.parentRating) : '—'}</td>
+        <td>${s.feedback?.parentRating ? '⭐'.repeat(s.feedback.parentRating) : '-'}</td>
       </tr>
     `).join('');
   } catch (err) {
@@ -430,7 +432,7 @@ function renderEmailLogs() {
 }
 
 function fmtDateTime(d) {
-  if (!d) return '—';
+  if (!d) return '-';
   return new Date(d).toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 }
 
@@ -497,7 +499,7 @@ async function screenCVs() {
     progressEl.innerHTML = `<div style="background:var(--bg);border-radius:8px;height:8px;overflow:hidden;">
       <div style="width:${Math.round(((i) / cvFiles.length) * 100)}%;background:var(--navy);height:100%;border-radius:8px;transition:width 0.4s;"></div>
     </div>
-    <p style="font-size:0.8rem;color:var(--muted);margin-top:6px;text-align:center;">Screening ${i + 1} of ${cvFiles.length} — please wait…</p>`;
+    <p style="font-size:0.8rem;color:var(--muted);margin-top:6px;text-align:center;">Screening ${i + 1} of ${cvFiles.length}, please wait…</p>`;
 
     document.getElementById(`cv-file-status-${i}`).textContent = '🔄';
     const fd = new FormData();
@@ -520,7 +522,7 @@ async function screenCVs() {
   }
 
   progressEl.innerHTML = `<p style="font-size:0.85rem;font-weight:700;color:var(--navy);text-align:center;margin-top:4px;">
-    ✓ Done — ${results.filter(r => r.recommendation === 'Shortlist').length} Shortlist · ${results.filter(r => r.recommendation === 'Maybe').length} Maybe · ${results.filter(r => r.recommendation === 'Reject').length} Reject
+    ✓ Done: ${results.filter(r => r.recommendation === 'Shortlist').length} Shortlist · ${results.filter(r => r.recommendation === 'Maybe').length} Maybe · ${results.filter(r => r.recommendation === 'Reject').length} Reject
   </p>`;
 
   if (cvFiles.length === 1) {
@@ -541,13 +543,13 @@ function renderBulkResults(results) {
   el.innerHTML = `
     <h4 style="color:var(--navy);font-size:0.9rem;font-weight:800;margin-bottom:12px;">Screening Results</h4>
     ${results.map((v, i) => v.error
-      ? `<div style="padding:14px 16px;background:#FDEDEC;border-radius:8px;margin-bottom:8px;font-size:0.85rem;color:#C0392B;">⚠️ <strong>${esc(v.file)}</strong> — ${esc(v.error)}</div>`
+      ? `<div style="padding:14px 16px;background:#FDEDEC;border-radius:8px;margin-bottom:8px;font-size:0.85rem;color:#C0392B;">⚠️ <strong>${esc(v.file)}</strong>: ${esc(v.error)}</div>`
       : `<div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:10px;">
           <div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;">
             <div style="flex:1;min-width:180px;">
               <div style="font-weight:800;color:var(--navy);font-size:0.9rem;">${esc(v.name || v.file)}</div>
-              <div style="font-size:0.78rem;color:var(--muted);margin-top:2px;">${esc(v.qualification || '—')} · ${esc(v.location || '—')}</div>
-              <div style="font-size:0.78rem;color:var(--muted);margin-top:1px;">${(v.subjects||[]).join(', ')||'—'} · ${v.nigeriaBase ? '<span style="color:#1E5A3A;">Nigeria ✓</span>' : '<span style="color:#C0392B;">Not Nigeria</span>'}</div>
+              <div style="font-size:0.78rem;color:var(--muted);margin-top:2px;">${esc(v.qualification || '-')} · ${esc(v.location || '-')}</div>
+              <div style="font-size:0.78rem;color:var(--muted);margin-top:1px;">${(v.subjects||[]).join(', ')||'-'} · ${v.nigeriaBase ? '<span style="color:#1E5A3A;">Nigeria ✓</span>' : '<span style="color:#C0392B;">Not Nigeria</span>'}</div>
               <div style="font-size:0.78rem;color:var(--muted);margin-top:2px;font-style:italic;">${esc(v.summary||'')}</div>
             </div>
             <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;">
@@ -581,27 +583,27 @@ function renderVerdict(v) {
           <div style="font-size:1.5rem;font-weight:900;color:${c.fg};">${rec}</div>
         </div>
         <div style="margin-left:auto;text-align:right;">
-          <div style="font-size:1rem;font-weight:800;color:var(--navy);">${esc(v.name || '—')}</div>
-          <div style="font-size:0.8rem;color:var(--muted);">${esc(v.location || '—')}</div>
+          <div style="font-size:1rem;font-weight:800;color:var(--navy);">${esc(v.name || '-')}</div>
+          <div style="font-size:0.8rem;color:var(--muted);">${esc(v.location || '-')}</div>
         </div>
       </div>
 
       <p style="color:var(--text);font-size:0.9rem;line-height:1.65;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid ${c.fg}20;">
-        ${esc(v.summary || '—')}
+        ${esc(v.summary || '-')}
       </p>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;font-size:0.85rem;">
         <div>
           <div style="color:var(--muted);font-size:0.7rem;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Qualification</div>
-          <strong>${esc(v.qualification || '—')}</strong>
+          <strong>${esc(v.qualification || '-')}</strong>
         </div>
         <div>
           <div style="color:var(--muted);font-size:0.7rem;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Experience</div>
-          <strong>${esc(v.experience || '—')}</strong>
+          <strong>${esc(v.experience || '-')}</strong>
         </div>
         <div>
           <div style="color:var(--muted);font-size:0.7rem;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Subjects</div>
-          <strong>${(v.subjects || []).join(', ') || '—'}</strong>
+          <strong>${(v.subjects || []).join(', ') || '-'}</strong>
         </div>
         <div>
           <div style="color:var(--muted);font-size:0.7rem;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Nigeria-Based</div>
@@ -649,8 +651,8 @@ function saveShortlist(list) {
 function addToShortlist(v) {
   const list = getShortlist();
   list.push({
-    firstName:      v.firstName || v.name?.split(' ')[0] || '—',
-    lastName:       v.lastName  || v.name?.split(' ').slice(1).join(' ') || '—',
+    firstName:      v.firstName || v.name?.split(' ')[0] || '-',
+    lastName:       v.lastName  || v.name?.split(' ').slice(1).join(' ') || '-',
     email:          v.email     || '',
     phone:          v.phone     || '',
     subjects:       (v.subjects || []).join(', '),
@@ -690,9 +692,9 @@ function renderShortlist() {
     <tr>
       <td><strong>${esc(c.firstName)}</strong></td>
       <td>${esc(c.lastName)}</td>
-      <td style="font-size:0.8rem;">${esc(c.email) || '<span style="color:var(--muted);">—</span>'}</td>
-      <td style="font-size:0.8rem;">${esc(c.phone) || '<span style="color:var(--muted);">—</span>'}</td>
-      <td style="font-size:0.8rem;">${esc(c.subjects) || '—'}</td>
+      <td style="font-size:0.8rem;">${esc(c.email) || '<span style="color:var(--muted);">-</span>'}</td>
+      <td style="font-size:0.8rem;">${esc(c.phone) || '<span style="color:var(--muted);">-</span>'}</td>
+      <td style="font-size:0.8rem;">${esc(c.subjects) || '-'}</td>
       <td><span style="font-size:0.75rem;font-weight:700;color:${recColor(c.recommendation)};">${esc(c.recommendation)}</span></td>
       <td style="font-size:0.75rem;color:var(--muted);white-space:nowrap;">${fmtDateTime(c.shortlistedAt)}</td>
       <td><button onclick="removeFromShortlist(${i})" style="background:none;border:none;color:#C0392B;cursor:pointer;font-size:0.8rem;padding:4px 8px;" title="Remove">✕</button></td>
@@ -731,7 +733,7 @@ function resetScreener() {
 // ---- FEEDBACK ----
 function parseFeedback(msg) {
   if (!msg) return { role: null, rating: null, comment: null };
-  const m = msg.match(/^\[(.+?)\] Rating: (\d+)\/5 — ([\s\S]*)$/);
+  const m = msg.match(/^\[(.+?)\] Rating: (\d+)\/5: ([\s\S]*)$/);
   if (!m) return { role: null, rating: null, comment: msg };
   return { role: m[1], rating: parseInt(m[2], 10), comment: m[3].trim() };
 }
@@ -759,7 +761,7 @@ async function loadFeedback() {
 
     const parsed = data.map(d => ({ ...d, fb: parseFeedback(d.message) }));
     const rated  = parsed.filter(d => d.fb.rating !== null);
-    const avg    = rated.length ? (rated.reduce((s, d) => s + d.fb.rating, 0) / rated.length).toFixed(1) : '—';
+    const avg    = rated.length ? (rated.reduce((s, d) => s + d.fb.rating, 0) / rated.length).toFixed(1) : '-';
     const breakdown = [5,4,3,2,1].map(n => ({ n, count: rated.filter(d => d.fb.rating === n).length }));
 
     statsEl.innerHTML = `
@@ -770,7 +772,7 @@ async function loadFeedback() {
       <div class="metric-card" style="text-align:center;">
         <div class="metric-val" style="font-size:2rem;">${avg}</div>
         <div class="metric-label">Avg Rating</div>
-        <div style="margin-top:4px;">${avg !== '—' ? stars(Math.round(parseFloat(avg))) : ''}</div>
+        <div style="margin-top:4px;">${avg !== '-' ? stars(Math.round(parseFloat(avg))) : ''}</div>
       </div>
       <div class="metric-card" style="padding:18px 20px;">
         <div style="font-size:0.7rem;font-weight:700;color:var(--navy);text-transform:uppercase;margin-bottom:10px;">Rating Breakdown</div>
@@ -809,6 +811,63 @@ async function loadFeedback() {
 }
 
 // ---- TABS ----
+// ---- RESOURCE LEADS ----
+let resourceLeadsData = [];
+
+async function loadResourceLeads() {
+  try {
+    const res = await fetch('/api/admin/resource-leads', { headers: apiHeaders() });
+    resourceLeadsData = await res.json();
+    const tbody = document.getElementById('resource-leads-tbody');
+    const countEl = document.getElementById('resource-leads-count');
+
+    if (!resourceLeadsData.length) {
+      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:32px;">No resource registrations yet.</td></tr>';
+      if (countEl) countEl.textContent = '0 registrations';
+      return;
+    }
+
+    if (countEl) countEl.textContent = resourceLeadsData.length + ' registration' + (resourceLeadsData.length !== 1 ? 's' : '');
+
+    const LABELS = {
+      'math-g2-4': 'Primary 2-4 Maths',
+      'math-g5-6': 'Primary 5-6 Maths',
+      'eng-g2-4':  'Primary 2-4 English',
+      'eng-g5-6':  'Primary 5-6 English',
+    };
+
+    tbody.innerHTML = resourceLeadsData.map(r => `
+      <tr>
+        <td>${esc(r.name)}</td>
+        <td><a href="mailto:${esc(r.email)}" style="color:var(--navy);">${esc(r.email)}</a></td>
+        <td>${LABELS[r.resourceKey] || esc(r.resourceKey)}</td>
+        <td>${fmtDate(r.createdAt)}</td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    showToast('Error loading resource leads: ' + err.message, 'error');
+  }
+}
+
+function downloadResourceLeadsCSV() {
+  if (!resourceLeadsData.length) { showToast('No data to export.', 'error'); return; }
+  const LABELS = {
+    'math-g2-4': 'Primary 2-4 Maths',
+    'math-g5-6': 'Primary 5-6 Maths',
+    'eng-g2-4':  'Primary 2-4 English',
+    'eng-g5-6':  'Primary 5-6 English',
+  };
+  const rows = [['Name', 'Email', 'Resource', 'Date']];
+  resourceLeadsData.forEach(r => {
+    rows.push([r.name, r.email, LABELS[r.resourceKey] || r.resourceKey, fmtDate(r.createdAt)]);
+  });
+  const csv = rows.map(r => r.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'resource-leads.csv';
+  a.click();
+}
+
 function switchTab(name, btn) {
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
@@ -827,7 +886,7 @@ function esc(str) {
 }
 
 function fmtDate(d) {
-  if (!d) return '—';
+  if (!d) return '-';
   return new Date(d).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
 }
 

@@ -1,7 +1,7 @@
 {
   "name": "thinkviva",
   "version": "1.0.0",
-  "description": "ThinkViva — Online tutoring platform for Primary 1-5, connecting diaspora families with Nigerian tutors.",
+  "description": "ThinkViva: Online tutoring platform for Primary 1-5, connecting diaspora families with Nigerian tutors.",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",

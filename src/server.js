@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Serverless-safe connection cache — reuses the connection across warm invocations
+// Serverless-safe connection cache: reuses the connection across warm invocations
 let cachedConn = null;
 
 async function connectDB() {
@@ -18,7 +18,7 @@ async function connectDB() {
 }
 
 if (process.env.VERCEL) {
-  // On Vercel: connect lazily per request — must be registered BEFORE routes
+  // On Vercel: connect lazily per request; must be registered BEFORE routes
   app.use(async (req, res, next) => {
     try {
       await connectDB();
@@ -36,6 +36,9 @@ app.use('/api/admin', require('./routes/admin'));
 app.use('/api/curriculum', require('./routes/curriculum'));
 app.use('/api/newsletter', require('./routes/newsletter'));
 
+app.get('/resources', (req, res) =>
+  res.sendFile(path.join(__dirname, '../public/resources.html'))
+);
 app.get('/apply', (req, res) =>
   res.sendFile(path.join(__dirname, '../public/apply.html'))
 );
@@ -90,5 +93,5 @@ if (!process.env.VERCEL) {
     });
 }
 
-// Required by Vercel — export the Express app as the serverless handler
+// Required by Vercel: export the Express app as the serverless handler
 module.exports = app;

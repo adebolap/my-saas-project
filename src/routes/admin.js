@@ -6,6 +6,7 @@ const Lead = require('../models/Lead');
 const TutorApplication = require('../models/TutorApplication');
 const Session = require('../models/Session');
 const EmailLog = require('../models/EmailLog');
+const ResourceLead = require('../models/ResourceLead');
 const { sendReviewRequest } = require('../services/email');
 
 const cvUpload = multer({
@@ -13,7 +14,7 @@ const cvUpload = multer({
   limits: { fileSize: 10 * 1024 * 1024 },
 }).single('cv');
 
-// Simple header-token auth — replace with proper auth before going to prod
+// Simple header-token auth, replace with proper auth before going to prod
 router.use((req, res, next) => {
   const token = req.headers['x-admin-token'] || req.query.token;
   if (!token || token !== (process.env.ADMIN_TOKEN || 'admin123')) {
@@ -31,6 +32,7 @@ router.get('/dashboard', async (req, res) => {
       approvedTutors,
       totalSessions,
       completedSessions,
+      totalResourceLeads,
     ] = await Promise.all([
       Lead.countDocuments(),
       Lead.countDocuments({ status: 'new' }),
@@ -38,6 +40,7 @@ router.get('/dashboard', async (req, res) => {
       TutorApplication.countDocuments({ status: 'approved' }),
       Session.countDocuments(),
       Session.countDocuments({ status: 'completed' }),
+      ResourceLead.countDocuments(),
     ]);
 
     const [gradeBreakdown, countryBreakdown, subjectDemand, tutorStatusBreakdown] =
@@ -65,7 +68,7 @@ router.get('/dashboard', async (req, res) => {
     ]);
 
     res.json({
-      metrics: { totalLeads, newLeads, totalTutors, approvedTutors, totalSessions, completedSessions },
+      metrics: { totalLeads, newLeads, totalTutors, approvedTutors, totalSessions, completedSessions, totalResourceLeads },
       gradeBreakdown,
       countryBreakdown,
       subjectDemand,
@@ -172,6 +175,15 @@ router.delete('/email-logs/purge', async (req, res) => {
   }
 });
 
+router.get('/resource-leads', async (req, res) => {
+  try {
+    const leads = await ResourceLead.find().sort({ createdAt: -1 }).limit(500);
+    res.json(leads);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.get('/feedback', async (req, res) => {
   try {
     const logs = await Lead.find({ source: 'feedback_widget' }).sort({ createdAt: -1 });
@@ -212,9 +224,9 @@ router.post('/screen-cv', (req, res, next) => {
 
   const prompt = `You are a strict HR screener for ThinkViva, an online tutoring platform connecting diaspora families with qualified Nigerian tutors. Tutors teach Maths, English, Science, and Local Languages (Yoruba, Igbo, Hausa) for Kindergarten to Grade 9 (JS3).
 
-Analyse this CV and return ONLY valid JSON — no markdown, no extra text.
+Analyse this CV and return ONLY valid JSON, no markdown, no extra text.
 
-STRICT criteria — apply all of these:
+STRICT criteria, apply all of these:
 1. NIGERIA-BASED: Candidate must be located in Nigeria. Auto-Reject if not.
 2. TRCN: Must be registered with the Teachers Registration Council of Nigeria (TRCN). Auto-Reject if not mentioned or absent.
 3. QUALIFICATION: Must have a teaching qualification (B.Ed, PGDE, NCE, PGCE) or relevant university degree. Auto-Reject if absent.
@@ -223,7 +235,7 @@ STRICT criteria — apply all of these:
 6. AVAILABILITY: Candidate should mention availability for online work, or show they are not locked in a conflicting full-time role. Unclear availability = downgrade to Maybe.
 7. TECH READINESS: Must mention laptop/computer, Zoom, Google Meet, or online teaching experience. Missing = downgrade to Maybe.
 
-Recommendation rules (be conservative — when in doubt, go lower):
+Recommendation rules (be conservative, when in doubt go lower):
 - "Shortlist": Meets ALL 7 criteria clearly
 - "Maybe": Meets criteria 1–5 but missing availability clarity OR tech readiness
 - "Reject": Fails ANY of criteria 1–4, or has no teaching experience with children

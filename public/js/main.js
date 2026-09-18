@@ -1,5 +1,5 @@
 /* =====================
-   ThinkViva — Shared Frontend JS
+   ThinkViva: Shared Frontend JS
    ===================== */
 
 // ---- TOAST ----

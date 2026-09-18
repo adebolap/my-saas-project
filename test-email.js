@@ -45,7 +45,7 @@ async function run() {
     passed: true,
   });
 
-  console.log('Done — check your inbox.');
+  console.log('Done. Check your inbox.');
 }
 
 run().catch(err => {
