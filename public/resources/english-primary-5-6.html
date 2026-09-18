@@ -1,5 +1,6 @@
 <title>Grade 5–6 English Diagnostic</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600&display=swap">
+<script>document.documentElement.dataset.theme="light";</script>
 <style>
 :root {
   --green:   #1A4D32; --green-d: #132E1F; --green-l: #2A6B46;
@@ -76,7 +77,7 @@ header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,5vw,2.8r
 .attr-stripe strong{color:var(--green);}
 </style>
 
-<div id="wm-overlay"></div>
+
 <div id="wm-corner">ThinkViva | thinkviva.org</div>
 
 <div class="page">
@@ -365,10 +366,4 @@ function refresh(){
   var cta=document.getElementById('cta-block');
   if(tier){cta.hidden=false;document.getElementById('cta-head').textContent=CTA[tier].h;document.getElementById('cta-body').textContent=CTA[tier].b;}else{cta.hidden=true;}
 }
-(function(){
-  function buildTile(fg,fg2){var c=document.createElement('canvas');c.width=280;c.height=140;var ctx=c.getContext('2d');ctx.save();ctx.translate(140,70);ctx.rotate(-26*Math.PI/180);ctx.textAlign='center';ctx.font='600 17px Georgia,serif';ctx.fillStyle=fg;ctx.fillText('ThinkViva',0,-5);ctx.font='10px Georgia,serif';ctx.fillStyle=fg2;ctx.fillText('thinkviva.org',0,11);ctx.restore();return c.toDataURL();}
-  var dark=window.matchMedia('(prefers-color-scheme: dark)').matches||document.documentElement.dataset.theme==='dark';
-  var tile=dark?buildTile('rgba(90,173,120,0.20)','rgba(90,173,120,0.15)'):buildTile('rgba(26,77,50,0.13)','rgba(26,77,50,0.10)');
-  var el=document.getElementById('wm-overlay');el.style.backgroundImage='url('+tile+')';el.style.backgroundRepeat='repeat';el.style.backgroundSize='280px 140px';
-})();
 </script>
