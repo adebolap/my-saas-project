@@ -3,11 +3,11 @@
 <script>document.documentElement.dataset.theme="light";</script>
 <style>
 :root {
-  --green:   #1A4D32; --green-d: #132E1F; --green-l: #2A6B46;
-  --amber:   #C8851A; --amber-l: #F5A82A;
-  --bg:      #FDFAF5; --card-bg: #FFFFFF; --border: #DDD5C5;
-  --text:    #1C1208; --muted: #6B5C44;
-  --shadow:  0 2px 12px rgba(26,77,50,.10); --radius: 12px;
+  --green:   #1E5A3A; --green-d: #163025; --green-l: #2E7D4A;
+  --amber:   #2E7D4A; --amber-l: #88D498;
+  --bg:      #F3E9D2; --card-bg: #FAF7F2; --border: #CBDAC3;
+  --text:    #1B2E24; --muted: #5A6B5E;
+  --shadow:  0 2px 12px rgba(30,90,58,.10); --radius: 12px;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -23,6 +23,7 @@
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.65;padding-inline:20px;padding-block:32px;position:relative;}
 #wm-overlay{position:fixed;inset:0;pointer-events:none;z-index:0;}
 #wm-corner{position:fixed;bottom:18px;right:20px;font-family:'Cormorant Garamond',serif;font-size:11px;font-weight:600;color:var(--green);opacity:.55;letter-spacing:.04em;pointer-events:none;z-index:9999;user-select:none;}
+body::before{content:'ThinkViva';position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:15vw;font-weight:700;color:rgba(30,90,58,0.06);pointer-events:none;z-index:0;white-space:nowrap;font-family:'Cormorant Garamond',serif;user-select:none;}
 .page{max-width:740px;margin:0 auto;position:relative;z-index:1;}
 header{text-align:center;padding-block:12px 40px;border-bottom:2px solid var(--border);margin-bottom:36px;}
 .eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}

@@ -67,7 +67,8 @@
 .rc-badge.free    { background: #EAFAF1; color: #1A7A45; }
 .rc-badge.subject { background: #FEF3E2; color: #9A5C0A; }
 
-.rc-icon { font-size: 2rem; margin-bottom: 10px; }
+.rc-icon { margin-bottom: 10px; }
+.rc-logo-icon { height: 36px; width: auto; object-fit: contain; display: block; }
 .rc-title { font-size: 1.1rem; font-weight: 800; color: var(--navy); margin-bottom: 6px; line-height: 1.3; }
 .rc-grade { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
 .rc-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: 18px; }
@@ -208,7 +209,7 @@
     <div class="resource-grid" style="margin-bottom:32px;">
       <div class="resource-card featured">
         <div class="rc-badge free">&#10003; Always Free &mdash; No Registration Needed</div>
-        <div class="rc-icon">&#129504;</div>
+        <div class="rc-icon"><img src="/img/logo.png" class="rc-logo-icon" alt="ThinkViva"></div>
         <div class="rc-title">5 Signs Your Child Needs Extra Academic Support</div>
         <div class="rc-grade">All Ages &middot; Kindergarten to Grade 9 (Ages 4&ndash;15)</div>
         <div class="rc-desc">A quick behavioural checklist that helps you spot the early warning signs before small struggles become big gaps. Takes under 3 minutes. Interactive and shareable.</div>
@@ -231,7 +232,7 @@
 
       <div class="resource-card" data-key="math-g2-4" data-title="Primary 2&ndash;4 Maths Diagnostic" data-icon="&#10005;">
         <div class="rc-badge subject">&#128274; Register to Unlock</div>
-        <div class="rc-icon">&#129518;</div>
+        <div class="rc-icon"><img src="/img/logo.png" class="rc-logo-icon" alt="ThinkViva"></div>
         <div class="rc-title">Primary 2&ndash;4 Maths Diagnostic</div>
         <div class="rc-grade">Ages 7&ndash;10 &middot; Lower Primary</div>
         <div class="rc-desc">Mental arithmetic, word problems, fractions, and real-world measurement. Built for children navigating Nigerian and international curricula side by side.</div>
@@ -248,7 +249,7 @@
 
       <div class="resource-card" data-key="math-g5-6" data-title="Primary 5&ndash;6 Maths Diagnostic" data-icon="&#128200;">
         <div class="rc-badge subject">&#128274; Register to Unlock</div>
-        <div class="rc-icon">&#128200;</div>
+        <div class="rc-icon"><img src="/img/logo.png" class="rc-logo-icon" alt="ThinkViva"></div>
         <div class="rc-title">Primary 5&ndash;6 Maths Diagnostic</div>
         <div class="rc-grade">Ages 10&ndash;12 &middot; Upper Primary</div>
         <div class="rc-desc">BODMAS, percentages, fractions, introductory algebra, and data interpretation. Tests the upper-primary skills secondary schools will expect from day one.</div>
@@ -265,7 +266,7 @@
 
       <div class="resource-card" data-key="eng-g2-4" data-title="Primary 2&ndash;4 English Diagnostic" data-icon="&#128214;">
         <div class="rc-badge subject">&#128274; Register to Unlock</div>
-        <div class="rc-icon">&#128214;</div>
+        <div class="rc-icon"><img src="/img/logo.png" class="rc-logo-icon" alt="ThinkViva"></div>
         <div class="rc-title">Primary 2&ndash;4 English Diagnostic</div>
         <div class="rc-grade">Ages 7&ndash;10 &middot; Lower Primary</div>
         <div class="rc-desc">Vocabulary in context, homophones, irregular verbs, reading comprehension using a relatable diaspora story, plus a creative writing prompt with parent evaluation guide.</div>
@@ -282,7 +283,7 @@
 
       <div class="resource-card" data-key="eng-g5-6" data-title="Primary 5&ndash;6 English Diagnostic" data-icon="&#9997;">
         <div class="rc-badge subject">&#128274; Register to Unlock</div>
-        <div class="rc-icon">&#9997;&#65039;</div>
+        <div class="rc-icon"><img src="/img/logo.png" class="rc-logo-icon" alt="ThinkViva"></div>
         <div class="rc-title">Primary 5&ndash;6 English Diagnostic</div>
         <div class="rc-grade">Ages 10&ndash;12 &middot; Upper Primary</div>
         <div class="rc-desc">Advanced vocabulary, figurative language, analytical comprehension, active and passive voice, relative clauses, and a secondary-school entry essay prompt.</div>
@@ -412,7 +413,7 @@
       </div>
       <div class="resource-links">
         <a href="/resources/behavioral-checklist" target="_blank" rel="noopener" class="resource-link-btn">
-          <span class="resource-link-icon">&#129504;</span>
+          <span class="resource-link-icon"><img src="/img/logo.png" alt="ThinkViva" style="height:22px;vertical-align:middle;object-fit:contain;"></span>
           <span class="resource-link-text">
             5 Signs Your Child Needs Extra Support
             <small>Behavioural Checklist &middot; All Ages K&ndash;G9</small>
@@ -444,7 +445,7 @@
       </div>
       <div class="resource-links">
         <a href="/resources/behavioral-checklist" target="_blank" rel="noopener" class="resource-link-btn">
-          <span class="resource-link-icon">&#129504;</span>
+          <span class="resource-link-icon"><img src="/img/logo.png" alt="ThinkViva" style="height:22px;vertical-align:middle;object-fit:contain;"></span>
           <span class="resource-link-text">
             5 Signs Your Child Needs Extra Support
             <small>Still free to access any time</small>
@@ -537,11 +538,12 @@
 
 <script src="/js/main.js"></script>
 <script>
+const LOGO_ICON = '<img src="/img/logo.png" alt="ThinkViva" style="height:22px;vertical-align:middle;object-fit:contain;">';
 const RESOURCE_LABELS = {
-  'math-g2-4': { title: 'Primary 2-4 Maths Diagnostic',   grade: 'Ages 7-10 · Lower Primary',  icon: '🔢', url: '/resources/math-primary-2-4' },
-  'math-g5-6': { title: 'Primary 5-6 Maths Diagnostic',   grade: 'Ages 10-12 · Upper Primary', icon: '📈', url: '/resources/math-primary-5-6' },
-  'eng-g2-4':  { title: 'Primary 2-4 English Diagnostic',  grade: 'Ages 7-10 · Lower Primary',  icon: '📖', url: '/resources/english-primary-2-4' },
-  'eng-g5-6':  { title: 'Primary 5-6 English Diagnostic',  grade: 'Ages 10-12 · Upper Primary', icon: '✍️', url: '/resources/english-primary-5-6' },
+  'math-g2-4': { title: 'Primary 2-4 Maths Diagnostic',   grade: 'Ages 7-10 · Lower Primary',  icon: LOGO_ICON, url: '/resources/math-primary-2-4' },
+  'math-g5-6': { title: 'Primary 5-6 Maths Diagnostic',   grade: 'Ages 10-12 · Upper Primary', icon: LOGO_ICON, url: '/resources/math-primary-5-6' },
+  'eng-g2-4':  { title: 'Primary 2-4 English Diagnostic',  grade: 'Ages 7-10 · Lower Primary',  icon: LOGO_ICON, url: '/resources/english-primary-2-4' },
+  'eng-g5-6':  { title: 'Primary 5-6 English Diagnostic',  grade: 'Ages 10-12 · Upper Primary', icon: LOGO_ICON, url: '/resources/english-primary-5-6' },
 };
 
 function openResourceModal(card) {
@@ -549,7 +551,7 @@ function openResourceModal(card) {
   const meta  = RESOURCE_LABELS[key];
   if (!meta) return;
   document.getElementById('rm-key').value   = key;
-  document.getElementById('rm-icon').textContent  = meta.icon;
+  document.getElementById('rm-icon').innerHTML  = meta.icon;
   document.getElementById('rm-resource-name').textContent = meta.title;
   showRmState('form');
   openModal('resource-modal');
@@ -593,7 +595,7 @@ document.getElementById('resource-reg-form').addEventListener('submit', async (e
     if (json.success) {
       const meta = RESOURCE_LABELS[key];
       document.getElementById('rm-subject-link').href          = json.resourceUrl;
-      document.getElementById('rm-success-icon').textContent   = meta ? meta.icon : '';
+      document.getElementById('rm-success-icon').innerHTML   = meta ? meta.icon : '';
       document.getElementById('rm-success-title').textContent  = json.resourceTitle || (meta ? meta.title : '');
       document.getElementById('rm-success-grade').textContent  = meta ? meta.grade : '';
       showRmState('success');

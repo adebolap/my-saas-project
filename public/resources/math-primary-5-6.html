@@ -3,17 +3,17 @@
 <script>document.documentElement.dataset.theme="light";</script>
 <style>
 :root {
-  --green:   #1A4D32;
-  --green-d: #132E1F;
-  --green-l: #2A6B46;
-  --amber:   #C8851A;
-  --amber-l: #F5A82A;
-  --bg:      #FDFAF5;
-  --card-bg: #FFFFFF;
-  --border:  #DDD5C5;
-  --text:    #1C1208;
-  --muted:   #6B5C44;
-  --shadow:  0 2px 12px rgba(26,77,50,.10);
+  --green:   #1E5A3A;
+  --green-d: #163025;
+  --green-l: #2E7D4A;
+  --amber:   #2E7D4A;
+  --amber-l: #88D498;
+  --bg:      #F3E9D2;
+  --card-bg: #FAF7F2;
+  --border:  #CBDAC3;
+  --text:    #1B2E24;
+  --muted:   #5A6B5E;
+  --shadow:  0 2px 12px rgba(30,90,58,.10);
   --radius:  12px;
 }
 @media (prefers-color-scheme: dark) {
@@ -68,7 +68,18 @@ body {
   pointer-events: none; z-index: 9999;
   user-select: none;
 }
-
+body::before {
+  content: 'ThinkViva';
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotate(-30deg);
+  font-size: 15vw; font-weight: 700;
+  color: rgba(30, 90, 58, 0.06);
+  pointer-events: none; z-index: 0;
+  white-space: nowrap;
+  font-family: 'Cormorant Garamond', serif;
+  user-select: none;
+}
 .page { max-width: 740px; margin: 0 auto; position: relative; z-index: 1; }
 
 header {
