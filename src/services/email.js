@@ -381,7 +381,13 @@ async function confirmResourceLead({ name, email, resourceTitle, resourceUrl, be
           <a href="${resourceUrl}" style="display:inline-block;background:#1E5A3A;color:#fff;text-decoration:none;padding:10px 22px;border-radius:6px;font-weight:600;font-size:14px;">Open Diagnostic</a>
         </div>
 
-        <p style="color:#555;font-size:14px;">Once you have worked through the diagnostic with your child, reply to this email if you would like to discuss the results with our team. A free 20-minute consultation is available to all registered families.</p>
+        <div style="background:#F3E9D2;border-radius:8px;padding:20px 24px;margin:24px 0;text-align:center;">
+          <p style="margin:0 0 6px;font-weight:700;color:#163025;font-size:15px;">Want to understand the results?</p>
+          <p style="margin:0 0 16px;color:#5A6B5E;font-size:13px;">Book a free 20-minute consultation. We will walk you through what the diagnostic means and recommend the right next step for your child.</p>
+          <a href="https://thinkviva.org/?book=1" style="display:inline-block;background:#1E5A3A;color:#fff;text-decoration:none;padding:12px 28px;border-radius:8px;font-weight:700;font-size:14px;">Book a Free Consultation &rarr;</a>
+        </div>
+
+        <p style="color:#888;font-size:13px;">Questions? Reply to this email or WhatsApp us at <strong>+234 707 734 0116</strong>.</p>
         <p style="color:#555;font-size:14px;">The ThinkViva Team<br/>
           <a href="https://thinkviva.org" style="color:#1E5A3A;">thinkviva.org</a> &middot; +234 707 734 0116
         </p>
