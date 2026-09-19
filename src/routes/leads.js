@@ -75,7 +75,7 @@ router.post('/feedback', async (req, res) => {
 // Resource hub registration: 1 free behavioral (always open) + 1 subject diagnostic (locked to first choice)
 router.post('/resource', async (req, res) => {
   try {
-    const { name, email, resourceKey } = req.body;
+    const { name, email, resourceKey, phone } = req.body;
 
     if (!name || !email || !resourceKey) {
       return res.status(400).json({ success: false, message: 'Name, email and resource selection are required.' });
@@ -109,12 +109,12 @@ router.post('/resource', async (req, res) => {
       });
     }
 
-    const lead = new ResourceLead({ name, email, resourceKey });
+    const lead = new ResourceLead({ name, email, phone: phone || undefined, resourceKey });
     await lead.save();
 
     const mailerTasks = [
       confirmResourceLead({ name, email, resourceTitle: meta.title, resourceUrl: meta.url, behavioralUrl: BEHAVIORAL_URL }),
-      notifyAdminResourceLead({ name, email, resourceKey, resourceTitle: meta.title, id: lead._id }),
+      notifyAdminResourceLead({ name, email, phone, resourceKey, resourceTitle: meta.title, id: lead._id }),
     ];
 
     if (process.env.MAILERLITE_API_KEY) {

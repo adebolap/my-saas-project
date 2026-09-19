@@ -396,7 +396,7 @@ async function confirmResourceLead({ name, email, resourceTitle, resourceUrl, be
   });
 }
 
-async function notifyAdminResourceLead({ name, email, resourceKey, resourceTitle, id }) {
+async function notifyAdminResourceLead({ name, email, phone, resourceKey, resourceTitle, id }) {
   await send({
     to: BOOKINGS,
     type: 'admin_resource_lead',
@@ -407,6 +407,7 @@ async function notifyAdminResourceLead({ name, email, resourceKey, resourceTitle
         <table style="width:100%;border-collapse:collapse;font-size:15px;">
           <tr><td style="padding:8px 0;color:#555;">Name</td><td style="padding:8px 0;font-weight:600;">${name}</td></tr>
           <tr><td style="padding:8px 0;color:#555;">Email</td><td style="padding:8px 0;"><a href="mailto:${email}">${email}</a></td></tr>
+          ${phone ? `<tr><td style="padding:8px 0;color:#555;">WhatsApp</td><td style="padding:8px 0;"><a href="https://wa.me/${phone.replace(/\D/g,'')}">${phone}</a></td></tr>` : ''}
           <tr><td style="padding:8px 0;color:#555;">Resource Claimed</td><td style="padding:8px 0;font-weight:600;color:#1E5A3A;">${resourceTitle}</td></tr>
           <tr><td style="padding:8px 0;color:#555;">Resource Key</td><td style="padding:8px 0;font-family:monospace;">${resourceKey}</td></tr>
           <tr><td style="padding:8px 0;color:#555;">Lead ID</td><td style="padding:8px 0;font-family:monospace;font-size:13px;">${id}</td></tr>
