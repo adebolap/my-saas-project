@@ -397,6 +397,10 @@
           <label class="form-label" for="rm-email">Email Address <span>*</span></label>
           <input class="form-input" type="email" id="rm-email" name="email" placeholder="e.g. adaeze@email.com" required autocomplete="email" />
         </div>
+        <div class="form-group">
+          <label class="form-label" for="rm-phone">WhatsApp Number <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
+          <input class="form-input" type="tel" id="rm-phone" name="phone" placeholder="e.g. +44 7700 900000" autocomplete="tel" />
+        </div>
         <button type="submit" class="btn btn-primary btn-block btn-lg" id="rm-submit">
           Send Me My Free Resources &rarr;
         </button>
@@ -576,6 +580,7 @@ document.getElementById('resource-reg-form').addEventListener('submit', async (e
   const key   = document.getElementById('rm-key').value;
   const name  = document.getElementById('rm-name').value.trim();
   const email = document.getElementById('rm-email').value.trim();
+  const phone = document.getElementById('rm-phone').value.trim();
 
   if (!name || !email) {
     showToast('Please enter your name and email.', 'error');
@@ -588,7 +593,7 @@ document.getElementById('resource-reg-form').addEventListener('submit', async (e
     const res  = await fetch('/api/leads/resource', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, resourceKey: key }),
+      body: JSON.stringify({ name, email, resourceKey: key, ...(phone && { phone }) }),
     });
     const json = await res.json();
 
