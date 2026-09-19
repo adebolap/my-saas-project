@@ -4,25 +4,25 @@
 
 <style>
 :root {
-  --ink:              #18201C;
-  --ink-muted:        #5C6860;
-  --paper:            #F5F7F4;
-  --forest:           #1A4D32;
-  --forest-mid:       #2B6845;
-  --sage:             #E3ECE6;
-  --harvest:          #A85E18;
-  --harvest-light:    #F5EDE3;
-  --border:           #C6D4C9;
-  --ok-bg:            #E3ECE6;
-  --ok-fg:            #1A4D32;
-  --flag-bg:          #F5EDE3;
-  --flag-fg:          #864916;
-  --gap-accent:       #A83020;
-  --gap-bg:           #FAECE9;
-  --hdr-bg:           #1A4D32;
-  --hdr-fg:           #F0F5F1;
-  --cta-bg:           #0E2419;
-  --cta-fg:           #E5EFE8;
+  --ink:              #1B2E24;
+  --ink-muted:        #5A6B5E;
+  --paper:            #F3E9D2;
+  --forest:           #1E5A3A;
+  --forest-mid:       #2E7D4A;
+  --sage:             #C6DABF;
+  --harvest:          #2E7D4A;
+  --harvest-light:    #E8F5EE;
+  --border:           #CBDAC3;
+  --ok-bg:            #C6DABF;
+  --ok-fg:            #1E5A3A;
+  --flag-bg:          #E8F5EE;
+  --flag-fg:          #1E5A3A;
+  --gap-accent:       #163025;
+  --gap-bg:           #C6DABF;
+  --hdr-bg:           #1E5A3A;
+  --hdr-fg:           #F3E9D2;
+  --cta-bg:           #163025;
+  --cta-fg:           #F3E9D2;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -79,6 +79,18 @@ body {
   color: var(--ink);
   padding-inline: 16px;
   padding-block: 0 64px;
+}
+body::before {
+  content: 'ThinkViva';
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotate(-30deg);
+  font-size: 15vw; font-weight: 700;
+  color: rgba(30, 90, 58, 0.06);
+  pointer-events: none; z-index: 0;
+  white-space: nowrap;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  user-select: none;
 }
 
 /* HEADER */
