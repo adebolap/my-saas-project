@@ -18,6 +18,17 @@ function createTransport() {
   });
 }
 
+const EMAIL_SIGNATURE = `
+  <div style="margin-top:36px;padding-top:20px;border-top:1px solid #CBDAC3;text-align:center;">
+    <img src="https://thinkviva.org/img/signature.png" alt="ThinkViva" style="max-width:180px;height:auto;display:inline-block;" />
+    <p style="margin:10px 0 4px;font-size:13px;color:#5A6B5E;">
+      <a href="https://thinkviva.org" style="color:#1E5A3A;font-weight:600;text-decoration:none;">thinkviva.org</a>
+      &nbsp;&bull;&nbsp;
+      <a href="https://wa.me/2347077340116" style="color:#1E5A3A;text-decoration:none;">+234 707 734 0116</a>
+    </p>
+    <p style="margin:0;font-size:12px;color:#5A6B5E;">Smart Learning for Growing Minds</p>
+  </div>`;
+
 async function send({ to, subject, html, attachments, type }) {
   if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
     console.warn('[email] SMTP credentials not set, skipping:', subject);
@@ -83,10 +94,7 @@ async function sendReviewRequest({ parentName, email }) {
         </div>
         <p style="color:#555;font-size:0.875rem;">We also appreciate referrals! If you know another diaspora family looking for reliable Nigerian tutors, we would love for you to share ThinkViva with them. Help another child learn and thrive.</p>
         <p style="color:#555;font-size:0.875rem;">If there is anything we can improve, simply reply to this email. We read every message and will get back to you within 24 hours.</p>
-        <p style="color:#555;">Thank you,<br/><strong>The ThinkViva Team</strong><br/>
-          <span style="font-size:0.875rem;">&#127758; <a href="https://thinkviva.org" style="color:#1E5A3A;">thinkviva.org</a></span><br/>
-          <span style="font-size:0.875rem;">&#128222; +234 707 734 0116</span>
-        </p>
+        ${EMAIL_SIGNATURE}
       </div>
     `,
   });
@@ -114,7 +122,7 @@ async function confirmLead({ parentName, email, childName, grade, subjects }) {
           </ul>
         </div>
         <p style="color:#555;">If you have any questions in the meantime, reply to this email or WhatsApp us at <strong>+234 707 734 0116</strong>.</p>
-        <p style="color:#555;">The ThinkViva Team</p>
+        ${EMAIL_SIGNATURE}
       </div>
     `,
   });
@@ -388,9 +396,7 @@ async function confirmResourceLead({ name, email, resourceTitle, resourceUrl, be
         </div>
 
         <p style="color:#888;font-size:13px;">Questions? Reply to this email or WhatsApp us at <strong>+234 707 734 0116</strong>.</p>
-        <p style="color:#555;font-size:14px;">The ThinkViva Team<br/>
-          <a href="https://thinkviva.org" style="color:#1E5A3A;">thinkviva.org</a> &middot; +234 707 734 0116
-        </p>
+        ${EMAIL_SIGNATURE}
       </div>
     `,
   });

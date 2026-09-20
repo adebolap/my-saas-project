@@ -54,6 +54,12 @@ app.get('/resources/english-primary-2-4', (req, res) =>
 app.get('/resources/english-primary-5-6', (req, res) =>
   res.sendFile(path.join(__dirname, '../public/resources/english-primary-5-6.html'))
 );
+app.get('/resources/common-entrance', (req, res) =>
+  res.sendFile(path.join(__dirname, '../public/resources/common-entrance.html'))
+);
+app.get('/resources/bece', (req, res) =>
+  res.sendFile(path.join(__dirname, '../public/resources/bece.html'))
+);
 app.get('/apply', (req, res) =>
   res.sendFile(path.join(__dirname, '../public/apply.html'))
 );
