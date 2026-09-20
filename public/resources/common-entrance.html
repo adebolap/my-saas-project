@@ -1,0 +1,328 @@
+<title>Common Entrance Quick Check | ThinkViva</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600&display=swap">
+<script>document.documentElement.dataset.theme="light";</script>
+<style>
+:root {
+  --green:   #1E5A3A;
+  --green-d: #163025;
+  --green-l: #2E7D4A;
+  --amber:   #2E7D4A;
+  --amber-l: #88D498;
+  --bg:      #F3E9D2;
+  --card-bg: #FAF7F2;
+  --border:  #CBDAC3;
+  --text:    #1B2E24;
+  --muted:   #5A6B5E;
+  --shadow:  0 2px 12px rgba(30,90,58,.10);
+  --radius:  12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.65;padding-inline:20px;padding-block:32px;position:relative;}
+body::before{content:'ThinkViva';position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:15vw;font-weight:700;color:rgba(30,90,58,0.06);pointer-events:none;z-index:0;white-space:nowrap;font-family:'Cormorant Garamond',serif;user-select:none;}
+#wm-corner{position:fixed;bottom:18px;right:20px;font-family:'Cormorant Garamond',serif;font-size:11px;font-weight:600;color:var(--green);opacity:.55;letter-spacing:.04em;pointer-events:none;z-index:9999;user-select:none;}
+.page{max-width:740px;margin:0 auto;position:relative;z-index:1;}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;color:var(--green);text-decoration:none;margin-bottom:28px;opacity:.7;}
+.back-link:hover{opacity:1;}
+header{text-align:center;padding-block:12px 36px;border-bottom:2px solid var(--border);margin-bottom:36px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,5vw,2.8rem);font-weight:700;line-height:1.15;color:var(--green);text-wrap:balance;margin-bottom:12px;}
+.sub{color:var(--muted);font-size:14px;max-width:520px;margin:0 auto 14px;}
+.grade-badge{display:inline-block;background:var(--green);color:#fff;font-size:12px;font-weight:600;padding:5px 16px;border-radius:40px;letter-spacing:.04em;}
+.timer-bar{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:10px 18px;margin:20px auto;width:fit-content;font-size:13px;font-weight:600;color:var(--green);}
+.timer-bar span{font-family:'Cormorant Garamond',serif;font-size:1.2rem;}
+.part-block{margin-bottom:36px;}
+.part-label{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:var(--green);border-left:4px solid var(--amber);padding-left:14px;margin-bottom:4px;display:flex;align-items:baseline;gap:10px;}
+.part-marks{font-size:12px;font-weight:600;color:var(--muted);font-family:'DM Sans',sans-serif;}
+.part-inst{font-size:13px;color:var(--muted);font-style:italic;margin-bottom:20px;padding-left:18px;}
+.part-score{font-size:12px;font-weight:600;color:var(--green);margin-bottom:20px;padding-left:18px;}
+
+.q-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 24px;margin-bottom:14px;}
+.q-tag{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.q-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--green);margin-bottom:10px;line-height:1.4;}
+.q-body{font-size:14px;line-height:1.7;color:var(--text);margin-bottom:14px;}
+
+/* MCQ */
+.opts{list-style:none;padding:0;margin:10px 0 14px;}
+.opts li{padding:0;}
+.opt-btn{display:block;width:100%;text-align:left;background:transparent;border:1.5px solid var(--border);border-radius:8px;padding:8px 14px;font-size:14px;font-family:'DM Sans',sans-serif;cursor:pointer;margin-bottom:7px;color:var(--text);transition:border-color .15s,background .15s;}
+.opt-btn:hover:not(:disabled){border-color:var(--green);background:#F0F7F2;}
+.opt-btn.correct{background:#E3F5EB;border-color:#1E5A3A;color:#163025;font-weight:600;}
+.opt-btn.wrong{background:#FDE8E8;border-color:#C0392B;color:#8B1A1A;}
+.opt-btn:disabled{cursor:default;}
+
+/* Written reveal */
+.reveal-btn{background:var(--green);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;transition:background .15s;}
+.reveal-btn:hover{background:var(--green-l);}
+.ans-block{background:#E8F5EE;border-left:3px solid var(--green);border-radius:6px;padding:12px 16px;margin:12px 0;font-size:14px;line-height:1.7;}
+.ans-block strong{color:var(--green);}
+.mark-btns{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;}
+.btn-got{background:#1E5A3A;color:#fff;border:none;border-radius:8px;padding:7px 18px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;}
+.btn-miss{background:transparent;color:var(--text);border:1.5px solid var(--border);border-radius:8px;padding:7px 18px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;}
+.btn-got:hover{background:#163025;} .btn-miss:hover{border-color:var(--amber);}
+.btn-got.sel{outline:3px solid var(--amber-l);}
+.btn-miss.sel{outline:3px solid var(--border);background:var(--border);}
+
+/* Score band */
+.score-reveal{background:var(--card-bg);border:2px solid var(--green);border-radius:var(--radius);padding:28px 24px;margin:36px 0;text-align:center;display:none;}
+.score-reveal.show{display:block;}
+.score-big{font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:700;color:var(--green);line-height:1;font-variant-numeric:tabular-nums;}
+.score-denom{font-size:1.5rem;color:var(--muted);}
+.score-band-label{font-size:1.1rem;font-weight:700;color:var(--green);margin:12px 0 6px;}
+.score-band-desc{font-size:14px;color:var(--muted);max-width:44ch;margin:0 auto;}
+.score-bands{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0;}
+@media(max-width:600px){.score-bands{grid-template-columns:1fr;}}
+.band-card{border:1.5px solid var(--border);border-radius:10px;padding:16px 14px;text-align:left;background:var(--card-bg);}
+.band-card.active{border-color:var(--green);background:#E8F5EE;}
+.band-range{font-size:12px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+.band-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:var(--green);margin-bottom:5px;}
+.band-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+
+/* CTA */
+.cta-block{background:var(--green-d);border-radius:var(--radius);padding:32px 28px;text-align:center;margin:28px 0;}
+.cta-block h2{font-family:'Cormorant Garamond',serif;color:#F3E9D2;font-size:1.6rem;margin-bottom:10px;}
+.cta-block p{color:rgba(243,233,210,.75);font-size:14px;max-width:42ch;margin:0 auto 20px;line-height:1.7;}
+.cta-btn{display:inline-block;background:#F3E9D2;color:var(--green-d);font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;padding:13px 28px;border-radius:8px;text-decoration:none;border:none;cursor:pointer;}
+.cta-btn:hover{background:#E8DFCA;}
+.disclaimer{font-size:12px;color:var(--muted);text-align:center;margin-top:24px;line-height:1.7;}
+</style>
+
+<div id="wm-corner" aria-hidden="true">ThinkViva &bull; thinkviva.org</div>
+
+<div class="page">
+  <a href="/resources" class="back-link">&#8592; Back to Resources</a>
+
+  <header>
+    <div class="eyebrow">Free Quick Check</div>
+    <h1>Common Entrance Quick Check</h1>
+    <p class="sub">10 questions, 15 minutes, no calculator. For Primary 5 and 6 pupils preparing for Common Entrance and JSS1 entry.</p>
+    <span class="grade-badge">Primary 5 &amp; 6 &middot; Ages 10&ndash;12</span>
+  </header>
+
+  <div class="timer-bar" aria-label="Suggested time">
+    <svg width="15" height="15" fill="none" viewBox="0 0 15 15"><circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M7.5 4v3.5l2.3 1.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    Suggested time: <span>15 minutes</span> &bull; No calculator
+  </div>
+
+  <!-- MATHS -->
+  <div class="part-block">
+    <div class="part-label">Maths <span class="part-marks">3 marks</span></div>
+    <p class="part-inst">Work out each answer and write it in the space, or circle from the options given.</p>
+    <div class="part-score" id="score-maths">Maths score: 0 / 3</div>
+
+    <div class="q-card" data-section="maths" data-type="written" data-answer="36">
+      <div class="q-tag">Question 1 &bull; Fractions</div>
+      <div class="q-title">What is &frac34; of 48?</div>
+      <button class="reveal-btn" onclick="revealWritten(this)">Reveal Answer</button>
+    </div>
+
+    <div class="q-card" data-section="maths" data-type="written" data-answer="&#8358;35,000">
+      <div class="q-tag">Question 2 &bull; Profit and Loss</div>
+      <div class="q-title">A trader buys 5 bags of rice at &#8358;45,000 each. She sells all of them for &#8358;260,000. What is her profit?</div>
+      <button class="reveal-btn" onclick="revealWritten(this)">Reveal Answer</button>
+    </div>
+
+    <div class="q-card" data-section="maths" data-type="written" data-answer="38 m">
+      <div class="q-tag">Question 3 &bull; Perimeter</div>
+      <div class="q-title">A rectangular farm is 12 m long and 7 m wide. What is the distance round its edge?</div>
+      <button class="reveal-btn" onclick="revealWritten(this)">Reveal Answer</button>
+    </div>
+  </div>
+
+  <!-- ENGLISH -->
+  <div class="part-block">
+    <div class="part-label">English <span class="part-marks">3 marks</span></div>
+    <p class="part-inst">Circle the best answer for each question.</p>
+    <div class="part-score" id="score-english">English score: 0 / 3</div>
+
+    <div class="q-card" data-section="english" data-type="mcq" data-correct="1">
+      <div class="q-tag">Question 4 &bull; Grammar</div>
+      <div class="q-title">Neither of the boys _____ ready.</div>
+      <ul class="opts">
+        <li><button class="opt-btn" onclick="pickOpt(this,0)">A. are</button></li>
+        <li><button class="opt-btn" onclick="pickOpt(this,1)">B. is</button></li>
+        <li><button class="opt-btn" onclick="pickOpt(this,2)">C. were</button></li>
+        <li><button class="opt-btn" onclick="pickOpt(this,3)">D. have</button></li>
+      </ul>
+    </div>
+
+    <div class="q-card" data-section="english" data-type="mcq" data-correct="1">
+      <div class="q-tag">Question 5 &bull; Vocabulary</div>
+      <div class="q-title">Choose the word <em>opposite</em> in meaning to <strong>scarce</strong>.</div>
+      <ul class="opts">
+        <li><button class="opt-btn" onclick="pickOpt(this,0)">A. rare</button></li>
+        <li><button class="opt-btn" onclick="pickOpt(this,1)">B. plentiful</button></li>
+        <li><button class="opt-btn" onclick="pickOpt(this,2)">C. costly</button></li>
+        <li><button class="opt-btn" onclick="pickOpt(this,3)">D. tiny</button></li>
+      </ul>
+    </div>
+
+    <div class="q-card" data-section="english" data-type="mcq" data-correct="1">
+      <div class="q-tag">Question 6 &bull; Comprehension</div>
+      <div class="q-title">Tola woke before the cock crowed to fetch water so she would not be late for school. This shows that Tola is</div>
+      <ul class="opts">
+        <li><button class="opt-btn" onclick="pickOpt(this,0)">A. lazy</button></li>
+        <li><button class="opt-btn" onclick="pickOpt(this,1)">B. responsible</button></li>
+        <li><button class="opt-btn" onclick="pickOpt(this,2)">C. sickly</button></li>
+        <li><button class="opt-btn" onclick="pickOpt(this,3)">D. greedy</button></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- REASONING -->
+  <div class="part-block">
+    <div class="part-label">Reasoning <span class="part-marks">4 marks</span></div>
+    <p class="part-inst">Think carefully before choosing or writing your answer.</p>
+    <div class="part-score" id="score-reasoning">Reasoning score: 0 / 4</div>
+
+    <div class="q-card" data-section="reasoning" data-type="written" data-answer="162 (multiply by 3 each time)">
+      <div class="q-tag">Question 7 &bull; Number Patterns</div>
+      <div class="q-title">Complete the pattern: 2, 6, 18, 54, _____</div>
+      <button class="reveal-btn" onclick="revealWritten(this)">Reveal Answer</button>
+    </div>
+
+    <div class="q-card" data-section="reasoning" data-type="mcq" data-correct="2">
+      <div class="q-tag">Question 8 &bull; Classification</div>
+      <div class="q-title">Which is the odd one out?</div>
+      <ul class="opts">
+        <li><button class="opt-btn" onclick="pickOpt(this,0)">A. Lagos</button></li>
+        <li><button class="opt-btn" onclick="pickOpt(this,1)">B. Kano</button></li>
+        <li><button class="opt-btn" onclick="pickOpt(this,2)">C. Ghana</button></li>
+        <li><button class="opt-btn" onclick="pickOpt(this,3)">D. Enugu</button></li>
+      </ul>
+    </div>
+
+    <div class="q-card" data-section="reasoning" data-type="written" data-answer="&#8358;1,050">
+      <div class="q-tag">Question 9 &bull; Proportional Reasoning</div>
+      <div class="q-title">3 pens cost &#8358;450. How much will 7 pens cost?</div>
+      <button class="reveal-btn" onclick="revealWritten(this)">Reveal Answer</button>
+    </div>
+
+    <div class="q-card" data-section="reasoning" data-type="written" data-answer="Bisi is the youngest">
+      <div class="q-tag">Question 10 &bull; Logical Reasoning</div>
+      <div class="q-title">Tunde is older than Ife. Ife is older than Bisi. Who is the youngest?</div>
+      <button class="reveal-btn" onclick="revealWritten(this)">Reveal Answer</button>
+    </div>
+  </div>
+
+  <!-- SCORE REVEAL -->
+  <div class="score-reveal" id="score-reveal">
+    <div class="score-big" id="score-total">0</div><span class="score-denom"> / 10</span>
+    <div class="score-band-label" id="band-label"></div>
+    <div class="score-band-desc" id="band-desc"></div>
+    <div class="score-bands">
+      <div class="band-card" id="band-0">
+        <div class="band-range">0 to 4</div>
+        <div class="band-title">Build the base</div>
+        <div class="band-desc">Gaps in the basics. Start with short daily practice on the section where most marks were lost, then get a tutor to fill the gaps early.</div>
+      </div>
+      <div class="band-card" id="band-1">
+        <div class="band-range">5 to 7</div>
+        <div class="band-title">Close, but not safe</div>
+        <div class="band-desc">The ideas are there but marks are being lost to slips and speed. Timed practice and marked feedback will move scores up fastest.</div>
+      </div>
+      <div class="band-card" id="band-2">
+        <div class="band-range">8 to 10</div>
+        <div class="band-title">Sharpen for the top</div>
+        <div class="band-desc">On track. Aim for full papers in real exam time and harder reasoning questions to stand out for competitive schools.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <h2>Turn this score into a plan</h2>
+    <p>Book a free 20-minute gap review. A tutor marks this sheet with your child and shows exactly where marks are being lost.</p>
+    <button class="cta-btn" onclick="window.open('https://thinkviva.org/?book=1','_blank')">Book a Free Review &rarr;</button>
+  </div>
+
+  <p class="disclaimer">Practice questions in the style of Common Entrance, not official exam material. Format and subjects vary by school and exam body, so check your target school's requirements.</p>
+</div>
+
+<script>
+const sectionMax = { maths: 3, english: 3, reasoning: 4 };
+const sectionScore = { maths: 0, english: 0, reasoning: 0 };
+const answered = new Set();
+let totalAnswered = 0;
+
+function updateSectionScore(section) {
+  const labelMap = { maths: 'Maths', english: 'English', reasoning: 'Reasoning' };
+  document.getElementById('score-' + section).textContent =
+    labelMap[section] + ' score: ' + sectionScore[section] + ' / ' + sectionMax[section];
+}
+
+function checkComplete() {
+  const total = sectionScore.maths + sectionScore.english + sectionScore.reasoning;
+  const allCards = document.querySelectorAll('.q-card');
+  let allDone = true;
+  allCards.forEach(c => { if (!c.dataset.done) allDone = false; });
+  if (allDone) showBand(total);
+}
+
+function showBand(total) {
+  const reveal = document.getElementById('score-reveal');
+  document.getElementById('score-total').textContent = total;
+  const bands = [
+    { range: [0,4], label: 'Build the base', id: 'band-0' },
+    { range: [5,7], label: 'Close, but not safe', id: 'band-1' },
+    { range: [8,10], label: 'Sharpen for the top', id: 'band-2' },
+  ];
+  const band = bands.find(b => total >= b.range[0] && total <= b.range[1]);
+  if (band) {
+    document.getElementById('band-label').textContent = band.label;
+    document.getElementById(band.id).classList.add('active');
+  }
+  reveal.classList.add('show');
+  reveal.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function pickOpt(btn, idx) {
+  const card = btn.closest('.q-card');
+  if (card.dataset.done) return;
+  const correct = parseInt(card.dataset.correct);
+  const section = card.dataset.section;
+  const allBtns = card.querySelectorAll('.opt-btn');
+  allBtns.forEach(b => b.disabled = true);
+  if (idx === correct) {
+    btn.classList.add('correct');
+    sectionScore[section]++;
+  } else {
+    btn.classList.add('wrong');
+    allBtns[correct].classList.add('correct');
+  }
+  card.dataset.done = '1';
+  updateSectionScore(section);
+  checkComplete();
+}
+
+function revealWritten(btn) {
+  const card = btn.closest('.q-card');
+  const answer = card.dataset.answer;
+  btn.style.display = 'none';
+  const ans = document.createElement('div');
+  ans.className = 'ans-block';
+  ans.innerHTML = '<strong>Answer:</strong> ' + answer;
+  const btns = document.createElement('div');
+  btns.className = 'mark-btns';
+  btns.innerHTML = `
+    <button class="btn-got" onclick="markWritten(this,'got')">Got it &#10003;</button>
+    <button class="btn-miss" onclick="markWritten(this,'miss')">Missed it</button>`;
+  card.appendChild(ans);
+  card.appendChild(btns);
+}
+
+function markWritten(btn, result) {
+  const card = btn.closest('.q-card');
+  if (card.dataset.done) return;
+  const section = card.dataset.section;
+  card.querySelectorAll('.mark-btns button').forEach(b => b.disabled = true);
+  if (result === 'got') {
+    btn.classList.add('sel');
+    sectionScore[section]++;
+  } else {
+    btn.classList.add('sel');
+  }
+  card.dataset.done = '1';
+  updateSectionScore(section);
+  checkComplete();
+}
+</script>
