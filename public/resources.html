@@ -300,12 +300,12 @@
 
     </div>
 
-    <!-- STEP 3: Exam prep quick checks (always free, no registration) -->
-    <div class="resources-divider" style="margin-top:40px;"><span>Exam Prep &mdash; Always Free</span></div>
+    <!-- STEP 3: Exam prep quick checks (registration required) -->
+    <div class="resources-divider" style="margin-top:40px;"><span>Step 3 &mdash; Exam Prep Quick Checks (Register Free)</span></div>
     <div class="resource-grid" style="margin-bottom:32px;">
 
-      <div class="resource-card featured">
-        <div class="rc-badge free">&#10003; Always Free &mdash; No Registration Needed</div>
+      <div class="resource-card" data-key="common-entrance" data-title="Common Entrance Quick Check">
+        <div class="rc-badge subject">&#128274; Register to Unlock</div>
         <div class="rc-icon"><img src="/img/logo.png" class="rc-logo-icon" alt="ThinkViva"></div>
         <div class="rc-title">Common Entrance Quick Check</div>
         <div class="rc-grade">Primary 5&ndash;6 &middot; JSS1 Entry (Ages 10&ndash;12)</div>
@@ -316,13 +316,13 @@
           <span class="rc-skill">Reasoning</span>
           <span class="rc-skill">Exam readiness</span>
         </div>
-        <a href="/resources/common-entrance" target="_blank" rel="noopener" class="btn btn-primary btn-block">
-          Start Quick Check &rarr;
-        </a>
+        <button class="btn btn-secondary btn-block" onclick="openResourceModal(this.closest('.resource-card'))">
+          Unlock This Resource &rarr;
+        </button>
       </div>
 
-      <div class="resource-card featured">
-        <div class="rc-badge free">&#10003; Always Free &mdash; No Registration Needed</div>
+      <div class="resource-card" data-key="bece" data-title="BECE Quick Check">
+        <div class="rc-badge subject">&#128274; Register to Unlock</div>
         <div class="rc-icon"><img src="/img/logo.png" class="rc-logo-icon" alt="ThinkViva"></div>
         <div class="rc-title">BECE Quick Check</div>
         <div class="rc-grade">JSS2&ndash;JSS3 &middot; SS1 Entry (Ages 12&ndash;15)</div>
@@ -333,9 +333,9 @@
           <span class="rc-skill">Basic Science</span>
           <span class="rc-skill">Civic &amp; Business</span>
         </div>
-        <a href="/resources/bece" target="_blank" rel="noopener" class="btn btn-primary btn-block">
-          Start Quick Check &rarr;
-        </a>
+        <button class="btn btn-secondary btn-block" onclick="openResourceModal(this.closest('.resource-card'))">
+          Unlock This Resource &rarr;
+        </button>
       </div>
 
     </div>
@@ -588,6 +588,8 @@ const RESOURCE_LABELS = {
   'math-g5-6': { title: 'Primary 5-6 Maths Diagnostic',   grade: 'Ages 10-12 · Upper Primary', icon: LOGO_ICON, url: '/resources/math-primary-5-6' },
   'eng-g2-4':  { title: 'Primary 2-4 English Diagnostic',  grade: 'Ages 7-10 · Lower Primary',  icon: LOGO_ICON, url: '/resources/english-primary-2-4' },
   'eng-g5-6':  { title: 'Primary 5-6 English Diagnostic',  grade: 'Ages 10-12 · Upper Primary', icon: LOGO_ICON, url: '/resources/english-primary-5-6' },
+  'common-entrance': { title: 'Common Entrance Quick Check', grade: 'Primary 5-6 · JSS1 Entry (Ages 10-12)', icon: LOGO_ICON, url: '/resources/common-entrance' },
+  'bece':            { title: 'BECE Quick Check',            grade: 'JSS2-JSS3 · SS1 Entry (Ages 12-15)',  icon: LOGO_ICON, url: '/resources/bece' },
 };
 
 function openResourceModal(card) {
