@@ -6,10 +6,12 @@ const Session = require('../models/Session');
 const { notifyAdminNewLead, confirmLead, confirmResourceLead, notifyAdminResourceLead } = require('../services/email');
 
 const RESOURCE_META = {
-  'math-g2-4': { title: 'Primary 2-4 Maths Diagnostic',    url: 'https://thinkviva.org/resources/math-primary-2-4' },
-  'math-g5-6': { title: 'Primary 5-6 Maths Diagnostic',    url: 'https://thinkviva.org/resources/math-primary-5-6' },
-  'eng-g2-4':  { title: 'Primary 2-4 English Diagnostic',  url: 'https://thinkviva.org/resources/english-primary-2-4' },
-  'eng-g5-6':  { title: 'Primary 5-6 English Diagnostic',  url: 'https://thinkviva.org/resources/english-primary-5-6' },
+  'math-g2-4':        { title: 'Primary 2-4 Maths Diagnostic',    url: 'https://thinkviva.org/resources/math-primary-2-4' },
+  'math-g5-6':        { title: 'Primary 5-6 Maths Diagnostic',    url: 'https://thinkviva.org/resources/math-primary-5-6' },
+  'eng-g2-4':         { title: 'Primary 2-4 English Diagnostic',  url: 'https://thinkviva.org/resources/english-primary-2-4' },
+  'eng-g5-6':         { title: 'Primary 5-6 English Diagnostic',  url: 'https://thinkviva.org/resources/english-primary-5-6' },
+  'common-entrance':  { title: 'Common Entrance Quick Check',      url: 'https://thinkviva.org/resources/common-entrance' },
+  'bece':             { title: 'BECE Quick Check',                 url: 'https://thinkviva.org/resources/bece' },
 };
 const BEHAVIORAL_URL = 'https://thinkviva.org/resources/behavioral-checklist';
 
