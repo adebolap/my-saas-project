@@ -19,8 +19,8 @@ function createTransport() {
 }
 
 const EMAIL_SIGNATURE = `
-  <div style="margin-top:36px;padding-top:20px;border-top:1px solid #CBDAC3;text-align:center;">
-    <img src="https://thinkviva.org/img/signature.png" alt="ThinkViva" style="max-width:180px;height:auto;display:inline-block;" />
+  <div style="margin-top:36px;padding-top:20px;border-top:1px solid #CBDAC3;text-align:center;background:#ffffff;">
+    <img src="https://thinkviva.org/img/signature.png" alt="ThinkViva" style="max-width:180px;height:auto;display:inline-block;background:#ffffff;" />
     <p style="margin:10px 0 4px;font-size:13px;color:#5A6B5E;">
       <a href="https://thinkviva.org" style="color:#1E5A3A;font-weight:600;text-decoration:none;">thinkviva.org</a>
       &nbsp;&bull;&nbsp;
