@@ -19,7 +19,7 @@ function createTransport() {
 }
 
 const EMAIL_SIGNATURE = `
-  <div style="margin-top:36px;padding-top:20px;border-top:1px solid #CBDAC3;text-align:center;">
+  <div style="margin-top:36px;padding-top:20px;border-top:1px solid #CBDAC3;text-align:center;background-color:#ffffff;">
     <img src="https://thinkviva.org/img/signature.png" alt="ThinkViva" style="max-width:180px;height:auto;display:inline-block;" />
     <p style="margin:10px 0 4px;font-size:13px;color:#5A6B5E;">
       <a href="https://thinkviva.org" style="color:#1E5A3A;font-weight:600;text-decoration:none;">thinkviva.org</a>
@@ -56,7 +56,7 @@ async function notifyAdminNewLead({ parentName, email, phone, country, childName
     type: 'admin_booking',
     subject: `New Booking Request: ${parentName}`,
     html: `
-      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;">
+      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;background-color:#ffffff;color:#333;">
         <h2 style="color:#1E5A3A;">New Session Booking Request</h2>
         <table style="width:100%;border-collapse:collapse;font-size:15px;">
           <tr><td style="padding:8px 0;color:#555;">Parent</td><td style="padding:8px 0;font-weight:600;">${parentName}</td></tr>
@@ -84,7 +84,7 @@ async function sendReviewRequest({ parentName, email }) {
     type: 'review_request',
     subject: 'How is ThinkViva working for your family?',
     html: `
-      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#222;">
+      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;background-color:#ffffff;color:#222;">
         <h2 style="color:#1E5A3A;">Hi ${parentName},</h2>
         <p>We hope you have had a positive experience so far! Would you mind leaving us a quick review? It would mean so much to the team and help other diaspora families find the right support and reliable Nigerian tutors.</p>
         <div style="text-align:center;margin:28px 0;">
@@ -109,7 +109,7 @@ async function confirmLead({ parentName, email, childName, grade, subjects }) {
     type: 'parent_confirm',
     subject: "We've received your ThinkViva booking request",
     html: `
-      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;">
+      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;background-color:#ffffff;color:#333;">
         <h2 style="color:#1E5A3A;">Booking Request Received!</h2>
         <p>Hi ${parentName},</p>
         <p>Thanks for reaching out. We've received your request to book sessions for <strong>${child}</strong> in <strong>${subjectList}</strong> (${grade}).</p>
@@ -345,7 +345,7 @@ async function confirmApplicant({ name, email }) {
     type: 'applicant_confirm',
     subject: 'Thank You for Applying to Become a ThinkViva Tutor',
     html: `
-      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#222;">
+      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;background-color:#ffffff;color:#222;">
         <h2 style="color:#1E5A3A;">Thank You for Applying to Become a ThinkViva Tutor</h2>
         <p>Dear ${name},</p>
         <p>Thank you for your interest in joining ThinkViva as an online tutor.</p>
@@ -373,7 +373,7 @@ async function confirmResourceLead({ name, email, resourceTitle, resourceUrl, be
     type: 'resource_confirm',
     subject: 'Your free ThinkViva resources are ready',
     html: `
-      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#222;">
+      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;background-color:#ffffff;color:#222;">
         <h2 style="color:#1E5A3A;">Your free resources are ready, ${name}!</h2>
         <p>Thank you for registering. Click the links below to access your two free resources from ThinkViva.</p>
 
@@ -408,7 +408,7 @@ async function notifyAdminResourceLead({ name, email, phone, resourceKey, resour
     type: 'admin_resource_lead',
     subject: `New Resource Lead: ${name} (${resourceTitle})`,
     html: `
-      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;">
+      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;background-color:#ffffff;color:#333;">
         <h2 style="color:#1E5A3A;">New Resource Lead</h2>
         <table style="width:100%;border-collapse:collapse;font-size:15px;">
           <tr><td style="padding:8px 0;color:#555;">Name</td><td style="padding:8px 0;font-weight:600;">${name}</td></tr>
